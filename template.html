@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Tình hình giải ngân vốn đầu tư năm 2026 · UBND phường Tân Lập</title>
+<meta name="description" content="Số liệu tổng hợp tình hình giải ngân kế hoạch vốn năm 2026 của UBND phường Tân Lập, cập nhật hằng ngày.">
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --brand-red:#A62422;--brand-green:#5DB75E;--brand-brown:#574032;
+  --surface:#ffffff;--surface-muted:#e4e4e3;--ink:#574032;--ink-muted:#6b5648;--line:#9b8f87;
+  --accent-red-text:#A62422;--accent-green-text:#276a32;--focus-ring:#A62422;
+  --status-ok-bg:#e4f1e2;--status-warn-text:#7a5500;--status-warn-bg:#fbf0cf;--status-late-bg:#f7e1df;
+  --rule-gold-deep:#a5791e;--rule-gold:#fac608;--rule-green-deep:#216e34;--rule-green:#3bb844;
+  --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:24px;--space-6:32px;--space-7:48px;
+  --radius-sm:4px;--radius-md:8px;--radius-lg:16px;
+  --font-sans:"Montserrat","Segoe UI",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{background:var(--surface-muted)}
+body{margin:0;font-family:var(--font-sans);color:var(--ink);font-size:15px;line-height:24px;font-variant-numeric:tabular-nums}
+.page{max-width:1080px;margin:0 auto;background:var(--surface);padding:var(--space-6) var(--space-6) var(--space-5);min-height:100vh}
+@media (max-width:640px){.page{padding:var(--space-5) var(--space-4)}}
+a{color:var(--accent-red-text)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--focus-ring);outline-offset:2px}
+
+.rule{display:flex;width:100%;height:8px}
+.rule--thin{height:4px}
+.rule::before,.rule::after{content:"";flex:1}
+.rule::before{background:linear-gradient(90deg,var(--rule-gold-deep),var(--rule-gold))}
+.rule::after{background:linear-gradient(90deg,var(--rule-green-deep),var(--rule-green))}
+
+.head{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-5);padding-bottom:var(--space-4)}
+.head img{display:block;width:150px;height:auto;flex:none}
+.head-text{flex:1 1 18rem;min-width:0}
+.unit{margin:0;font-size:13px;line-height:18px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;color:var(--accent-green-text)}
+h1{margin:var(--space-1) 0 0;font-size:26px;line-height:34px;font-weight:700}
+.meta{margin:var(--space-1) 0 0;font-size:13px;line-height:18px;color:var(--ink-muted)}
+.meta b{color:var(--ink);font-weight:600}
+
+.lead{margin:var(--space-5) 0;font-size:16px;line-height:26px;max-width:72ch}
+
+h2{display:flex;align-items:center;gap:var(--space-3);margin:var(--space-7) 0 var(--space-4);font-size:20px;line-height:28px;font-weight:700;text-transform:uppercase}
+h2::before{content:"";flex:none;width:6px;height:28px;background:var(--brand-red)}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--space-4)}
+.stat{background:var(--surface-muted);border-radius:var(--radius-md);padding:var(--space-4)}
+.stat-label{margin:0;font-size:13px;line-height:18px;font-weight:600;color:var(--ink-muted)}
+.stat-value{margin:var(--space-1) 0 0;font-size:28px;line-height:36px;font-weight:700}
+.stat-unit{font-size:15px;font-weight:600;margin-left:var(--space-1)}
+.stat-note{margin:var(--space-1) 0 0;font-size:13px;line-height:18px;color:var(--ink-muted)}
+
+.sources{display:grid;gap:var(--space-5)}
+.src-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(--space-1) var(--space-4);font-size:14px;line-height:20px}
+.src-name{font-weight:600}
+.src-val{color:var(--ink-muted);white-space:nowrap}
+.src-basis{margin:var(--space-1) 0 0;font-size:12px;line-height:18px;color:var(--ink-muted)}
+.bar{position:relative;height:10px;margin-top:var(--space-2);border-radius:9999px;background:var(--surface-muted);box-shadow:inset 0 0 0 1px var(--line)}
+.bar i{position:absolute;left:0;top:0;bottom:0;border-radius:9999px}
+.bar em{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink)}
+.fill-ok{background:var(--accent-green-text)}
+.fill-warn{background:var(--status-warn-text)}
+.fill-neutral{background:var(--line)}
+.legend{display:flex;flex-wrap:wrap;gap:var(--space-2) var(--space-5);margin:0 0 var(--space-4);font-size:13px;line-height:18px;color:var(--ink-muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{display:inline-block;width:18px;height:8px;border-radius:9999px}
+.legend em{display:inline-block;width:2px;height:14px;background:var(--ink)}
+
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:14px;line-height:22px;min-width:680px}
+caption{caption-side:bottom;text-align:left;padding-top:var(--space-2);font-size:12px;line-height:18px;color:var(--ink-muted)}
+th{background:var(--brand-brown);color:#fff;font-weight:600;font-size:13px;line-height:18px;text-align:left;padding:var(--space-2) var(--space-3);vertical-align:bottom}
+td{padding:var(--space-2) var(--space-3);border-bottom:1px solid var(--line);vertical-align:top}
+tr.grp td{background:var(--surface-muted);font-weight:700;border-bottom:0}
+.num{text-align:right;white-space:nowrap}
+.center{text-align:center}
+tfoot td{font-weight:700;border-top:2px solid var(--ink);border-bottom:0}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:2px 10px;border-radius:9999px;font-size:13px;line-height:20px;font-weight:600;white-space:nowrap}
+.badge::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.badge-ok{background:var(--status-ok-bg);color:var(--accent-green-text)}
+.badge-warn{background:var(--status-warn-bg);color:var(--status-warn-text)}
+.badge-late{background:var(--status-late-bg);color:var(--accent-red-text)}
+.badge-neutral{background:var(--surface-muted);color:var(--ink-muted)}
+
+.notes{margin:var(--space-7) 0 var(--space-4);font-size:13px;line-height:21px;color:var(--ink-muted)}
+.notes p{margin:0 0 var(--space-2)}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(--space-2);margin-top:var(--space-3);font-size:12px;line-height:18px;font-weight:700;color:var(--ink-muted)}
+.foot .slogan{color:var(--accent-green-text)}
+@media print{html{background:#fff}.page{max-width:none;padding:0}h2{break-after:avoid}tr{break-inside:avoid}}
+</style>
+</head>
+<body>
+<main class="page">
+  <header class="head">
+    <img src="logo.png" alt="Logo UBND phường Tân Lập" width="150" height="100">
+    <div class="head-text">
+      <p class="unit">UBND phường Tân Lập</p>
+      <h1>Tình hình giải ngân vốn đầu tư năm 2026</h1>
+      <p class="meta">Số liệu cập nhật đến ngày <b>%%upd%%</b> · Nguồn: Trung tâm Cung ứng dịch vụ sự nghiệp công phường Tân Lập</p>
+    </div>
+  </header>
+  <div class="rule" role="presentation"></div>
+
+  <p class="lead">%%take%%</p>
+
+  <section aria-labelledby="tong-quan">
+    <h2 id="tong-quan">Tổng quan</h2>
+    <div class="stats">
+      <div class="stat"><p class="stat-label">Tổng kế hoạch vốn</p><p class="stat-value">%%k_kh%%</p><p class="stat-note">%%k_n%% dự án, %%k_ng%% dự án đã giao chi tiết</p></div>
+      <div class="stat"><p class="stat-label">Đã giải ngân</p><p class="stat-value">%%k_gn%%</p><p class="stat-note">Đạt %%k_tl%% tổng kế hoạch vốn</p></div>
+      <div class="stat"><p class="stat-label">Tỷ lệ trên vốn đã giao chi tiết</p><p class="stat-value">%%k_tlg%%</p><p class="stat-note">Trên %%k_khg%%</p></div>
+      <div class="stat"><p class="stat-label">Tiến độ thời gian</p><p class="stat-value">%%k_tg%%</p><p class="stat-note">Còn %%k_left%% ngày đến hạn 31/01/2027</p></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="theo-nguon">
+    <h2 id="theo-nguon">Theo nguồn vốn</h2>
+    <div class="legend"><span><i class="fill-ok"></i>Bằng hoặc nhanh hơn tiến độ thời gian</span><span><i class="fill-warn"></i>Chậm hơn tiến độ thời gian</span><span><em></em>Tiến độ thời gian đến hôm nay</span></div>
+    <div class="sources">
+%%sources%%
+    </div>
+  </section>
+
+  <section aria-labelledby="du-an">
+    <h2 id="du-an">Theo dự án</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th class="center">STT</th><th>Tên dự án</th><th class="num">Kế hoạch vốn<br>(đồng)</th><th class="num">Đã giải ngân<br>(đồng)</th><th class="num">Tỷ lệ</th><th>Đánh giá</th></tr></thead>
+        <tbody>
+%%rows%%
+        </tbody>
+        <tfoot><tr><td></td><td>Tổng cộng</td><td class="num">%%f_kh%%</td><td class="num">%%f_gn%%</td><td class="num">%%f_tl%%</td><td></td></tr></tfoot>
+        <caption>Đơn vị: đồng. Tỷ lệ bằng số đã giải ngân chia kế hoạch vốn.</caption>
+      </table>
+    </div>
+  </section>
+
+  <section class="notes" aria-label="Ghi chú">
+    <p>Đánh giá: trên 70% là tốt; từ tỷ lệ chung của các dự án đã giao chi tiết đến 70% là trung bình; dưới tỷ lệ chung là chậm. Tiến độ thời gian tính từ ngày 01/01/2026 đến hạn giải ngân của từng nguồn: vốn năm 2025 kéo dài đến 31/12/2026; kế hoạch năm 2026 đến 31/01/2027; vốn bổ sung theo Nghị quyết số 27/NQ-HĐND đến 31/12/2027 (khoản 1 Điều 72 Luật Đầu tư công số 58/2024/QH15).</p>
+    <p>Trang được cập nhật tự động hằng ngày từ bảng theo dõi của Trung tâm Cung ứng dịch vụ sự nghiệp công. Danh mục 10 dự án bổ sung theo Biểu 02 kèm theo Nghị quyết số 27/NQ-HĐND ngày 06/10/2026 của HĐND phường.</p>
+  </section>
+  <div class="rule rule--thin" role="presentation"></div>
+  <div class="foot"><span>UBND PHƯỜNG TÂN LẬP</span><span class="slogan">XANH - SINH THÁI - THÔNG MINH - BẢN SẮC</span></div>
+</main>
+</body>
+</html>
