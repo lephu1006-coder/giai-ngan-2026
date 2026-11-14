@@ -60,7 +60,7 @@ a{color:var(--accent-red-text)}
 .ring-time{stroke:var(--cover-gold)}
 .ring-num{fill:#fff;font-family:var(--font);font-weight:800;font-size:24px}
 @media (max-width:640px){.rings{gap:var(--s3);justify-content:center}.ring{width:150px}.ring svg{width:118px;height:118px}}
-.ring figcaption{text-align:center;font-size:13px;line-height:18px;color:var(--cover-muted)}
+.ring figcaption{text-align:center;text-wrap:balance;font-size:13px;line-height:18px;color:var(--cover-muted)}
 .ring figcaption b{display:block;color:#fff;font-size:14px;font-weight:700}
 .rule{display:flex;height:8px}
 .rule::before,.rule::after{content:"";flex:1}
@@ -80,7 +80,8 @@ h2::before{content:"";flex:none;width:6px;height:26px;background:var(--brand-red
 .kpi::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:var(--brand-green)}
 .kpi.k-red::after{background:var(--brand-red)}.kpi.k-gold::after{background:var(--rule-gold)}.kpi.k-brown::after{background:var(--brand-brown)}
 .kpi-label{margin:0;font-size:13px;line-height:18px;font-weight:700;color:var(--ink-muted);text-transform:uppercase;letter-spacing:.03em}
-.kpi-value{margin:var(--s2) 0 0;font-size:30px;line-height:36px;font-weight:800;color:var(--ink-strong)}
+.kpi-value{margin:var(--s2) 0 0;font-size:24px;line-height:32px;font-weight:800;color:var(--ink-strong);white-space:nowrap}
+@media (max-width:640px){.kpi-value{font-size:28px;line-height:34px}}
 .kpi-note{margin:var(--s1) 0 0;font-size:13px;line-height:19px;color:var(--ink-muted)}
 
 /* nhu cầu mỗi ngày */
@@ -158,7 +159,7 @@ h2::before{content:"";flex:none;width:6px;height:26px;background:var(--brand-red
 .tile-name{font-size:14px;line-height:20px;font-weight:600;color:var(--ink-strong);min-height:40px}
 .tile-big{font-size:26px;line-height:32px;font-weight:800;color:var(--ink-strong)}
 .tile-dl{margin:0;padding:0 var(--s4) var(--s4);display:grid;grid-template-columns:1fr 1fr;gap:var(--s2) var(--s4);font-size:13px;line-height:19px}
-.tile-dl dt{color:var(--ink-muted)}.tile-dl dd{margin:0;font-weight:600;color:var(--ink-strong)}
+.tile-dl .wide{grid-column:1/-1}.tile-dl dt{color:var(--ink-muted)}.tile-dl dd{margin:0;font-weight:600;color:var(--ink-strong)}
 .tile[hidden]{display:none}
 .badge{display:inline-flex;align-items:center;gap:6px;padding:2px 10px;border-radius:9999px;font-size:12px;line-height:20px;font-weight:700;white-space:nowrap}
 .badge::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
@@ -288,7 +289,7 @@ footer .slogan{color:var(--brand-green)}
   <section class="notes" aria-label="Ghi chú">
     <p>Đánh giá dự án: trên 70% là tốt; từ tỷ lệ chung của các dự án đã giao chi tiết đến 70% là trung bình; dưới tỷ lệ chung là chậm. Tiến độ thời gian tính từ ngày 01/01/2026 đến hạn giải ngân của từng nguồn: vốn năm 2025 kéo dài đến 31/12/2026; kế hoạch năm 2026 đến 31/01/2027; vốn bổ sung theo Nghị quyết số 27/NQ-HĐND đến 31/12/2027 (khoản 1 Điều 72 Luật Đầu tư công số 58/2024/QH15).</p>
     <p>Số giải ngân theo kỳ: đến ngày 14/11/2026 tính theo ngày hoàn thành thanh toán; từ ngày 15/11/2026 tính theo ngày số liệu được cập nhật trên bảng theo dõi. Tỷ lệ lũy kế tính trên kế hoạch vốn đã giao chi tiết hiện hành. Danh mục 10 dự án bổ sung theo Biểu 02 kèm theo Nghị quyết số 27/NQ-HĐND ngày 06/10/2026 của HĐND phường.</p>
-    <p>Trang được cập nhật tự động hằng ngày từ bảng theo dõi của Trung tâm Cung ứng dịch vụ sự nghiệp công phường Tân Lập.</p>
+    <p>Trang được cập nhật tự động hằng ngày từ bảng theo dõi của Trung tâm Cung ứng dịch vụ sự nghiệp công phường Tân Lập và bảng số liệu giải ngân vốn chuyển đổi số, chương trình mục tiêu quốc gia. Vốn chuyển đổi số và chương trình mục tiêu quốc gia chỉ gồm các dự án đầu tư; các khoản chi thường xuyên không đưa vào trang này.</p>
   </section>
 </div>
 </main>
