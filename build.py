@@ -455,16 +455,20 @@ def period_table(items):
             f'<th class="num">Lũy kế đến cuối kỳ<br>(tỷ đồng)</th><th class="num">Lũy kế / kế hoạch<br>đã giao</th></tr></thead><tbody>{rows}</tbody></table></div>')
 
 
-HEADER_PATTERN = '''<svg class="hero-pattern" viewBox="0 0 1200 420" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-<g fill="none" stroke="currentColor" stroke-width="1.4">
-<polyline points="40,420 250,210 460,420"/><polyline points="90,420 250,260 410,420"/><polyline points="140,420 250,310 360,420"/>
-<line x1="225" y1="185" x2="275" y2="235"/><line x1="275" y1="185" x2="225" y2="235"/>
-<rect x="150" y="360" width="200" height="60"/><line x1="190" y1="360" x2="190" y2="420"/><line x1="230" y1="360" x2="230" y2="420"/><line x1="270" y1="360" x2="270" y2="420"/><line x1="310" y1="360" x2="310" y2="420"/>
-<path d="M700 420 C700 330 760 300 820 260 S 900 180 900 110"/><circle cx="900" cy="100" r="10"/>
-<path d="M760 420 C760 350 820 320 880 280 S 980 210 1010 150"/><circle cx="1016" cy="140" r="10"/>
-<path d="M830 420 C840 370 900 340 960 310 S 1080 260 1110 210"/><circle cx="1118" cy="200" r="10"/>
-<path d="M640 0 C660 60 720 80 780 90"/><circle cx="790" cy="92" r="8"/>
-<path d="M1040 0 C1040 40 1080 70 1140 80"/><circle cx="1150" cy="82" r="8"/>
+HEADER_PATTERN = '''<svg class="hero-pattern" viewBox="0 0 1200 460" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+<defs><filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<linearGradient id="neon" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#2bb3c8"/><stop offset="1" stop-color="#5DB75E"/></linearGradient></defs>
+<g class="pt-rong" fill="none" stroke-width="1.6">
+<polyline points="20,460 230,250 440,460"/><polyline points="70,460 230,300 390,460"/><polyline points="120,460 230,350 340,460"/>
+<line x1="205" y1="225" x2="255" y2="275"/><line x1="255" y1="225" x2="205" y2="275"/>
+<rect x="130" y="400" width="200" height="60"/><line x1="170" y1="400" x2="170" y2="460"/><line x1="210" y1="400" x2="210" y2="460"/><line x1="250" y1="400" x2="250" y2="460"/><line x1="290" y1="400" x2="290" y2="460"/>
+</g>
+<g class="pt-neon" fill="none" stroke="url(#neon)" stroke-width="2" filter="url(#glow)">
+<path d="M700 460 C700 370 760 340 820 300 S 900 220 900 150"/><circle cx="900" cy="140" r="9"/>
+<path d="M770 460 C770 390 830 360 890 320 S 990 250 1020 190"/><circle cx="1026" cy="180" r="9"/>
+<path d="M850 460 C860 410 920 380 980 350 S 1100 300 1130 250"/><circle cx="1138" cy="240" r="9"/>
+<path d="M620 0 C640 60 700 80 760 90"/><circle cx="770" cy="92" r="7"/>
+<path d="M1030 0 C1030 40 1070 70 1130 80"/><circle cx="1140" cy="82" r="7"/>
 </g></svg>'''
 
 
@@ -683,28 +687,35 @@ def make_og(s):
         print("Không có Pillow, bỏ qua ảnh xem trước")
         return
     W, H = 1200, 630
-    im = Image.new("RGB", (W, H), "#331517")
+    im = Image.new("RGB", (W, H), (246, 250, 252))
     d = ImageDraw.Draw(im)
-    gold = (226, 210, 151)
-    for i, off in enumerate((0, 70, 140)):
-        d.line([(40 + off, H), (300, 330 + off), (560 - off, H)], fill=(78, 44, 40), width=3)
+    for yy in range(H):  # nền sáng chuyển sắc nhẹ
+        t = yy / H
+        d.line([(0, yy), (W, yy)], fill=tuple(int(a + (b - a) * t) for a, b in zip((251, 253, 254), (236, 245, 240))))
+    for i, off in enumerate((0, 60, 120)):
+        d.line([(20 + off, H), (230, 360 + off), (440 - off, H)], fill=(226, 200, 184), width=3)
     for k in range(3):
-        d.arc([760 + k * 90, 120 + k * 60, 1300 + k * 90, 780 + k * 60], 180, 270, fill=(78, 44, 40), width=3)
-    plate = Image.new("RGB", (300, 200), "white")
-    logo = Image.open(ROOT / "logo.png").convert("RGBA")
-    logo.thumbnail((270, 180))
-    plate.paste(logo, ((300 - logo.width) // 2, (200 - logo.height) // 2), logo)
-    mask = Image.new("L", plate.size, 0)
-    ImageDraw.Draw(mask).rounded_rectangle([0, 0, 299, 199], 18, fill=255)
-    im.paste(plate, (60, 60), mask)
-    d.text((400, 78), "UBND PHƯỜNG TÂN LẬP", font=font(30), fill=(93, 183, 94))
-    d.text((400, 122), "Tình hình giải ngân", font=font(52), fill=(234, 225, 226))
-    d.text((400, 186), "vốn đầu tư năm 2026", font=font(52), fill=(234, 225, 226))
-    d.text((60, 320), pct(s["rate"]), font=font(150), fill=(234, 225, 226))
-    d.text((64, 490), f"đã giải ngân {ty(s['gn'])} / {ty(s['kh'])}", font=font(30, False), fill=gold)
-    d.text((760, 350), "Tiến độ thời gian", font=font(30, False), fill=gold)
-    d.text((760, 390), pct(s["tg"]), font=font(84), fill=(234, 225, 226))
-    d.text((64, 540), f"Cập nhật ngày {s['upd']}", font=font(26, False), fill=(205, 186, 182))
+        d.arc([760 + k * 90, 140 + k * 60, 1300 + k * 90, 800 + k * 60], 180, 270, fill=(170, 222, 228), width=4)
+    ink, muted, teal = (59, 42, 32), (107, 86, 72), (31, 142, 160)
+    ep = ROOT / "emblem.webp"
+    if ep.exists():
+        em = Image.open(ep).convert("RGBA")
+        em.thumbnail((230, 240))
+        im.paste(em, (70, 50), em)
+        x0 = 340
+    else:
+        logo = Image.open(ROOT / "logo.png").convert("RGBA")
+        logo.thumbnail((270, 180))
+        im.paste(logo, (60, 60), logo)
+        x0 = 380
+    d.text((x0, 70), "UBND PHƯỜNG TÂN LẬP", font=font(30), fill=(46, 158, 71))
+    d.text((x0, 114), "Tình hình giải ngân", font=font(54), fill=ink)
+    d.text((x0, 180), "vốn đầu tư năm 2026", font=font(54), fill=ink)
+    d.text((60, 320), pct(s["rate"]), font=font(150), fill=ink)
+    d.text((64, 490), f"đã giải ngân {ty(s['gn'])} / {ty(s['kh'])}", font=font(30, False), fill=muted)
+    d.text((760, 350), "Tiến độ thời gian", font=font(30, False), fill=muted)
+    d.text((760, 390), pct(s["tg"]), font=font(84), fill=(210, 65, 45))
+    d.text((64, 540), f"Cập nhật ngày {s['upd']}", font=font(26, False), fill=teal)
     y = H - 14
     for x in range(W):
         if x < W // 2:
