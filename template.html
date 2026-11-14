@@ -3,6 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#eef5f8">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0c1a20">
 <meta name="robots" content="noindex, nofollow">
 <title>Tình hình giải ngân vốn đầu tư năm 2026 · UBND phường Tân Lập</title>
 <meta name="description" content="%%og_desc%%">
@@ -224,6 +227,47 @@ details.more[open]>summary{margin-bottom:var(--s4)}
 footer{background:var(--cover);color:var(--cover-muted);font-size:12px;line-height:18px;font-weight:700}
 footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(--s2);padding-top:var(--s4);padding-bottom:var(--s5)}
 footer .slogan{color:var(--brand-green)}
+/* chế độ tối: tự động theo cài đặt của thiết bị */
+@media screen and (prefers-color-scheme:dark){
+:root{
+  --brand-red:#d8433a;
+  --surface:#12181b;--surface-muted:#192126;--surface-sunken:#253037;--ink:#d8d1ca;--ink-strong:#f4efea;--ink-muted:#a8a19a;--line:#2d383e;--line-strong:#5d6a71;
+  --accent-red-text:#ff8f80;--accent-green-text:#6fd07a;--focus-ring:#ff8f80;
+  --status-ok-bg:#173a22;--status-warn-text:#f2c14e;--status-warn-bg:#3a2f10;--status-late-bg:#431c19;
+  --cover:#2a1214;--cover-2:#3a1b1b;
+  --rule-gold-deep:#d9a23a;
+}
+.hero{background:
+  radial-gradient(60% 80% at 92% 8%,rgba(43,179,200,.22),transparent 60%),
+  radial-gradient(50% 70% at 0% 100%,rgba(93,183,94,.16),transparent 60%),
+  linear-gradient(165deg,#0b161b 0%,#0e1f25 55%,#0f2119 100%)}
+.hero-pattern .pt-rong{stroke:#d99a72;opacity:.16}
+.hero-pattern .pt-neon{opacity:.85}
+.glass{background:rgba(22,38,45,.55);border:1px solid rgba(140,210,225,.16);box-shadow:0 14px 40px rgba(0,0,0,.40),inset 0 1px 0 rgba(255,255,255,.06)}
+.lockup{background:radial-gradient(70% 55% at 50% 34%,rgba(255,246,236,.20),transparent 70%),rgba(22,38,45,.55)}
+.lockup img{filter:drop-shadow(0 0 16px rgba(255,240,225,.22)) drop-shadow(0 8px 16px rgba(0,0,0,.45))}
+.lockup .wm{color:#f3e4d6}
+.lockup .sl{color:#6fd07a}
+.unit{color:#5fd3e3}
+.ring-track{stroke:#263238}
+.ring-gn{stroke:#4cc35d}.ring-a{stroke:#2ec4da}.ring-b{stroke:#e47a4b}.ring-time{stroke:#ff6a55}.ring-tick{stroke:#ff6a55}
+.ring-sm .ring-num{fill:#ff7a66}.ring-sm figcaption b{color:#ff7a66}
+.rings-note i{background:#ff6a55}
+.chart .dot-gn,.chart .dot-time{stroke:var(--surface)}
+.chart .line-plan{stroke:#c9a68f}.lg-plan{border-color:#c9a68f!important}
+.chart .area-gn{opacity:.22}
+#p-w:checked~.seg label[for=p-w],#p-m:checked~.seg label[for=p-m],#p-q:checked~.seg label[for=p-q]{background:#3a4750;box-shadow:none}
+.chip{background:transparent}
+.chip[aria-pressed=true]{background:#e9dccf;border-color:#e9dccf;color:#2a1d15}
+.tile{background:var(--surface-muted)}
+.tile:hover{box-shadow:0 4px 18px rgba(0,0,0,.45)}
+.fill-new{background:#2ec4da}.fill-done{background:#4f9cc0}.fill-warn{background:#e0ad2a}
+.tile-new{border-top-color:#2ec4da}.tile-done{border-top-color:#4f9cc0}.tile-warn{border-top-color:#e0ad2a}
+.badge-new{background:#0f3a40;color:#7fe0ec}
+.badge-done{background:#13303d;color:#8cc6e0}
+th{background:#3b2b22}
+tr.khoi td{background:#3a1b1b}
+}
 @media print{html,main{background:#fff}.hero{-webkit-print-color-adjust:exact;print-color-adjust:exact}.filters,.seg{display:none}.pp{display:block!important}.tile{break-inside:avoid}details.more{display:block}details.more>*{display:block}h2{break-after:avoid}}
 </style>
 </head>
