@@ -41,7 +41,7 @@ a{color:var(--accent-red-text)}
 /* phần đầu kiểu bìa */
 .hero{position:relative;background:var(--cover);color:var(--cover-ink);overflow:hidden}
 .hero-pattern{position:absolute;inset:0;width:100%;height:100%;color:var(--cover-gold);opacity:.16;pointer-events:none}
-.hero-in{position:relative;display:grid;grid-template-columns:1fr auto;gap:var(--s6);align-items:center;padding-top:var(--s7);padding-bottom:var(--s6)}
+.hero-in{position:relative;display:grid;grid-template-columns:1fr;gap:var(--s5);align-items:center;padding-top:var(--s7);padding-bottom:var(--s6)}
 @media (max-width:860px){.hero-in{grid-template-columns:1fr}}
 .brand{display:flex;gap:var(--s5);align-items:center;flex-wrap:wrap}
 .plate{background:#fff;border-radius:var(--r-lg);padding:10px 14px;flex:none}
@@ -51,15 +51,24 @@ a{color:var(--accent-red-text)}
 @media (max-width:640px){.hero h1{font-size:26px;line-height:32px}}
 .hero .upd{margin:var(--s2) 0 0;font-size:14px;color:var(--cover-gold)}
 .hero .upd b{color:#fff;font-weight:600}
-.rings{display:flex;gap:var(--s5);flex-wrap:wrap}
+.rings{display:flex;gap:var(--s5);flex-wrap:wrap;align-items:flex-start}
+.rings-note{margin:var(--s2) 0 0;font-size:12px;line-height:18px;color:var(--cover-muted)}
+.rings-note i{display:inline-block;width:3px;height:12px;margin-right:6px;vertical-align:-1px;background:#ff8a7a}
 .ring{margin:0;display:flex;flex-direction:column;align-items:center;gap:var(--s2);width:170px}
 .ring svg{width:150px;height:150px}
 .ring-track{fill:none;stroke:rgba(255,255,255,.12);stroke-width:12}
 .ring-val{fill:none;stroke-width:12;stroke-linecap:round}
 .ring-gn{stroke:var(--brand-green)}
-.ring-time{stroke:var(--cover-gold)}
-.ring-num{fill:#fff;font-family:var(--font);font-weight:800;font-size:24px}
-@media (max-width:640px){.rings{gap:var(--s3);justify-content:center}.ring{width:150px}.ring svg{width:118px;height:118px}}
+.ring-time{stroke:#ff8a7a}
+.ring-a{stroke:var(--cover-gold)}
+.ring-b{stroke:#d7b49a}
+.ring-tick{stroke:#ff8a7a;stroke-width:4;stroke-linecap:round}
+.ring-sm{width:130px;align-self:center}
+.ring-sm svg{width:96px;height:96px}
+.ring-sm .ring-num{font-size:24px;fill:#ffb3a8}
+.ring-sm figcaption b{color:#ffb3a8}
+.ring-num{fill:#fff;font-family:var(--font);font-weight:800;font-size:21px}
+@media (max-width:640px){.rings{gap:var(--s3);justify-content:center}.ring{width:150px}.ring svg{width:118px;height:118px}.ring-sm{width:130px}.ring-sm svg{width:84px;height:84px}}
 .ring figcaption{text-align:center;text-wrap:balance;font-size:13px;line-height:18px;color:var(--cover-muted)}
 .ring figcaption b{display:block;color:#fff;font-size:14px;font-weight:700}
 .rule{display:flex;height:8px}
@@ -86,6 +95,12 @@ h2::before{content:"";flex:none;width:6px;height:26px;background:var(--brand-red
 .kpi-sub{margin:2px 0 0;font-size:15px;line-height:22px;font-weight:700;color:var(--ink)}
 .kpis-3{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
 .kpis-3 .kpi-value{font-size:34px;line-height:40px}
+.kpi-split{list-style:none;margin:var(--s2) 0 0;padding:0;display:grid;gap:6px}
+.kpi-split li{display:grid;grid-template-columns:1fr auto;gap:0 var(--s2);padding-top:6px;border-top:1px solid var(--line);font-size:13px;line-height:19px;color:var(--ink-muted)}
+.kpi-split b{color:var(--ink-strong);font-weight:800}
+.kpi-split small{grid-column:1/-1;font-size:12px}
+.sub-h{display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(--s2);margin:0;padding:6px 10px;border-radius:var(--r-sm);background:var(--surface-muted);font-size:14px;font-weight:700;color:var(--ink-strong)}
+.sub-h span{font-weight:600;color:var(--ink-muted)}
 
 /* nhu cầu mỗi ngày */
 .need{display:grid;grid-template-columns:minmax(220px,300px) 1fr;gap:var(--s5);align-items:stretch}
@@ -183,6 +198,7 @@ th:first-child{border-top-left-radius:var(--r-md)}th:last-child{border-top-right
 td{padding:var(--s2) var(--s3);border-bottom:1px solid var(--line);vertical-align:top}
 tr.grp td{background:var(--surface-muted);font-weight:700;border-bottom:0}
 tr.khoi td{background:var(--cover);color:#fff;font-weight:800;letter-spacing:.02em;border-bottom:0}
+tr.grp2 td{background:var(--surface-sunken);font-weight:800;font-style:italic;border-bottom:0}
 tr.sub td{font-weight:800;color:var(--ink-strong);border-top:1px solid var(--line-strong)}
 .num{text-align:right;white-space:nowrap}.center{text-align:center}.strong{font-weight:800;color:var(--ink-strong)}
 tfoot td{font-weight:700;border-top:2px solid var(--ink);border-bottom:0}
@@ -215,8 +231,11 @@ footer .slogan{color:var(--brand-green)}
     </div>
     <div class="rings">
       %%ring1%%
+      %%ring_a%%
+      %%ring_b%%
       %%ring2%%
     </div>
+    <p class="rings-note"><i></i>Vạch đỏ trên mỗi vòng là tiến độ thời gian đến hôm nay (%%tg_pct%%); vòng tỷ lệ càng cách xa vạch đỏ thì giải ngân càng chậm so với thời gian.</p>
   </div>
   <div class="rule" role="presentation"></div>
 </header>
@@ -227,7 +246,7 @@ footer .slogan{color:var(--brand-green)}
 
   <section aria-labelledby="cap-giao">
     <h2 id="cap-giao">Theo cấp giao vốn</h2>
-    <p class="sub">Kế hoạch năm 2026 gồm nhiều nguồn, giao ở nhiều thời điểm, nên tách theo cấp giao vốn. Khối A là vốn cấp trên giao, tính vào KPI và phải giải ngân hết trong năm 2026. Khối B là ngân sách phường do HĐND phường phân bổ. Tỷ lệ tính trên kế hoạch vốn đã giao chi tiết.</p>
+    <p class="sub">Kế hoạch năm 2026 gồm nhiều nguồn, giao ở nhiều thời điểm, nên tách theo cấp giao vốn. Khối A là vốn cấp trên giao, tính vào KPI và phải giải ngân hết trong năm 2026. Khối B là ngân sách phường, tính theo các nghị quyết HĐND phường đã phân bổ chi tiết cho dự án, tách phần giao trước và bổ sung sau ngày %%b_cut%%; phần HĐND đã phân bổ nhưng UBND phường chưa giao chi tiết vẫn tính vào kế hoạch, được đánh dấu "Chờ UBND giao chi tiết".</p>
     <div class="kpis kpis-3">
       %%khoi_cards%%
     </div>
@@ -235,12 +254,12 @@ footer .slogan{color:var(--brand-green)}
 
   <section aria-labelledby="luy-ke">
     <h2 id="luy-ke">Giải ngân theo kỳ</h2>
-    <p class="sub">Số giải ngân trong tuần, tháng, quý hiện tại và lũy kế từ đầu năm. Tỷ lệ lũy kế tính trên %%kh_ref%% kế hoạch vốn đã giao chi tiết; tổng kế hoạch vốn kể cả phần chờ giao chi tiết là %%k_kh%%.</p>
+    <p class="sub">Số giải ngân trong tuần, tháng, quý hiện tại và lũy kế từ đầu năm. Tỷ lệ lũy kế tính trên tổng kế hoạch vốn %%k_kh%% (trong đó %%k_chua%% chờ UBND giao chi tiết).</p>
     <div class="kpis">
       <div class="kpi"><p class="kpi-label">%%w_lbl%%</p><p class="kpi-value">%%w_in%%</p><p class="kpi-note">%%w_delta%%</p></div>
       <div class="kpi k-gold"><p class="kpi-label">%%m_lbl%%</p><p class="kpi-value">%%m_in%%</p><p class="kpi-note">%%m_prev%%</p></div>
       <div class="kpi k-brown"><p class="kpi-label">%%q_lbl%%</p><p class="kpi-value">%%q_in%%</p><p class="kpi-note">%%q_prev%%</p></div>
-      <div class="kpi k-red"><p class="kpi-label">Lũy kế từ đầu năm</p><p class="kpi-value">%%y_in%%</p><p class="kpi-note">Đạt %%y_pct%% kế hoạch vốn đã giao chi tiết</p></div>
+      <div class="kpi k-red"><p class="kpi-label">Lũy kế từ đầu năm</p><p class="kpi-value">%%y_in%%</p><p class="kpi-note">Đạt %%y_pct%% tổng kế hoạch vốn</p></div>
     </div>
 
     <div class="card" style="margin-top:var(--s5)">
@@ -254,10 +273,10 @@ footer .slogan{color:var(--brand-green)}
 
   <section aria-labelledby="dien-bien">
     <h2 id="dien-bien">Diễn biến lũy kế</h2>
-    <p class="sub">Đường xanh là số đã giải ngân cộng dồn theo ngày. Đường vàng là mức cần đạt nếu giải ngân đều theo thời gian. Đường đỏ chấm là quãng còn lại phải đi để hết kế hoạch đúng hạn 31/01/2027.</p>
+    <p class="sub">Đường xanh là số đã giải ngân cộng dồn theo ngày. Đường vàng là mức cần đạt nếu giải ngân đều theo thời gian. Đường đỏ chấm là quãng còn lại phải đi để hết kế hoạch đúng hạn 31/01/2027. Biểu đồ tính trên %%kh_ref%% kế hoạch vốn có hạn giải ngân đến 31/01/2027; vốn HĐND phường bổ sung sau ngày %%b_cut%% có hạn đến 31/12/2027 nên không đưa vào.</p>
     <div class="card">
       %%trend%%
-      <div class="legend"><span><i class="lg-gn"></i>Đã giải ngân lũy kế</span><span><i class="lg-time"></i>Theo tiến độ thời gian</span><span><i class="lg-need"></i>Cần đạt đến hạn</span><span><i class="lg-plan"></i>Kế hoạch vốn đã giao</span></div>
+      <div class="legend"><span><i class="lg-gn"></i>Đã giải ngân lũy kế</span><span><i class="lg-time"></i>Theo tiến độ thời gian</span><span><i class="lg-need"></i>Cần đạt đến hạn</span><span><i class="lg-plan"></i>Kế hoạch vốn có hạn đến 31/01/2027</span></div>
     </div>
   </section>
 
@@ -265,7 +284,7 @@ footer .slogan{color:var(--brand-green)}
     <h2 id="moi-ngay">Mỗi ngày cần giải ngân</h2>
     <p class="sub">Số vốn còn lại của từng nguồn chia cho số ngày làm việc (thứ Hai đến thứ Sáu, chưa trừ ngày lễ) từ ngày mai đến hạn giải ngân của nguồn đó.</p>
     <div class="need">
-      <div class="need-hero"><div class="big">%%per_day_num%%<small>tỷ đồng mỗi ngày làm việc</small></div><p>là mức cần giải ngân bình quân từ nay, cộng theo hạn của từng nguồn, để giải ngân hết %%k_left%% vốn đã giao chi tiết còn lại.</p></div>
+      <div class="need-hero"><div class="big">%%per_day_num%%<small>tỷ đồng mỗi ngày làm việc</small></div><p>là mức cần giải ngân bình quân từ nay, cộng theo hạn của từng nguồn, để giải ngân hết %%k_left%% vốn còn lại.</p></div>
       <div class="table-wrap"><table>
         <thead><tr><th>Nguồn vốn</th><th class="num">Còn lại<br>(tỷ đồng)</th><th class="num">Hạn</th><th class="num">Ngày làm<br>việc còn</th><th class="num">Mỗi ngày<br>(tỷ đồng)</th></tr></thead>
         <tbody>%%need_rows%%</tbody>
@@ -276,7 +295,7 @@ footer .slogan{color:var(--brand-green)}
 
   <section aria-labelledby="theo-nguon">
     <h2 id="theo-nguon">Theo nguồn vốn</h2>
-    <div class="blegend"><span><i class="fill-ok"></i>Đạt tiến độ</span><span><i class="fill-warn"></i>Chậm tiến độ</span><span><i class="fill-late"></i>Cấp bách (vốn cấp trên giao chưa đủ %%urgent_days%% ngày)</span><span><i class="fill-neutral"></i>Chờ giao chi tiết</span><span><em></em>Tiến độ thời gian tính từ ngày giao vốn đến hạn</span></div>
+    <div class="blegend"><span><i class="fill-ok"></i>Đạt tiến độ</span><span><i class="fill-warn"></i>Chậm tiến độ</span><span><i class="fill-late"></i>Cấp bách (vốn cấp trên giao chưa đủ %%urgent_days%% ngày)</span><span><i class="fill-neutral"></i>Chờ UBND giao chi tiết</span><span><em></em>Tiến độ thời gian tính từ ngày giao vốn đến hạn</span></div>
     <div class="sources">
 %%sources%%
     </div>
@@ -284,7 +303,7 @@ footer .slogan{color:var(--brand-green)}
 
   <section aria-labelledby="du-an">
     <h2 id="du-an">Theo dự án</h2>
-    <p class="sub">Bấm vào từng thẻ để xem số chi tiết. Có %%cnt_dat%% dự án đạt tiến độ, %%cnt_cham%% chậm tiến độ, %%cnt_cb%% cấp bách và %%cnt_chua%% dự án chờ giao chi tiết kế hoạch vốn.</p>
+    <p class="sub">Bấm vào từng thẻ để xem số chi tiết. Có %%cnt_dat%% dự án đạt tiến độ, %%cnt_cham%% chậm tiến độ, %%cnt_cb%% cấp bách và %%cnt_chua%% dự án chờ UBND giao chi tiết kế hoạch vốn.</p>
     <div class="filters" role="group" aria-label="Lọc theo cấp giao vốn"><button type="button" class="chip all" data-f="khoi" data-v="" aria-pressed="true">Cả hai khối</button>%%chips_khoi%%</div>
     <div class="filters" role="group" aria-label="Lọc theo nguồn vốn"><button type="button" class="chip all" data-f="nhom" data-v="" aria-pressed="true">Tất cả nguồn vốn</button>%%chips_nhom%%</div>
     <div class="filters" role="group" aria-label="Lọc theo đánh giá"><button type="button" class="chip all" data-f="xl" data-v="" aria-pressed="true">Mọi mức đánh giá</button>%%chips_xl%%</div>
@@ -305,8 +324,8 @@ footer .slogan{color:var(--brand-green)}
   </section>
 
   <section class="notes" aria-label="Ghi chú">
-    <p>Đánh giá: so tỷ lệ giải ngân với tiến độ thời gian riêng của từng nguồn, dự án, tính từ ngày giao vốn đến hạn giải ngân. Bằng hoặc cao hơn là đạt tiến độ; thấp hơn là chậm tiến độ. Vốn cấp trên giao chưa đủ %%urgent_days%% ngày kể từ ngày giao mà chưa giải ngân hết được xếp cấp bách (mới giao, không đánh giá chậm, nhưng phải giải ngân hết trong năm 2026). Vốn HĐND phường đã phân bổ nhưng UBND phường chưa giao chi tiết thì chờ giao chi tiết, chưa tính vào tỷ lệ. Hạn giải ngân: vốn năm 2025 kéo dài đến 31/12/2026; kế hoạch năm 2026 đến 31/01/2027; vốn bổ sung theo Nghị quyết số 27/NQ-HĐND và số 31/NQ-HĐND đến 31/12/2027 (khoản 1 Điều 72 Luật Đầu tư công số 58/2024/QH15).</p>
-    <p>Số giải ngân theo kỳ: đến ngày 14/11/2026 tính theo ngày hoàn thành thanh toán; từ ngày 15/11/2026 tính theo ngày số liệu được cập nhật trên bảng theo dõi. Tỷ lệ lũy kế tính trên kế hoạch vốn đã giao chi tiết hiện hành. Danh mục 10 dự án bổ sung theo Biểu 02 kèm theo Nghị quyết số 27/NQ-HĐND ngày 06/10/2026; 06 dự án phân bổ vốn ngân sách phường và kế hoạch vốn năm 2026 của 02 dự án nhà văn hóa cộng đồng theo Biểu 02 kèm theo Nghị quyết số 31/NQ-HĐND ngày 10/11/2026 của HĐND phường.</p>
+    <p>Đánh giá: so tỷ lệ giải ngân với tiến độ thời gian riêng của từng nguồn, dự án, tính từ ngày giao vốn đến hạn giải ngân. Bằng hoặc cao hơn là đạt tiến độ; thấp hơn là chậm tiến độ. Vốn cấp trên giao chưa đủ %%urgent_days%% ngày kể từ ngày giao mà chưa giải ngân hết được xếp cấp bách (mới giao, không đánh giá chậm, nhưng phải giải ngân hết trong năm 2026). Vốn ngân sách phường tính theo các nghị quyết HĐND phường đã phân bổ chi tiết cho dự án; phần UBND phường chưa giao chi tiết vẫn tính vào kế hoạch và tỷ lệ, được đánh dấu chờ UBND giao chi tiết. Hạn giải ngân: vốn năm 2025 kéo dài đến 31/12/2026; kế hoạch năm 2026 đến 31/01/2027; vốn bổ sung theo Nghị quyết số 27/NQ-HĐND và số 31/NQ-HĐND đến 31/12/2027 (khoản 1 Điều 72 Luật Đầu tư công số 58/2024/QH15).</p>
+    <p>Số giải ngân theo kỳ: đến ngày 14/11/2026 tính theo ngày hoàn thành thanh toán; từ ngày 15/11/2026 tính theo ngày số liệu được cập nhật trên bảng theo dõi. Tỷ lệ lũy kế tính trên tổng kế hoạch vốn hiện hành. Danh mục 10 dự án bổ sung theo Biểu 02 kèm theo Nghị quyết số 27/NQ-HĐND ngày 06/10/2026; 06 dự án phân bổ vốn ngân sách phường và kế hoạch vốn năm 2026 của 02 dự án nhà văn hóa cộng đồng theo Biểu 02 kèm theo Nghị quyết số 31/NQ-HĐND ngày 10/11/2026 của HĐND phường.</p>
     <p>Trang được cập nhật tự động hằng ngày từ bảng theo dõi của Trung tâm Cung ứng dịch vụ sự nghiệp công phường Tân Lập và bảng số liệu giải ngân vốn chuyển đổi số, chương trình mục tiêu quốc gia. Vốn chuyển đổi số và chương trình mục tiêu quốc gia chỉ gồm các dự án đầu tư; các khoản chi thường xuyên không đưa vào trang này.</p>
   </section>
 </div>
