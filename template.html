@@ -14,7 +14,7 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="logo.png">
+<link rel="icon" href="emblem.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -39,38 +39,48 @@ a{color:var(--accent-red-text)}
 @media (max-width:640px){.wrap{padding:0 var(--s4)}}
 
 /* phần đầu kiểu bìa */
-.hero{position:relative;background:var(--cover);color:var(--cover-ink);overflow:hidden}
-.hero-pattern{position:absolute;inset:0;width:100%;height:100%;color:var(--cover-gold);opacity:.16;pointer-events:none}
-.hero-in{position:relative;display:grid;grid-template-columns:1fr;gap:var(--s5);align-items:center;padding-top:var(--s7);padding-bottom:var(--s6)}
-@media (max-width:860px){.hero-in{grid-template-columns:1fr}}
-.brand{display:flex;gap:var(--s5);align-items:center;flex-wrap:wrap}
-.plate{background:#fff;border-radius:var(--r-lg);padding:10px 14px;flex:none}
-.plate img{display:block;width:150px;height:auto}
-.unit{margin:0;font-size:13px;line-height:18px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--brand-green)}
-.hero h1{margin:6px 0 0;font-size:34px;line-height:40px;font-weight:800;letter-spacing:-.01em;color:#fff}
+.hero{position:relative;overflow:hidden;color:var(--ink);background:
+  radial-gradient(60% 80% at 92% 8%,rgba(43,179,200,.18),transparent 60%),
+  radial-gradient(50% 70% at 0% 100%,rgba(93,183,94,.16),transparent 60%),
+  linear-gradient(165deg,#fbfdfe 0%,#eef5f8 55%,#f1f7ef 100%)}
+.hero-pattern{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hero-pattern .pt-rong{stroke:#b8714a;opacity:.22}
+.hero-pattern .pt-neon{opacity:.55}
+.hero-in{position:relative;display:grid;grid-template-columns:300px 1fr;gap:var(--s6);align-items:center;padding-top:var(--s7);padding-bottom:var(--s6)}
+@media (max-width:900px){.hero-in{grid-template-columns:1fr;gap:var(--s5)}}
+.glass{background:rgba(255,255,255,.62);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.95);border-radius:22px;box-shadow:0 14px 40px rgba(31,74,92,.10),inset 0 1px 0 rgba(255,255,255,.9)}
+.lockup{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;padding:var(--s5) var(--s4) var(--s4)}
+.lockup img{display:block;width:150px;height:auto;filter:drop-shadow(0 10px 18px rgba(87,64,50,.25))}
+.lockup .wm{margin:var(--s3) 0 0;font-size:19px;line-height:24px;font-weight:800;letter-spacing:.02em;color:var(--brand-brown);white-space:nowrap}
+.lockup .sl{margin:4px 0 0;font-size:11px;line-height:16px;font-weight:700;letter-spacing:.06em;color:#2e9e47;white-space:nowrap}
+.lockup::after{content:"";position:absolute;left:18%;right:18%;bottom:-1px;height:3px;border-radius:3px;background:linear-gradient(90deg,#2bb3c8,#5DB75E);box-shadow:0 0 14px rgba(43,179,200,.7)}
+@media (max-width:900px){.lockup{max-width:300px;margin:0 auto;width:100%;padding:var(--s4) var(--s3) var(--s3)}.lockup img{width:104px}.lockup .wm{font-size:17px}.lockup .sl{font-size:10px}}
+.hero-main{min-width:0}
+.unit{margin:0;font-size:13px;line-height:18px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#1f8ea0}
+.hero h1{margin:6px 0 0;font-size:36px;line-height:42px;font-weight:800;letter-spacing:-.01em;color:var(--ink-strong)}
 @media (max-width:640px){.hero h1{font-size:26px;line-height:32px}}
-.hero .upd{margin:var(--s2) 0 0;font-size:14px;color:var(--cover-gold)}
-.hero .upd b{color:#fff;font-weight:600}
-.rings{display:flex;gap:var(--s5);flex-wrap:wrap;align-items:flex-start}
-.rings-note{margin:var(--s2) 0 0;font-size:12px;line-height:18px;color:var(--cover-muted)}
-.rings-note i{display:inline-block;width:3px;height:12px;margin-right:6px;vertical-align:-1px;background:#ff8a7a}
-.ring{margin:0;display:flex;flex-direction:column;align-items:center;gap:var(--s2);width:170px}
-.ring svg{width:150px;height:150px}
-.ring-track{fill:none;stroke:rgba(255,255,255,.12);stroke-width:12}
+.hero .upd{margin:var(--s2) 0 0;font-size:14px;color:var(--ink-muted)}
+.hero .upd b{color:var(--ink-strong);font-weight:700}
+.rings{display:flex;gap:var(--s4);flex-wrap:wrap;align-items:flex-start;margin-top:var(--s5);padding:var(--s4) var(--s4) var(--s3)}
+.rings-note{margin:var(--s3) 0 0;font-size:12px;line-height:18px;color:var(--ink-muted)}
+.rings-note i{display:inline-block;width:3px;height:12px;margin-right:6px;vertical-align:-1px;background:#e0533f}
+.ring{margin:0;display:flex;flex-direction:column;align-items:center;gap:var(--s2);width:150px}
+.ring svg{width:132px;height:132px}
+.ring-track{fill:none;stroke:#e2e9ee;stroke-width:12}
 .ring-val{fill:none;stroke-width:12;stroke-linecap:round}
-.ring-gn{stroke:var(--brand-green)}
-.ring-time{stroke:#ff8a7a}
-.ring-a{stroke:var(--cover-gold)}
-.ring-b{stroke:#d7b49a}
-.ring-tick{stroke:#ff8a7a;stroke-width:4;stroke-linecap:round}
-.ring-sm{width:130px;align-self:center}
-.ring-sm svg{width:96px;height:96px}
-.ring-sm .ring-num{font-size:24px;fill:#ffb3a8}
-.ring-sm figcaption b{color:#ffb3a8}
-.ring-num{fill:#fff;font-family:var(--font);font-weight:800;font-size:21px}
-@media (max-width:640px){.rings{gap:var(--s3);justify-content:center}.ring{width:150px}.ring svg{width:118px;height:118px}.ring-sm{width:130px}.ring-sm svg{width:84px;height:84px}}
-.ring figcaption{text-align:center;text-wrap:balance;font-size:13px;line-height:18px;color:var(--cover-muted)}
-.ring figcaption b{display:block;color:#fff;font-size:14px;font-weight:700}
+.ring-gn{stroke:#2e9e47}
+.ring-a{stroke:#1fa3b7}
+.ring-b{stroke:#b5562e}
+.ring-time{stroke:#e0533f}
+.ring-tick{stroke:#e0533f;stroke-width:4;stroke-linecap:round}
+.ring-sm{width:120px;align-self:center}
+.ring-sm svg{width:88px;height:88px}
+.ring-sm .ring-num{font-size:24px;fill:#d2412d}
+.ring-sm figcaption b{color:#d2412d}
+.ring-num{fill:var(--ink-strong);font-family:var(--font);font-weight:800;font-size:21px}
+@media (max-width:640px){.rings{gap:var(--s3);justify-content:center}.ring{width:140px}.ring svg{width:112px;height:112px}.ring-sm{width:120px}.ring-sm svg{width:80px;height:80px}}
+.ring figcaption{text-align:center;text-wrap:balance;font-size:12px;line-height:17px;color:var(--ink-muted)}
+.ring figcaption b{display:block;color:var(--ink-strong);font-size:13px;font-weight:700}
 .rule{display:flex;height:8px}
 .rule::before,.rule::after{content:"";flex:1}
 .rule::before{background:linear-gradient(90deg,var(--rule-gold-deep),var(--rule-gold))}
@@ -220,23 +230,23 @@ footer .slogan{color:var(--brand-green)}
 <header class="hero">
   %%pattern%%
   <div class="wrap hero-in">
-    <div>
-      <div class="brand">
-        <div class="plate"><img src="logo.png" alt="Logo UBND phường Tân Lập" width="150" height="100"></div>
-        <div>
-          <p class="unit">UBND phường Tân Lập</p>
-          <h1>Tình hình giải ngân<br>vốn đầu tư năm 2026</h1>
-          <p class="upd">Số liệu cập nhật đến ngày <b>%%upd%%</b></p>
-        </div>
+    <div class="lockup glass">
+      <img src="emblem.webp" alt="Biểu trưng UBND phường Tân Lập" width="150" height="157" onerror="this.onerror=null;this.src='logo.png'">
+      <p class="wm">UBND PHƯỜNG TÂN LẬP</p>
+      <p class="sl">XANH - SINH THÁI - THÔNG MINH - BẢN SẮC</p>
+    </div>
+    <div class="hero-main">
+      <p class="unit">Theo dõi công khai</p>
+      <h1>Tình hình giải ngân<br>vốn đầu tư năm 2026</h1>
+      <p class="upd">Số liệu cập nhật đến ngày <b>%%upd%%</b></p>
+      <div class="rings glass">
+        %%ring1%%
+        %%ring_a%%
+        %%ring_b%%
+        %%ring2%%
       </div>
+      <p class="rings-note"><i></i>Vạch đỏ trên mỗi vòng là tiến độ thời gian đến hôm nay (%%tg_pct%%); vòng tỷ lệ càng cách xa vạch đỏ thì giải ngân càng chậm so với thời gian.</p>
     </div>
-    <div class="rings">
-      %%ring1%%
-      %%ring_a%%
-      %%ring_b%%
-      %%ring2%%
-    </div>
-    <p class="rings-note"><i></i>Vạch đỏ trên mỗi vòng là tiến độ thời gian đến hôm nay (%%tg_pct%%); vòng tỷ lệ càng cách xa vạch đỏ thì giải ngân càng chậm so với thời gian.</p>
   </div>
   <div class="rule" role="presentation"></div>
 </header>
