@@ -50,15 +50,19 @@ a{color:var(--accent-red-text)}
 .hero-pattern .pt-rong{stroke:#b8714a;opacity:.22}
 .hero-pattern .pt-neon{opacity:.55}
 .hero-in{position:relative;display:grid;grid-template-columns:1fr;gap:var(--s5);padding-top:var(--s5);padding-bottom:var(--s6)}
-.masthead{display:flex;align-items:center;padding-bottom:var(--s4);border-bottom:1px solid rgba(87,64,50,.14)}
+.masthead{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s3) var(--s5);padding-bottom:var(--s4);border-bottom:1px solid rgba(87,64,50,.14)}
+.mh-meta{display:flex;flex-direction:column;align-items:flex-end;margin:0;font-size:13px;line-height:18px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#1f8ea0}
+.mh-meta small{font-size:12px;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink-muted)}
+.mh-meta .live{display:inline-block;width:8px;height:8px;margin:0 8px 2px 0;border-radius:50%;background:#2e9e47;box-shadow:0 0 0 4px rgba(46,158,71,.18);vertical-align:middle}
+.hero h1{margin-top:0}
 .glass{background:rgba(255,255,255,.62);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.95);border-radius:22px;box-shadow:0 14px 40px rgba(31,74,92,.10),inset 0 1px 0 rgba(255,255,255,.9)}
 .lockup{position:relative;display:inline-flex;align-items:center;gap:var(--s4);padding:10px 26px 10px 14px;border-radius:18px}
-.lockup img{display:block;flex:none;width:76px;height:auto;filter:drop-shadow(0 6px 12px rgba(87,64,50,.25))}
+.lockup img{display:block;flex:none;width:84px;height:auto;filter:drop-shadow(0 6px 12px rgba(87,64,50,.25))}
 .lk-t{padding-left:var(--s4);border-left:2px solid rgba(166,36,34,.55)}
 .lockup .wm{margin:0;font-size:24px;line-height:30px;font-weight:800;letter-spacing:.03em;color:var(--brand-brown);white-space:nowrap}
 .lockup .sl{margin:3px 0 0;font-size:12px;line-height:16px;font-weight:700;letter-spacing:.08em;color:#2e9e47;white-space:nowrap}
 .lockup::after{content:"";position:absolute;left:14px;right:26px;bottom:-1px;height:3px;border-radius:3px;background:linear-gradient(90deg,#2bb3c8,#5DB75E);box-shadow:0 0 14px rgba(43,179,200,.7)}
-@media (max-width:640px){.masthead{justify-content:center}.lockup{gap:var(--s3);padding:8px 16px 8px 10px}.lockup img{width:54px}.lk-t{padding-left:var(--s3)}.lockup .wm{font-size:17px;line-height:22px}.lockup .sl{font-size:9px;letter-spacing:.05em}}
+@media (max-width:640px){.masthead{justify-content:center}.mh-meta{align-items:center;text-align:center}.lockup{gap:var(--s3);padding:8px 16px 8px 10px}.lockup img{width:54px}.lk-t{padding-left:var(--s3)}.lockup .wm{font-size:17px;line-height:22px}.lockup .sl{font-size:9px;letter-spacing:.05em}}
 .hero-main{min-width:0}
 .unit{margin:0;font-size:13px;line-height:18px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#1f8ea0}
 .hero h1{margin:6px 0 0;font-size:36px;line-height:42px;font-weight:800;letter-spacing:-.01em;color:var(--ink-strong)}
@@ -251,7 +255,7 @@ footer .slogan{color:var(--brand-green)}
 .lockup img{filter:drop-shadow(0 0 16px rgba(255,240,225,.22)) drop-shadow(0 8px 16px rgba(0,0,0,.45))}
 .lockup .wm{color:#f3e4d6}
 .lockup .sl{color:#6fd07a}
-.unit{color:#5fd3e3}
+.unit,.mh-meta{color:#5fd3e3}
 .ring-track{stroke:#263238}
 .ring-gn{stroke:#4cc35d}.ring-a{stroke:#2ec4da}.ring-b{stroke:#e47a4b}.ring-time{stroke:#ff6a55}.ring-tick{stroke:#ff6a55}
 .ring-sm .ring-num{fill:#ff7a66}.ring-sm figcaption b{color:#ff7a66}
@@ -294,15 +298,15 @@ tr.khoi td{background:#3a1b1b}
   <div class="wrap hero-in">
     <div class="masthead">
       <div class="lockup glass">
-        <img src="emblem.webp" alt="Biểu trưng UBND phường Tân Lập" width="76" height="79" onerror="this.onerror=null;this.src='logo.png'">
+        <img src="emblem.webp" alt="Biểu trưng UBND phường Tân Lập" width="84" height="88" onerror="this.onerror=null;this.src='logo.png'">
         <div class="lk-t">
           <p class="wm">UBND PHƯỜNG TÂN LẬP</p>
           <p class="sl">XANH - SINH THÁI - THÔNG MINH - BẢN SẮC</p>
         </div>
       </div>
+      <p class="mh-meta"><span><span class="live"></span>Theo dõi công khai</span><small>Cập nhật tự động hằng ngày</small></p>
     </div>
     <div class="hero-main">
-      <p class="unit">Theo dõi công khai</p>
       <h1>Tình hình giải ngân<br>vốn đầu tư năm 2026</h1>
       <p class="upd">Số liệu cập nhật đến ngày <b>14/11/2026</b></p>
       <div class="rings glass">
