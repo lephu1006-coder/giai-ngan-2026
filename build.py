@@ -66,7 +66,7 @@ def validate(groups, rows, total):
 
 # khóa, tên đầy đủ, tên ngắn, căn cứ, hạn giải ngân, khối (A: cấp trên giao, B: HĐND phường giao), ngày giao vốn
 LABEL = [
-    ("kéo dài", "Kế hoạch vốn năm 2025 kéo dài sang năm 2026", "Vốn 2025 kéo dài", "Quyết định số 1199/QĐ-UBND ngày 14/4/2026", dt.date(2026, 12, 31), "A", dt.date(2026, 4, 14)),
+    ("kéo dài", "Kế hoạch vốn năm 2025 kéo dài sang năm 2026", "Vốn 2025 kéo dài", "Quyết định số 1199/QĐ-UBND ngày 14/4/2026 của UBND tỉnh; thời hạn giải ngân đến hết ngày 31/12/2026 theo Quyết định số 3598/QĐ-UBND ngày 09/11/2026 của UBND tỉnh", dt.date(2026, 12, 31), "A", dt.date(2026, 4, 14)),
     ("02558", "Kế hoạch vốn năm 2026 giao mới", "KH 2026 giao mới", "Quyết định số 02558/QĐ-UBND ngày 31/12/2025", DUE_2026, "A", dt.date(2025, 12, 31)),
     ("1133", "Kế hoạch vốn đầu tư công năm 2026, ngân sách phường", "Ngân sách phường", "Quyết định số 1133/QĐ-UBND ngày 17/6/2026 và số 1474/QĐ-UBND ngày 26/8/2026", DUE_2026, "B", dt.date(2026, 6, 17)),
     ("2347", "Kế hoạch vốn chi đầu tư phát triển khác, ngân sách tỉnh bổ sung có mục tiêu", "Ngân sách tỉnh bổ sung", "Quyết định số 2347/QĐ-UBND ngày 24/7/2026 của UBND tỉnh; UBND phường giao đợt 1 tại Quyết định số 1385/QĐ-UBND ngày 18/8/2026", DUE_2026, "A", dt.date(2026, 8, 18)),
@@ -89,6 +89,25 @@ def label(nguon):
     return nguon, nguon[:24], "", DUE_2026, "B", YEAR_START
 
 
+# Tình hình thực hiện theo văn bản đã ban hành (thư mục Lưu trữ trình duyệt, báo cáo tuần của Phòng KT-HT&ĐT).
+# (khóa nguồn vốn, cụm tên dự án, số vốn dư không còn nhu cầu giải ngân, ghi chú)
+TIEN_DO = [
+    ("kéo dài", "Mầm non Tân Hòa", 81_686_000,
+     "Dự án hoàn thành, đã phê duyệt quyết toán tại Quyết định số 1348/QĐ-UBND ngày 07/8/2026 của UBND phường. "
+     "Số vốn còn lại 81.686.000 đồng không còn nhu cầu giải ngân; UBND phường đã đề nghị điều chỉnh giảm tại "
+     "Báo cáo số 663/BC-UBND ngày 27/10/2026 gửi Sở Tài chính, chờ UBND tỉnh quyết định."),
+    ("kéo dài", "Cao Đạt", 0,
+     "Đang vận động bàn giao phần mặt bằng còn lại, tháo gỡ vướng mắc đơn thư. Thời hạn giải ngân vốn năm 2025 kéo dài "
+     "được điều chỉnh đến hết ngày 31/12/2026 tại Quyết định số 3598/QĐ-UBND ngày 09/11/2026 của UBND tỉnh."),
+    ("02558", "Cao Đạt", 0, "Đang vận động bàn giao phần mặt bằng còn lại, tháo gỡ vướng mắc đơn thư."),
+    ("1133", "Nguyễn Du", 0, "Đang thi công; Phòng KT-HT&ĐT đôn đốc, giám sát nhà thầu đẩy nhanh tiến độ."),
+    ("1133", "Nguyễn Văn Cừ", 0, "Đang thi công; Phòng KT-HT&ĐT đôn đốc, giám sát nhà thầu đẩy nhanh tiến độ."),
+    ("1133", "Trạm Y tế", 0, "Đang thi công; Phòng KT-HT&ĐT đôn đốc, giám sát nhà thầu đẩy nhanh tiến độ."),
+    ("1133", "hội trường", 0, "Đang thi công; Phòng KT-HT&ĐT đôn đốc, giám sát nhà thầu đẩy nhanh tiến độ."),
+]
+DONE = "Đã quyết toán"
+
+
 def date_in(text):
     m = re.search(r"ngày\s+(\d{1,2})/(\d{1,2})/(\d{4})", text or "")
     return dt.date(int(m.group(3)), int(m.group(2)), int(m.group(1))) if m else None
@@ -101,7 +120,9 @@ def own_progress(today, giao, due):
     return max(0.0, min(1.0, (today - giao).days / (due - giao).days))
 
 
-def status(tl, khoi, giao, due, today, chua_giao):
+def status(tl, khoi, giao, due, today, chua_giao, done=False):
+    if done:
+        return DONE
     if chua_giao:
         return "Chờ UBND giao chi tiết"
     if tl >= 0.9995:
@@ -228,11 +249,22 @@ def model(th, nq, cds=None, today=None):
         p["khoi"], p["due"] = g["khoi"], g["due"]
         p["giao"] = p.get("giao_p") or g["giao"]
         p["tl"] = p["gn"] / p["kh"] if p["kh"] else 0
-        p["xl"] = status(p["tl"], p["khoi"], p["giao"], p["due"], today, p["chua_giao"])
+        p["du"], done = 0.0, False
+        for key, ten, du, note in TIEN_DO:
+            if key in g["nguon"] and ten.lower() in p["du_an"].lower():
+                p["du"] = min(float(du), max(p["kh"] - p["gn"], 0))
+                done = du > 0 and p["kh"] - p["gn"] - p["du"] <= 1e3
+                if not p.get("note"):
+                    p["note"] = note
+        p["done"] = done
+        tl_eff = p["gn"] / (p["kh"] - p["du"]) if p["kh"] - p["du"] > 0 else 1
+        p["xl"] = status(tl_eff, p["khoi"], p["giao"], p["due"], today, p["chua_giao"], done)
     for g in keep:
         ps = [p for p in projects if p["nhom"] == g["nhom"]]
         g["giao"] = min([p["giao"] for p in ps] + [g["giao"]]) if ps else g["giao"]
-        g["xl"] = status(g["tl"], g["khoi"], g["giao"], g["due"], today, g["chua_giao"])
+        g["du"] = sum(p["du"] for p in ps)
+        tl_eff = g["gn"] / (g["kh"] - g["du"]) if g["kh"] - g["du"] > 0 else 1
+        g["xl"] = status(tl_eff, g["khoi"], g["giao"], g["due"], today, g["chua_giao"])
     projects.sort(key=lambda p: (order[p["khoi"]], [g["nhom"] for g in keep].index(p["nhom"]), p["stt"]))
     t = {"kh": sum(p["kh"] for p in projects), "gn": sum(p["gn"] for p in projects), "kh_g": kh_g, "gn_g": gn_g,
          "kh_chua": sum(p["kh"] for p in projects if p["chua_giao"]), "n_chua": sum(1 for p in projects if p["chua_giao"])}
@@ -316,8 +348,8 @@ def progress(today, due):
     return max(0.0, min(1.0, (today - YEAR_START).days / (due - YEAR_START).days))
 
 
-BADGE = {"Đạt tiến độ": "ok", "Chậm tiến độ": "warn", "Cấp bách": "late", "Chờ UBND giao chi tiết": "neutral"}
-FILL = {"ok": "fill-ok", "warn": "fill-warn", "late": "fill-late", "neutral": "fill-neutral"}
+BADGE = {"Đạt tiến độ": "ok", "Chậm tiến độ": "warn", "Cấp bách": "late", "Chờ UBND giao chi tiết": "neutral", "Đã quyết toán": "done"}
+FILL = {"ok": "fill-ok", "warn": "fill-warn", "late": "fill-late", "neutral": "fill-neutral", "done": "fill-done"}
 
 
 # ---------- hình vẽ ----------
@@ -457,8 +489,8 @@ def render(groups, projects, t, hist, fetched):
     tomorrow = today + dt.timedelta(days=1)
 
     def need(gs):
-        left = sum(max(g["kh"] - g["gn"], 0) for g in gs)
-        per = sum(max(g["kh"] - g["gn"], 0) / (workdays(tomorrow, g["due"]) or 1) for g in gs)
+        left = sum(max(g["kh"] - g["gn"] - g["du"], 0) for g in gs)
+        per = sum(max(g["kh"] - g["gn"] - g["du"], 0) / (workdays(tomorrow, g["due"]) or 1) for g in gs)
         return left, per
 
     # hai khối nguồn vốn
@@ -488,6 +520,10 @@ def render(groups, projects, t, hist, fetched):
             f"riêng vốn cấp trên giao là {ty(blk['A']['per'])}.")
     if blk["A"]["n_cb"]:
         take += f" {blk['A']['n_cb']} dự án vốn cấp trên mới giao (chưa đủ {URGENT_DAYS} ngày) được xếp cấp bách, cần tập trung giải ngân ngay."
+    n_done = [p for p in projects if p["done"]]
+    if n_done:
+        take += (f" {len(n_done)} dự án đã quyết toán, còn {vi(sum(p['du'] for p in n_done))} đồng vốn dư đã đề nghị cấp có thẩm quyền "
+                 f"điều chỉnh giảm, không tính vào số vốn còn phải giải ngân.")
     if kh_chua:
         take += f" Trong tổng kế hoạch có {ty(kh_chua)} HĐND phường bổ sung sau ngày 30/9/2026, đang chờ UBND phường giao chi tiết."
 
@@ -519,7 +555,7 @@ def render(groups, projects, t, hist, fetched):
             continue
         need_rows.append(f'<tr class="grp"><td colspan="5">{k}. {e(KHOI[k][0])}</td></tr>')
         for g in gg:
-            left = max(g["kh"] - g["gn"], 0)
+            left = max(g["kh"] - g["gn"] - g["du"], 0)
             wd = workdays(tomorrow, g["due"])
             need_rows.append(f'<tr><td><b>{e(g["ma"])}.</b> {e(g["short"])}</td><td class="num">{ty(left, False)}</td><td class="num">{g["due"]:%d/%m/%Y}</td><td class="num">{wd}</td><td class="num strong">{ty(left/wd if wd else left, False)}</td></tr>')
         need_rows.append(f'<tr class="sub"><td>Cộng khối {k}</td><td class="num">{ty(blk[k]["left"], False)}</td><td></td><td></td><td class="num">{ty(blk[k]["per"], False)}</td></tr>')
@@ -541,6 +577,8 @@ def render(groups, projects, t, hist, fetched):
             else:
                 od = own_progress(today, g["giao"], g["due"])
                 val = f"{ty(g['gn'])} / {ty(g['kh'])} · giao từ ngày {g['giao']:%d/%m/%Y}, hạn {g['due']:%d/%m/%Y}"
+                if g["du"]:
+                    val += f"; {vi(g['du'])} đồng vốn dư sau quyết toán đã đề nghị điều chỉnh giảm, không tính vào số còn phải giải ngân"
                 mark = f'<em style="left:calc({od*100:.2f}% - 1px)" title="Tiến độ thời gian từ ngày giao {pct(od)}"></em>'
             src.append(f'''<div class="src">
   <div class="src-top"><span class="src-name"><span class="src-no">{e(g["ma"])}</span>{e(g["long"])}</span><span class="src-right"><span class="badge badge-{b}">{e(g["xl"])}</span><span class="src-pct">{pct(g["tl"])}</span></span></div>
@@ -555,7 +593,7 @@ def render(groups, projects, t, hist, fetched):
         g = gmap[p["nhom"]]
         b = BADGE[p["xl"]]
         od = own_progress(today, p["giao"], p["due"])
-        mark = "" if p["chua_giao"] else f'<em style="left:calc({od*100:.2f}% - 1px)"></em>'
+        mark = "" if p["chua_giao"] or p["done"] else f'<em style="left:calc({od*100:.2f}% - 1px)"></em>'
         big = pct(p["tl"])
         tiles.append(f'''<details class="tile tile-{b}" data-khoi="{p["khoi"]}" data-nhom="{e(p["nhom"])}" data-xl="{e(p["xl"])}">
   <summary>
@@ -564,7 +602,7 @@ def render(groups, projects, t, hist, fetched):
     <span class="tile-big">{e(big)}</span>
     <span class="bar bar-sm"><i class="{FILL[b]}" style="width:{min(100,p['tl']*100):.2f}%"></i>{mark}</span>
   </summary>
-  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>{vi(p["kh"])} đ</dd></div><div><dt>Đã giải ngân</dt><dd>{vi(p["gn"])} đ</dd></div><div><dt>Còn lại</dt><dd>{vi(p["kh"]-p["gn"])} đ</dd></div><div><dt>{"Ngày phân bổ" if p["chua_giao"] else "Ngày giao vốn"}</dt><dd>{p["giao"]:%d/%m/%Y}</dd></div><div><dt>Hạn giải ngân</dt><dd>{p["due"]:%d/%m/%Y}</dd></div><div><dt>Tiến độ thời gian</dt><dd>{"" if p["chua_giao"] else pct(od)}</dd></div>{('<div class="wide"><dt>Tình hình thực hiện</dt><dd>' + e(p["note"]) + '</dd></div>') if p.get("note") else ''}</dl>
+  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>{vi(p["kh"])} đ</dd></div><div><dt>Đã giải ngân</dt><dd>{vi(p["gn"])} đ</dd></div><div><dt>{"Vốn dư đề nghị giảm" if p["du"] else "Còn lại"}</dt><dd>{vi(p["kh"]-p["gn"])} đ</dd></div><div><dt>{"Ngày phân bổ" if p["chua_giao"] else "Ngày giao vốn"}</dt><dd>{p["giao"]:%d/%m/%Y}</dd></div><div><dt>Hạn giải ngân</dt><dd>{p["due"]:%d/%m/%Y}</dd></div><div><dt>Tiến độ thời gian</dt><dd>{"" if p["chua_giao"] else pct(od)}</dd></div>{('<div class="wide"><dt>Tình hình thực hiện</dt><dd>' + e(p["note"]) + '</dd></div>') if p.get("note") else ''}</dl>
 </details>''')
 
     chips_khoi = "".join(f'<button type="button" class="chip" data-f="khoi" data-v="{k}">{k}. {e(KHOI[k][0])}</button>' for k in ("A", "B"))
@@ -604,7 +642,7 @@ def render(groups, projects, t, hist, fetched):
         m_lbl=e(mo["label"]), m_in=ty(mo["in"]), m_prev=e(f'Tháng trước {ty(months[-2]["in"])}' if len(months) > 1 else ""),
         q_lbl=e(qu["label"]), q_in=ty(qu["in"]), q_prev=e(f'Quý trước {ty(quarters[-2]["in"])}' if len(quarters) > 1 else ""),
         y_in=ty(gn_now), y_pct=pct(rate),
-        cnt_dat=cnt["Đạt tiến độ"], cnt_cham=cnt["Chậm tiến độ"], cnt_cb=cnt["Cấp bách"], cnt_chua=cnt["Chờ UBND giao chi tiết"], b_cut="30/9/2026",
+        cnt_dat=cnt["Đạt tiến độ"], cnt_cham=cnt["Chậm tiến độ"], cnt_cb=cnt["Cấp bách"], cnt_chua=cnt["Chờ UBND giao chi tiết"], cnt_qt=cnt["Đã quyết toán"], b_cut="30/9/2026",
         trend=trend_svg(daily, today, kh_ref, {g["nhom"] for g in g_due26}),
         bars_w=bars_svg(weeks, "Giải ngân theo tuần"), bars_m=bars_svg(months, "Giải ngân theo tháng"), bars_q=bars_svg(quarters, "Giải ngân theo quý"),
         tab_w=period_table(weeks), tab_m=period_table(months), tab_q=period_table(quarters),
