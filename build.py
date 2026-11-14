@@ -335,7 +335,7 @@ def bars_svg(items, aria):
         h = (H - T - B) * max(p["in"], 0) / vmax
         x = L + i * bw + bw * 0.18
         y = H - B - h
-        short = p["label"].split(" (")[0].replace("Tháng ", "T").replace("Tuần ", "Tuần ")
+        short = p["label"].split(" (")[0].replace("Tháng ", "T").replace("Tuần ", "Tuần\u00a0")
         cls = "col col-now" if i == n - 1 else "col"
         out.append(f'<rect x="{x:.1f}" y="{y:.1f}" width="{bw*0.64:.1f}" height="{max(h,0):.1f}" rx="4" class="{cls}"><title>{e(p["label"])}: {e(ty(p["in"]))}</title></rect>')
         if p["in"] > 0:
