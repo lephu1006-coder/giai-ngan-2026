@@ -7,7 +7,7 @@
 Đầu ra:   index.html, og.png (ảnh xem trước khi chia sẻ link), history.json
 Dừng với mã lỗi khác 0 nếu số liệu không khớp (tổng nhóm, tổng cộng), để không đăng số sai.
 """
-import json, sys, html, datetime as dt, pathlib, math, os
+import json, sys, html, datetime as dt, pathlib, math, os, unicodedata
 
 ROOT = pathlib.Path(__file__).resolve().parent
 TZ = dt.timezone(dt.timedelta(hours=7))
@@ -69,6 +69,8 @@ LABEL = [
     ("02558", "Kế hoạch vốn năm 2026 giao mới", "KH 2026 giao mới", "Quyết định số 02558/QĐ-UBND ngày 31/12/2025", DUE_2026),
     ("1133", "Kế hoạch vốn đầu tư công năm 2026, ngân sách phường", "Ngân sách phường", "Quyết định số 1133/QĐ-UBND ngày 17/6/2026 và số 1474/QĐ-UBND ngày 26/8/2026", DUE_2026),
     ("2347", "Kế hoạch vốn chi đầu tư phát triển khác, ngân sách tỉnh bổ sung có mục tiêu", "Ngân sách tỉnh bổ sung", "Quyết định số 2347/QĐ-UBND của UBND tỉnh; UBND phường giao đợt 1 tại Quyết định số 1385/QĐ-UBND", DUE_2026),
+    ("CĐS", "Vốn chuyển đổi số, ngân sách tỉnh bổ sung có mục tiêu", "Chuyển đổi số", "Quyết định số 3164/QĐ-UBND ngày 30/9/2026 và số 3392/QĐ-UBND ngày 22/10/2026 của UBND tỉnh", DUE_2026),
+    ("MTQG", "Vốn Chương trình mục tiêu quốc gia năm 2026 và vốn đối ứng ngân sách phường", "CT mục tiêu quốc gia", "Nghị quyết số 31/NQ-HĐND ngày 10/11/2026 của HĐND phường", DUE_2026),
     ("27/NQ", "Bổ sung kế hoạch vốn năm 2026 (tiền sử dụng đất)", "Bổ sung NQ 27", "Nghị quyết số 27/NQ-HĐND ngày 06/10/2026 của HĐND phường", dt.date(2027, 12, 31)),
 ]
 
@@ -80,7 +82,53 @@ def label(nguon):
     return nguon, nguon[:24], "", DUE_2026
 
 
-def model(th, nq):
+# Kế hoạch vốn năm 2026 của 02 dự án nhà văn hóa cộng đồng theo Biểu 02 kèm theo Nghị quyết số 31/NQ-HĐND
+# ngày 10/11/2026 của HĐND phường (bảng theo dõi ghi tổng mức đầu tư ở cột số vốn giao). Tên dự án theo Nghị quyết.
+NQ31_MTQG = [
+    (("mliâo", "mlâo"), "Cải tạo, sửa chữa Nhà văn hóa cộng đồng buôn Kõ Mliâo", 1_127e6,
+     "Quyết định số 1999/QĐ-UBND ngày 04/11/2026"),
+    (("cuôr",), "Cải tạo, sửa chữa Nhà văn hóa cộng đồng buôn Ea Cuôr Kap", 672e6,
+     "Quyết định số 2000/QĐ-UBND ngày 04/11/2026"),
+]
+
+
+def apply_nq31(rs):
+    errs = []
+    for r in rs:
+        key = unicodedata.normalize("NFC", r["du_an"]).lower()
+        hit = [x for x in NQ31_MTQG if any(unicodedata.normalize("NFC", k) in key for k in x[0])]
+        if len(hit) != 1:
+            errs.append(f"{r['du_an']}: không đối chiếu được với Nghị quyết số 31/NQ-HĐND")
+            continue
+        _, ten, kh, qd = hit[0]
+        if r["gn"] > kh + 1e3:
+            errs.append(f"{ten}: số đã giải ngân lớn hơn kế hoạch vốn năm 2026")
+        r.update(du_an=ten, kh=kh, basis=qd)
+    return errs
+
+
+def parse_cds(values):
+    """Bảng số liệu vốn chuyển đổi số và các dự án (đơn vị triệu đồng): lấy các dự án đầu tư
+    vốn chuyển đổi số và chương trình mục tiêu quốc gia; bỏ chi thường xuyên và nhiệm vụ khác."""
+    out, errs = {"cds": [], "mtqg": []}, []
+    for v in values:
+        v = list(v) + [""] * 8
+        tt, name = str(v[0]).strip(), " ".join(str(v[1]).split())
+        if not name.lower().startswith("dự án") or (tt and not all(c in "IVXLC" for c in tt)):
+            continue
+        name = name.replace("Dự án: ", "Dự án ").strip()
+        kind = "cds" if "chuyển đổi số" in name.lower() else "mtqg" if "nhà văn hóa cộng đồng" in name.lower() else None
+        if not kind:
+            continue
+        kh, gn, cl = num(v[3]) * 1e6, num(v[4]) * 1e6, num(v[6]) * 1e6
+        if str(v[6]).strip() and abs(kh - gn - cl) > 1e3:
+            errs.append(f"{name}: vốn giao trừ đã giải ngân khác số còn lại")
+        out[kind].append({"du_an": name, "kh": kh, "gn": gn, "basis": " ".join(str(v[2]).split()), "note": " ".join(str(v[7]).split())})
+    errs += apply_nq31(out["mtqg"])
+    return out, errs
+
+
+def model(th, nq, cds=None):
     groups, rows, total = parse(th["values"])
     errs = validate(groups, rows, total)
     if errs:
@@ -97,6 +145,23 @@ def model(th, nq):
         for x in nq:
             projects.append({"nhom": nq_nhom, "stt": int(x["stt"]), "du_an": x["du_an"], "kh": float(x["ke_hoach"]),
                              "gn": float(x["da_giai_ngan"]), "chua_giao": True})
+    if cds:
+        extra, errs2 = parse_cds(cds["values"])
+        if errs2:
+            print("SỐ LIỆU VỐN CHUYỂN ĐỔI SỐ, MTQG KHÔNG KHỚP:\n- " + "\n- ".join(errs2), file=sys.stderr)
+            sys.exit(2)
+        used = {g["nhom"] for g in keep}
+        romans = [r for r in "I II III IV V VI VII VIII IX X XI XII".split() if r not in used]
+        for kind, nguon in (("cds", "CĐS"), ("mtqg", "MTQG")):
+            rs = extra[kind]
+            if not rs:
+                continue
+            nh = romans.pop(0)
+            keep.append({"nhom": nh, "nguon": nguon, "kh": sum(r["kh"] for r in rs), "gn": sum(r["gn"] for r in rs),
+                         "co_von": True, "chua_giao": False})
+            for i, r in enumerate(rs, 1):
+                projects.append({"nhom": nh, "stt": i, "du_an": r["du_an"], "kh": r["kh"], "gn": r["gn"], "chua_giao": False,
+                                 "note": r["note"], "basis_p": r["basis"]})
     giao = [p for p in projects if not p["chua_giao"]]
     kh_g, gn_g = sum(p["kh"] for p in giao), sum(p["gn"] for p in giao)
     chung = gn_g / kh_g if kh_g else 0
@@ -270,7 +335,7 @@ def bars_svg(items, aria):
         h = (H - T - B) * max(p["in"], 0) / vmax
         x = L + i * bw + bw * 0.18
         y = H - B - h
-        short = p["label"].split(" (")[0].replace("Tháng ", "T").replace("Tuần ", "Tuần ")
+        short = p["label"].split(" (")[0].replace("Tháng ", "T").replace("Tuần ", "Tuần ")
         cls = "col col-now" if i == n - 1 else "col"
         out.append(f'<rect x="{x:.1f}" y="{y:.1f}" width="{bw*0.64:.1f}" height="{max(h,0):.1f}" rx="4" class="{cls}"><title>{e(p["label"])}: {e(ty(p["in"]))}</title></rect>')
         if p["in"] > 0:
@@ -375,7 +440,7 @@ def render(groups, projects, t, hist, fetched):
     <span class="tile-big">{e(big)}</span>
     <span class="bar bar-sm"><i class="{fill}" style="width:{min(100,p['tl']*100):.2f}%"></i>{mark}</span>
   </summary>
-  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>{vi(p["kh"])} đ</dd></div><div><dt>Đã giải ngân</dt><dd>{vi(p["gn"])} đ</dd></div><div><dt>Còn lại</dt><dd>{vi(p["kh"]-p["gn"])} đ</dd></div><div><dt>Hạn giải ngân</dt><dd>{g["due"]:%d/%m/%Y}</dd></div></dl>
+  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>{vi(p["kh"])} đ</dd></div><div><dt>Đã giải ngân</dt><dd>{vi(p["gn"])} đ</dd></div><div><dt>Còn lại</dt><dd>{vi(p["kh"]-p["gn"])} đ</dd></div><div><dt>Hạn giải ngân</dt><dd>{g["due"]:%d/%m/%Y}</dd></div>{('<div class="wide"><dt>Tình hình thực hiện</dt><dd>' + e(p["note"]) + '</dd></div>') if p.get("note") else ''}</dl>
 </details>''')
 
     chips_nhom = "".join(f'<button type="button" class="chip" data-f="nhom" data-v="{e(g["nhom"])}">{e(g["nhom"])}. {e(g["short"])}</button>' for g in groups)
@@ -478,7 +543,9 @@ def main():
     hp = ROOT / "history.json"
     hist = json.loads(hp.read_text(encoding="utf-8")) if hp.exists() else {"daily": {}}
     fetched = dt.datetime.fromisoformat(th["fetched_at"].replace("Z", "+00:00"))
-    groups, projects, t = model(th, nq)
+    cp = ROOT / "cds_mtqg.json"
+    cds = json.loads(cp.read_text(encoding="utf-8")) if cp.exists() else None
+    groups, projects, t = model(th, nq, cds)
     hist = update_history(hist, groups, fetched.astimezone(TZ).date())
     hp.write_text(json.dumps(hist, ensure_ascii=False, indent=0, sort_keys=True), encoding="utf-8")
     out, summary = render(groups, projects, t, hist, fetched)
