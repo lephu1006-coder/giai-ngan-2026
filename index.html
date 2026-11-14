@@ -164,7 +164,7 @@ h2::before{content:"";flex:none;width:6px;height:26px;background:var(--brand-red
 .bar i{position:absolute;left:0;top:0;bottom:0;border-radius:9999px}
 .bar em{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink-strong)}
 .bar-sm{height:8px}
-.fill-done{background:#2f6f8f}.fill-ok{background:var(--accent-green-text)}.fill-warn{background:#c9950a}.fill-late{background:var(--brand-red)}.fill-neutral{background:var(--line-strong)}
+.fill-new{background:#2bb3c8}.fill-done{background:#2f6f8f}.fill-ok{background:var(--accent-green-text)}.fill-warn{background:#c9950a}.fill-late{background:var(--brand-red)}.fill-neutral{background:var(--line-strong)}
 .blegend{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s5);margin:0 0 var(--s4);font-size:13px;color:var(--ink-muted)}
 .blegend span{display:inline-flex;align-items:center;gap:6px}
 .blegend i{display:inline-block;width:18px;height:8px;border-radius:9999px}
@@ -183,7 +183,7 @@ h2::before{content:"";flex:none;width:6px;height:26px;background:var(--brand-red
 .tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:var(--s4)}
 .tile{border:1px solid var(--line);border-radius:var(--r-lg);background:#fff;border-top:5px solid var(--line-strong);transition:box-shadow .15s}
 .tile:hover{box-shadow:0 4px 14px rgba(59,42,32,.10)}
-.tile-done{border-top-color:#2f6f8f}.tile-ok{border-top-color:var(--accent-green-text)}.tile-warn{border-top-color:#c9950a}.tile-late{border-top-color:var(--brand-red)}
+.tile-new{border-top-color:#2bb3c8}.tile-done{border-top-color:#2f6f8f}.tile-ok{border-top-color:var(--accent-green-text)}.tile-warn{border-top-color:#c9950a}.tile-late{border-top-color:var(--brand-red)}
 .tile summary{list-style:none;cursor:pointer;display:flex;flex-direction:column;gap:var(--s2);padding:var(--s4)}
 .tile summary::-webkit-details-marker{display:none}
 .tile-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(--s2);align-items:center}
@@ -198,6 +198,7 @@ h2::before{content:"";flex:none;width:6px;height:26px;background:var(--brand-red
 .badge-ok{background:var(--status-ok-bg);color:var(--accent-green-text)}
 .badge-warn{background:var(--status-warn-bg);color:var(--status-warn-text)}
 .badge-late{background:var(--status-late-bg);color:var(--accent-red-text)}
+.badge-new{background:#dff4f7;color:#11707e}
 .badge-done{background:#dcebf2;color:#1f5670}
 .badge-neutral{background:var(--surface-sunken);color:var(--ink-muted)}
 
@@ -299,19 +300,19 @@ footer .slogan{color:var(--brand-green)}
 
 <main>
 <div class="wrap">
-  <p class="lead">Đến ngày 14/11/2026, phường đã giải ngân 64,52 tỷ đồng, đạt 36,8% tổng kế hoạch vốn năm 2026 (175,4 tỷ đồng); tiến độ thời gian đã qua 80,3%. Vốn cấp trên giao đạt 43,7% (49,83 tỷ đồng/114,1 tỷ đồng), vốn HĐND phường giao đạt 24,0% (14,69 tỷ đồng/61,32 tỷ đồng; phần giao trước ngày 30/9/2026 đạt 42,8%). Tuần này giải ngân thêm 0,36 tỷ đồng, từ đầu tháng 11 là 30,38 tỷ đồng. Để giải ngân hết kế hoạch đúng hạn, bình quân mỗi ngày làm việc cần giải ngân khoảng 1,65 tỷ đồng, riêng vốn cấp trên giao là 1,20 tỷ đồng. 4 dự án vốn cấp trên mới giao (chưa đủ 60 ngày) được xếp cấp bách, cần tập trung giải ngân ngay. 1 dự án đã quyết toán, còn 81.686.000 đồng vốn dư đã đề nghị cấp có thẩm quyền điều chỉnh giảm, không tính vào số vốn còn phải giải ngân. Trong tổng kế hoạch có 26,98 tỷ đồng HĐND phường bổ sung sau ngày 30/9/2026, đang chờ UBND phường giao chi tiết.</p>
+  <p class="lead">Đến ngày 14/11/2026, phường đã giải ngân 64,52 tỷ đồng, đạt 36,8% tổng kế hoạch vốn năm 2026 (175,4 tỷ đồng); tiến độ thời gian đã qua 80,3%. Vốn cấp trên giao đạt 43,7% (49,83 tỷ đồng/114,1 tỷ đồng), vốn HĐND phường giao đạt 24,0% (14,69 tỷ đồng/61,32 tỷ đồng; phần giao trước ngày 30/9/2026 đạt 42,8%). Tuần này giải ngân thêm 0,36 tỷ đồng, từ đầu tháng 11 là 30,38 tỷ đồng. Để giải ngân hết kế hoạch đúng hạn, bình quân mỗi ngày làm việc cần giải ngân khoảng 1,65 tỷ đồng, riêng vốn cấp trên giao là 1,20 tỷ đồng. 4 dự án vốn cấp trên mới giao (chưa đủ 60 ngày) được xếp cấp bách, cần tập trung giải ngân ngay. 1 dự án đã quyết toán, còn 81.686.000 đồng vốn dư đã đề nghị cấp có thẩm quyền điều chỉnh giảm, không tính vào số vốn còn phải giải ngân. Trong tổng kế hoạch có 24,82 tỷ đồng HĐND phường bổ sung sau ngày 30/9/2026, đang chờ UBND phường giao chi tiết.</p>
 
   <section aria-labelledby="cap-giao">
     <h2 id="cap-giao">Theo cấp giao vốn</h2>
     <p class="sub">Kế hoạch năm 2026 gồm nhiều nguồn, giao ở nhiều thời điểm, nên tách theo cấp giao vốn. Khối A là vốn cấp trên giao, tính vào KPI và phải giải ngân hết trong năm 2026. Khối B là ngân sách phường, tính theo các nghị quyết HĐND phường đã phân bổ chi tiết cho dự án, tách phần giao trước và bổ sung sau ngày 30/9/2026; phần HĐND đã phân bổ nhưng UBND phường chưa giao chi tiết vẫn tính vào kế hoạch, được đánh dấu "Chờ UBND giao chi tiết".</p>
     <div class="kpis kpis-3">
-      <div class="kpi k-red"><p class="kpi-label">Tổng cộng toàn phường</p><p class="kpi-value">36,8%</p><p class="kpi-sub">64,52 tỷ đồng / 175,4 tỷ đồng</p><p class="kpi-note">Còn 110,8 tỷ đồng; trong đó 26,98 tỷ đồng chờ UBND giao chi tiết</p></div><div class="kpi k-gold"><p class="kpi-label">A. Vốn cấp trên giao</p><p class="kpi-value">43,7%</p><p class="kpi-sub">49,83 tỷ đồng / 114,1 tỷ đồng</p><p class="kpi-note">Tính vào KPI, phải giải ngân hết kế hoạch năm 2026. Còn 64,15 tỷ đồng, mỗi ngày làm việc cần 1,20 tỷ đồng</p></div><div class="kpi k-brown"><p class="kpi-label">B. Vốn HĐND phường giao</p><p class="kpi-value">24,0%</p><p class="kpi-sub">14,69 tỷ đồng / 61,32 tỷ đồng</p><ul class="kpi-split"><li><span>Giao trước ngày 30/9/2026</span><b>42,8%</b><small>14,69 tỷ đồng / 34,34 tỷ đồng</small></li><li><span>Bổ sung sau ngày 30/9/2026</span><b>0,0%</b><small>0,00 tỷ đồng / 26,98 tỷ đồng · chờ UBND giao chi tiết 26,98 tỷ đồng</small></li></ul></div>
+      <div class="kpi k-red"><p class="kpi-label">Tổng cộng toàn phường</p><p class="kpi-value">36,8%</p><p class="kpi-sub">64,52 tỷ đồng / 175,4 tỷ đồng</p><p class="kpi-note">Còn 110,8 tỷ đồng; trong đó 24,82 tỷ đồng chờ UBND giao chi tiết</p></div><div class="kpi k-gold"><p class="kpi-label">A. Vốn cấp trên giao</p><p class="kpi-value">43,7%</p><p class="kpi-sub">49,83 tỷ đồng / 114,1 tỷ đồng</p><p class="kpi-note">Tính vào KPI, phải giải ngân hết kế hoạch năm 2026. Còn 64,15 tỷ đồng, mỗi ngày làm việc cần 1,20 tỷ đồng</p></div><div class="kpi k-brown"><p class="kpi-label">B. Vốn HĐND phường giao</p><p class="kpi-value">24,0%</p><p class="kpi-sub">14,69 tỷ đồng / 61,32 tỷ đồng</p><ul class="kpi-split"><li><span>Giao trước ngày 30/9/2026</span><b>42,8%</b><small>14,69 tỷ đồng / 34,34 tỷ đồng</small></li><li><span>Bổ sung sau ngày 30/9/2026</span><b>0,0%</b><small>0,00 tỷ đồng / 26,98 tỷ đồng · chờ UBND giao chi tiết 24,82 tỷ đồng</small></li></ul></div>
     </div>
   </section>
 
   <section aria-labelledby="luy-ke">
     <h2 id="luy-ke">Giải ngân theo kỳ</h2>
-    <p class="sub">Số giải ngân trong tuần, tháng, quý hiện tại và lũy kế từ đầu năm. Tỷ lệ lũy kế tính trên tổng kế hoạch vốn 175,4 tỷ đồng (trong đó 26,98 tỷ đồng chờ UBND giao chi tiết).</p>
+    <p class="sub">Số giải ngân trong tuần, tháng, quý hiện tại và lũy kế từ đầu năm. Tỷ lệ lũy kế tính trên tổng kế hoạch vốn 175,4 tỷ đồng (trong đó 24,82 tỷ đồng chờ UBND giao chi tiết).</p>
     <div class="kpis">
       <div class="kpi"><p class="kpi-label">Tuần 46 (09/11–15/11)</p><p class="kpi-value">0,36 tỷ đồng</p><p class="kpi-note">Tuần trước 30,02 tỷ đồng</p></div>
       <div class="kpi k-gold"><p class="kpi-label">Tháng 11</p><p class="kpi-value">30,38 tỷ đồng</p><p class="kpi-note">Tháng trước 15,29 tỷ đồng</p></div>
@@ -363,7 +364,7 @@ footer .slogan{color:var(--brand-green)}
 
   <section aria-labelledby="theo-nguon">
     <h2 id="theo-nguon">Theo nguồn vốn</h2>
-    <div class="blegend"><span><i class="fill-ok"></i>Đạt tiến độ</span><span><i class="fill-warn"></i>Chậm tiến độ</span><span><i class="fill-late"></i>Cấp bách (vốn cấp trên giao chưa đủ 60 ngày)</span><span><i class="fill-neutral"></i>Chờ UBND giao chi tiết</span><span><i class="fill-done"></i>Đã quyết toán (vốn dư đã đề nghị điều chỉnh giảm)</span><span><em></em>Tiến độ thời gian tính từ ngày giao vốn đến hạn</span></div>
+    <div class="blegend"><span><i class="fill-ok"></i>Đạt tiến độ</span><span><i class="fill-warn"></i>Chậm tiến độ</span><span><i class="fill-late"></i>Cấp bách (vốn cấp trên giao chưa đủ 60 ngày)</span><span><i class="fill-new"></i>Mới giao chi tiết (vốn HĐND phường, UBND phường giao chưa đủ 60 ngày)</span><span><i class="fill-neutral"></i>Chờ UBND giao chi tiết</span><span><i class="fill-done"></i>Đã quyết toán (vốn dư đã đề nghị điều chỉnh giảm)</span><span><em></em>Tiến độ thời gian tính từ ngày giao vốn đến hạn</span></div>
     <div class="sources">
 <h3 class="khoi-h"><span class="khoi-tag">A</span>Vốn cấp trên giao<small>Tính vào KPI, phải giải ngân hết kế hoạch năm 2026</small></h3>
 <div class="src">
@@ -384,7 +385,7 @@ footer .slogan{color:var(--brand-green)}
 <div class="src">
   <div class="src-top"><span class="src-name"><span class="src-no">A4</span>Vốn chuyển đổi số, ngân sách tỉnh bổ sung có mục tiêu</span><span class="src-right"><span class="badge badge-late">Cấp bách</span><span class="src-pct">0,0%</span></span></div>
   <div class="bar" role="img" aria-label="Vốn chuyển đổi số, ngân sách tỉnh bổ sung có mục tiêu: 0,0%"><i class="fill-late" style="width:0.00%"></i><em style="left:calc(36.59% - 1px)" title="Tiến độ thời gian từ ngày giao 36,6%"></em></div>
-  <p class="src-meta">0,00 tỷ đồng / 4,29 tỷ đồng · giao từ ngày 30/09/2026, hạn 31/01/2027 · 2 dự án · Quyết định số 3164/QĐ-UBND ngày 30/9/2026 và số 3392/QĐ-UBND ngày 22/10/2026 của UBND tỉnh</p>
+  <p class="src-meta">0,00 tỷ đồng / 4,29 tỷ đồng · giao từ ngày 30/09/2026, hạn 31/01/2027 · 2 dự án · Quyết định số 3164/QĐ-UBND ngày 30/9/2026 và số 3392/QĐ-UBND ngày 22/10/2026 của UBND tỉnh; UBND phường giao chi tiết chuẩn bị đầu tư tại Quyết định số 2021/QĐ-UBND ngày 05/11/2026 và số 2057/QĐ-UBND ngày 11/11/2026</p>
 </div>
 <div class="src">
   <div class="src-top"><span class="src-name"><span class="src-no">A5</span>Vốn Chương trình mục tiêu quốc gia năm 2026 và vốn đối ứng ngân sách phường</span><span class="src-right"><span class="badge badge-late">Cấp bách</span><span class="src-pct">0,0%</span></span></div>
@@ -400,9 +401,9 @@ footer .slogan{color:var(--brand-green)}
 </div>
 <p class="sub-h">Bổ sung sau ngày 30/9/2026<span>0,0% · 0,00 tỷ đồng / 26,98 tỷ đồng</span></p>
 <div class="src">
-  <div class="src-top"><span class="src-name"><span class="src-no">B2</span>Bổ sung kế hoạch vốn năm 2026 (tiền sử dụng đất)</span><span class="src-right"><span class="badge badge-neutral">Chờ UBND giao chi tiết</span><span class="src-pct">0,0%</span></span></div>
-  <div class="bar" role="img" aria-label="Bổ sung kế hoạch vốn năm 2026 (tiền sử dụng đất): 0,0%"><i class="fill-neutral" style="width:0.00%"></i></div>
-  <p class="src-meta">0,00 tỷ đồng / 18,40 tỷ đồng · HĐND phường phân bổ ngày 06/10/2026, UBND phường chưa giao chi tiết · 10 dự án · Nghị quyết số 27/NQ-HĐND ngày 06/10/2026 của HĐND phường</p>
+  <div class="src-top"><span class="src-name"><span class="src-no">B2</span>Bổ sung kế hoạch vốn năm 2026 (tiền sử dụng đất)</span><span class="src-right"><span class="badge badge-new">Mới giao chi tiết</span><span class="src-pct">0,0%</span></span></div>
+  <div class="bar" role="img" aria-label="Bổ sung kế hoạch vốn năm 2026 (tiền sử dụng đất): 0,0%"><i class="fill-new" style="width:0.00%"></i><em style="left:calc(2.60% - 1px)" title="Tiến độ thời gian từ ngày giao 2,6%"></em></div>
+  <p class="src-meta">0,00 tỷ đồng / 18,40 tỷ đồng · giao từ ngày 03/11/2026, hạn 31/12/2027; UBND phường đã giao chi tiết 2,16 tỷ đồng để chuẩn bị đầu tư, còn 16,24 tỷ đồng chờ giao chi tiết · 10 dự án · Nghị quyết số 27/NQ-HĐND ngày 06/10/2026 của HĐND phường; UBND phường giao chi tiết đợt 1 (chuẩn bị đầu tư) tại Quyết định số 1994/QĐ-UBND ngày 03/11/2026</p>
 </div>
 <div class="src">
   <div class="src-top"><span class="src-name"><span class="src-no">B3</span>Phân bổ bổ sung kế hoạch vốn năm 2026, ngân sách phường (tiền sử dụng đất)</span><span class="src-right"><span class="badge badge-neutral">Chờ UBND giao chi tiết</span><span class="src-pct">0,0%</span></span></div>
@@ -414,10 +415,10 @@ footer .slogan{color:var(--brand-green)}
 
   <section aria-labelledby="du-an">
     <h2 id="du-an">Theo dự án</h2>
-    <p class="sub">Bấm vào từng thẻ để xem số chi tiết. Có 4 dự án đạt tiến độ, 10 chậm tiến độ, 4 cấp bách, 1 đã quyết toán và 16 dự án chờ UBND giao chi tiết kế hoạch vốn.</p>
+    <p class="sub">Bấm vào từng thẻ để xem số chi tiết. Có 4 dự án đạt tiến độ, 10 chậm tiến độ, 4 cấp bách, 10 mới giao chi tiết, 1 đã quyết toán và 6 dự án chờ UBND giao chi tiết kế hoạch vốn.</p>
     <div class="filters" role="group" aria-label="Lọc theo cấp giao vốn"><button type="button" class="chip all" data-f="khoi" data-v="" aria-pressed="true">Cả hai khối</button><button type="button" class="chip" data-f="khoi" data-v="A">A. Vốn cấp trên giao</button><button type="button" class="chip" data-f="khoi" data-v="B">B. Vốn HĐND phường giao</button></div>
     <div class="filters" role="group" aria-label="Lọc theo nguồn vốn"><button type="button" class="chip all" data-f="nhom" data-v="" aria-pressed="true">Tất cả nguồn vốn</button><button type="button" class="chip" data-f="nhom" data-v="I">A1. Vốn 2025 kéo dài</button><button type="button" class="chip" data-f="nhom" data-v="II">A2. KH 2026 giao mới</button><button type="button" class="chip" data-f="nhom" data-v="IV">A3. Ngân sách tỉnh bổ sung</button><button type="button" class="chip" data-f="nhom" data-v="VI">A4. Chuyển đổi số</button><button type="button" class="chip" data-f="nhom" data-v="VII">A5. CT mục tiêu quốc gia</button><button type="button" class="chip" data-f="nhom" data-v="III">B1. Ngân sách phường</button><button type="button" class="chip" data-f="nhom" data-v="V">B2. Bổ sung NQ 27</button><button type="button" class="chip" data-f="nhom" data-v="VIII">B3. Bổ sung NQ 31</button></div>
-    <div class="filters" role="group" aria-label="Lọc theo đánh giá"><button type="button" class="chip all" data-f="xl" data-v="" aria-pressed="true">Mọi mức đánh giá</button><button type="button" class="chip" data-f="xl" data-v="Đạt tiến độ">Đạt tiến độ · 4</button><button type="button" class="chip" data-f="xl" data-v="Chậm tiến độ">Chậm tiến độ · 10</button><button type="button" class="chip" data-f="xl" data-v="Cấp bách">Cấp bách · 4</button><button type="button" class="chip" data-f="xl" data-v="Chờ UBND giao chi tiết">Chờ UBND giao chi tiết · 16</button><button type="button" class="chip" data-f="xl" data-v="Đã quyết toán">Đã quyết toán · 1</button></div>
+    <div class="filters" role="group" aria-label="Lọc theo đánh giá"><button type="button" class="chip all" data-f="xl" data-v="" aria-pressed="true">Mọi mức đánh giá</button><button type="button" class="chip" data-f="xl" data-v="Đạt tiến độ">Đạt tiến độ · 4</button><button type="button" class="chip" data-f="xl" data-v="Chậm tiến độ">Chậm tiến độ · 10</button><button type="button" class="chip" data-f="xl" data-v="Cấp bách">Cấp bách · 4</button><button type="button" class="chip" data-f="xl" data-v="Mới giao chi tiết">Mới giao chi tiết · 10</button><button type="button" class="chip" data-f="xl" data-v="Chờ UBND giao chi tiết">Chờ UBND giao chi tiết · 6</button><button type="button" class="chip" data-f="xl" data-v="Đã quyết toán">Đã quyết toán · 1</button></div>
     <p class="count" aria-live="polite"></p>
     <div class="tiles">
 <details class="tile tile-warn" data-khoi="A" data-nhom="I" data-xl="Chậm tiến độ">
@@ -508,7 +509,7 @@ footer .slogan{color:var(--brand-green)}
     <span class="tile-big">0,0%</span>
     <span class="bar bar-sm"><i class="fill-late" style="width:0.00%"></i><em style="left:calc(36.59% - 1px)"></em></span>
   </summary>
-  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>1.528.000.000 đ</dd></div><div><dt>Đã giải ngân</dt><dd>0 đ</dd></div><div><dt>Còn lại</dt><dd>1.528.000.000 đ</dd></div><div><dt>Ngày giao vốn</dt><dd>30/09/2026</dd></div><div><dt>Hạn giải ngân</dt><dd>31/01/2027</dd></div><div><dt>Tiến độ thời gian</dt><dd>36,6%</dd></div><div class="wide"><dt>Tình hình thực hiện</dt><dd>Đang tiến hành các bước thực hiện phê duyệt kế hoạch lựa chọn nhà thầu bước chuẩn bị đầu tư Dự án: Đầu tư trang thiết bị công nghệ thông tin phục vụ hoạt động chuyển đổi số trên địa bàn phường Tân Lập (QĐ số 80/QĐ-VHXH ngày 4/11/2026)</dd></div></dl>
+  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>1.528.000.000 đ</dd></div><div><dt>Đã giải ngân</dt><dd>0 đ</dd></div><div><dt>Còn lại</dt><dd>1.528.000.000 đ</dd></div><div><dt>Đã giao chi tiết</dt><dd>53.000.000 đ</dd></div><div><dt>Ngày giao vốn</dt><dd>30/09/2026</dd></div><div><dt>Hạn giải ngân</dt><dd>31/01/2027</dd></div><div><dt>Tiến độ thời gian</dt><dd>36,6%</dd></div><div class="wide"><dt>Tình hình thực hiện</dt><dd>Đang tiến hành các bước thực hiện phê duyệt kế hoạch lựa chọn nhà thầu bước chuẩn bị đầu tư Dự án: Đầu tư trang thiết bị công nghệ thông tin phục vụ hoạt động chuyển đổi số trên địa bàn phường Tân Lập (QĐ số 80/QĐ-VHXH ngày 4/11/2026) UBND phường đã giao chi tiết 53.000.000 đồng để thực hiện chuẩn bị đầu tư tại Quyết định số 2021/QĐ-UBND ngày 05/11/2026 của UBND phường (đợt 01, chuẩn bị đầu tư); phần còn lại giao khi dự án được phê duyệt.</dd></div></dl>
 </details>
 <details class="tile tile-late" data-khoi="A" data-nhom="VI" data-xl="Cấp bách">
   <summary>
@@ -517,7 +518,7 @@ footer .slogan{color:var(--brand-green)}
     <span class="tile-big">0,0%</span>
     <span class="bar bar-sm"><i class="fill-late" style="width:0.00%"></i><em style="left:calc(22.77% - 1px)"></em></span>
   </summary>
-  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>2.758.000.000 đ</dd></div><div><dt>Đã giải ngân</dt><dd>0 đ</dd></div><div><dt>Còn lại</dt><dd>2.758.000.000 đ</dd></div><div><dt>Ngày giao vốn</dt><dd>22/10/2026</dd></div><div><dt>Hạn giải ngân</dt><dd>31/01/2027</dd></div><div><dt>Tiến độ thời gian</dt><dd>22,8%</dd></div><div class="wide"><dt>Tình hình thực hiện</dt><dd>Đang tiến hành các bước thực hiện theo quy định. (UBND phường Tân Lập đã ban hành QĐ số 1928 ngày 27/10/2026 về chủ trương đầu tư Dự án)</dd></div></dl>
+  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>2.758.000.000 đ</dd></div><div><dt>Đã giải ngân</dt><dd>0 đ</dd></div><div><dt>Còn lại</dt><dd>2.758.000.000 đ</dd></div><div><dt>Đã giao chi tiết</dt><dd>115.273.161 đ</dd></div><div><dt>Ngày giao vốn</dt><dd>22/10/2026</dd></div><div><dt>Hạn giải ngân</dt><dd>31/01/2027</dd></div><div><dt>Tiến độ thời gian</dt><dd>22,8%</dd></div><div class="wide"><dt>Tình hình thực hiện</dt><dd>Đang tiến hành các bước thực hiện theo quy định. (UBND phường Tân Lập đã ban hành QĐ số 1928 ngày 27/10/2026 về chủ trương đầu tư Dự án) UBND phường đã giao chi tiết 115.273.161 đồng để thực hiện chuẩn bị đầu tư tại Quyết định số 2057/QĐ-UBND ngày 11/11/2026 của UBND phường (đợt 01, chuẩn bị đầu tư); phần còn lại giao khi dự án được phê duyệt.</dd></div></dl>
 </details>
 <details class="tile tile-late" data-khoi="A" data-nhom="VII" data-xl="Cấp bách">
   <summary>
@@ -591,95 +592,95 @@ footer .slogan{color:var(--brand-green)}
   </summary>
   <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>10.000.000.000 đ</dd></div><div><dt>Đã giải ngân</dt><dd>0 đ</dd></div><div><dt>Còn lại</dt><dd>10.000.000.000 đ</dd></div><div><dt>Ngày giao vốn</dt><dd>17/06/2026</dd></div><div><dt>Hạn giải ngân</dt><dd>31/01/2027</dd></div><div><dt>Tiến độ thời gian</dt><dd>65,8%</dd></div></dl>
 </details>
-<details class="tile tile-neutral" data-khoi="B" data-nhom="V" data-xl="Chờ UBND giao chi tiết">
+<details class="tile tile-new" data-khoi="B" data-nhom="V" data-xl="Mới giao chi tiết">
   <summary>
-    <span class="tile-top"><span class="tile-grp">B2 · Bổ sung NQ 27</span><span class="badge badge-neutral">Chờ UBND giao chi tiết</span></span>
-    <span class="tile-name">Trường TH – THCS Nguyễn Văn Cừ</span>
+    <span class="tile-top"><span class="tile-grp">B2 · Bổ sung NQ 27</span><span class="badge badge-new">Mới giao chi tiết</span></span>
+    <span class="tile-name">Trường TH - THCS Nguyễn Văn Cừ</span>
     <span class="tile-big">0,0%</span>
-    <span class="bar bar-sm"><i class="fill-neutral" style="width:0.00%"></i></span>
+    <span class="bar bar-sm"><i class="fill-new" style="width:0.00%"></i><em style="left:calc(2.60% - 1px)"></em></span>
   </summary>
-  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>4.000.000.000 đ</dd></div><div><dt>Đã giải ngân</dt><dd>0 đ</dd></div><div><dt>Còn lại</dt><dd>4.000.000.000 đ</dd></div><div><dt>Ngày phân bổ</dt><dd>06/10/2026</dd></div><div><dt>Hạn giải ngân</dt><dd>31/12/2027</dd></div><div><dt>Tiến độ thời gian</dt><dd></dd></div></dl>
+  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>4.000.000.000 đ</dd></div><div><dt>Đã giải ngân</dt><dd>0 đ</dd></div><div><dt>Còn lại</dt><dd>4.000.000.000 đ</dd></div><div><dt>Đã giao chi tiết</dt><dd>392.000.000 đ</dd></div><div><dt>Ngày giao vốn</dt><dd>03/11/2026</dd></div><div><dt>Hạn giải ngân</dt><dd>31/12/2027</dd></div><div><dt>Tiến độ thời gian</dt><dd>2,6%</dd></div><div class="wide"><dt>Tình hình thực hiện</dt><dd>UBND phường đã giao chi tiết 392.000.000 đồng để thực hiện chuẩn bị đầu tư tại Quyết định số 1994/QĐ-UBND ngày 03/11/2026 của UBND phường (đợt 1, chuẩn bị đầu tư); phần còn lại giao khi dự án được phê duyệt.</dd></div></dl>
 </details>
-<details class="tile tile-neutral" data-khoi="B" data-nhom="V" data-xl="Chờ UBND giao chi tiết">
+<details class="tile tile-new" data-khoi="B" data-nhom="V" data-xl="Mới giao chi tiết">
   <summary>
-    <span class="tile-top"><span class="tile-grp">B2 · Bổ sung NQ 27</span><span class="badge badge-neutral">Chờ UBND giao chi tiết</span></span>
-    <span class="tile-name">Cải tạo chỉnh trang 06 trục đường hẻm Hùng Vương, Ama Khê</span>
+    <span class="tile-top"><span class="tile-grp">B2 · Bổ sung NQ 27</span><span class="badge badge-new">Mới giao chi tiết</span></span>
+    <span class="tile-name">Cải tạo các đường hẻm Hùng Vương – Ama Khê</span>
     <span class="tile-big">0,0%</span>
-    <span class="bar bar-sm"><i class="fill-neutral" style="width:0.00%"></i></span>
+    <span class="bar bar-sm"><i class="fill-new" style="width:0.00%"></i><em style="left:calc(2.60% - 1px)"></em></span>
   </summary>
-  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>1.000.000.000 đ</dd></div><div><dt>Đã giải ngân</dt><dd>0 đ</dd></div><div><dt>Còn lại</dt><dd>1.000.000.000 đ</dd></div><div><dt>Ngày phân bổ</dt><dd>06/10/2026</dd></div><div><dt>Hạn giải ngân</dt><dd>31/12/2027</dd></div><div><dt>Tiến độ thời gian</dt><dd></dd></div></dl>
+  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>1.000.000.000 đ</dd></div><div><dt>Đã giải ngân</dt><dd>0 đ</dd></div><div><dt>Còn lại</dt><dd>1.000.000.000 đ</dd></div><div><dt>Đã giao chi tiết</dt><dd>251.000.000 đ</dd></div><div><dt>Ngày giao vốn</dt><dd>03/11/2026</dd></div><div><dt>Hạn giải ngân</dt><dd>31/12/2027</dd></div><div><dt>Tiến độ thời gian</dt><dd>2,6%</dd></div><div class="wide"><dt>Tình hình thực hiện</dt><dd>UBND phường đã giao chi tiết 251.000.000 đồng để thực hiện chuẩn bị đầu tư tại Quyết định số 1994/QĐ-UBND ngày 03/11/2026 của UBND phường (đợt 1, chuẩn bị đầu tư); phần còn lại giao khi dự án được phê duyệt.</dd></div></dl>
 </details>
-<details class="tile tile-neutral" data-khoi="B" data-nhom="V" data-xl="Chờ UBND giao chi tiết">
+<details class="tile tile-new" data-khoi="B" data-nhom="V" data-xl="Mới giao chi tiết">
   <summary>
-    <span class="tile-top"><span class="tile-grp">B2 · Bổ sung NQ 27</span><span class="badge badge-neutral">Chờ UBND giao chi tiết</span></span>
+    <span class="tile-top"><span class="tile-grp">B2 · Bổ sung NQ 27</span><span class="badge badge-new">Mới giao chi tiết</span></span>
     <span class="tile-name">Cải tạo đường Nguyễn Đình Thi</span>
     <span class="tile-big">0,0%</span>
-    <span class="bar bar-sm"><i class="fill-neutral" style="width:0.00%"></i></span>
+    <span class="bar bar-sm"><i class="fill-new" style="width:0.00%"></i><em style="left:calc(2.60% - 1px)"></em></span>
   </summary>
-  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>2.000.000.000 đ</dd></div><div><dt>Đã giải ngân</dt><dd>0 đ</dd></div><div><dt>Còn lại</dt><dd>2.000.000.000 đ</dd></div><div><dt>Ngày phân bổ</dt><dd>06/10/2026</dd></div><div><dt>Hạn giải ngân</dt><dd>31/12/2027</dd></div><div><dt>Tiến độ thời gian</dt><dd></dd></div></dl>
+  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>2.000.000.000 đ</dd></div><div><dt>Đã giải ngân</dt><dd>0 đ</dd></div><div><dt>Còn lại</dt><dd>2.000.000.000 đ</dd></div><div><dt>Đã giao chi tiết</dt><dd>200.000.000 đ</dd></div><div><dt>Ngày giao vốn</dt><dd>03/11/2026</dd></div><div><dt>Hạn giải ngân</dt><dd>31/12/2027</dd></div><div><dt>Tiến độ thời gian</dt><dd>2,6%</dd></div><div class="wide"><dt>Tình hình thực hiện</dt><dd>UBND phường đã giao chi tiết 200.000.000 đồng để thực hiện chuẩn bị đầu tư tại Quyết định số 1994/QĐ-UBND ngày 03/11/2026 của UBND phường (đợt 1, chuẩn bị đầu tư); phần còn lại giao khi dự án được phê duyệt.</dd></div></dl>
 </details>
-<details class="tile tile-neutral" data-khoi="B" data-nhom="V" data-xl="Chờ UBND giao chi tiết">
+<details class="tile tile-new" data-khoi="B" data-nhom="V" data-xl="Mới giao chi tiết">
   <summary>
-    <span class="tile-top"><span class="tile-grp">B2 · Bổ sung NQ 27</span><span class="badge badge-neutral">Chờ UBND giao chi tiết</span></span>
+    <span class="tile-top"><span class="tile-grp">B2 · Bổ sung NQ 27</span><span class="badge badge-new">Mới giao chi tiết</span></span>
     <span class="tile-name">Cải tạo đường Má Hai</span>
     <span class="tile-big">0,0%</span>
-    <span class="bar bar-sm"><i class="fill-neutral" style="width:0.00%"></i></span>
+    <span class="bar bar-sm"><i class="fill-new" style="width:0.00%"></i><em style="left:calc(2.60% - 1px)"></em></span>
   </summary>
-  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>1.300.000.000 đ</dd></div><div><dt>Đã giải ngân</dt><dd>0 đ</dd></div><div><dt>Còn lại</dt><dd>1.300.000.000 đ</dd></div><div><dt>Ngày phân bổ</dt><dd>06/10/2026</dd></div><div><dt>Hạn giải ngân</dt><dd>31/12/2027</dd></div><div><dt>Tiến độ thời gian</dt><dd></dd></div></dl>
+  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>1.300.000.000 đ</dd></div><div><dt>Đã giải ngân</dt><dd>0 đ</dd></div><div><dt>Còn lại</dt><dd>1.300.000.000 đ</dd></div><div><dt>Đã giao chi tiết</dt><dd>152.000.000 đ</dd></div><div><dt>Ngày giao vốn</dt><dd>03/11/2026</dd></div><div><dt>Hạn giải ngân</dt><dd>31/12/2027</dd></div><div><dt>Tiến độ thời gian</dt><dd>2,6%</dd></div><div class="wide"><dt>Tình hình thực hiện</dt><dd>UBND phường đã giao chi tiết 152.000.000 đồng để thực hiện chuẩn bị đầu tư tại Quyết định số 1994/QĐ-UBND ngày 03/11/2026 của UBND phường (đợt 1, chuẩn bị đầu tư); phần còn lại giao khi dự án được phê duyệt.</dd></div></dl>
 </details>
-<details class="tile tile-neutral" data-khoi="B" data-nhom="V" data-xl="Chờ UBND giao chi tiết">
+<details class="tile tile-new" data-khoi="B" data-nhom="V" data-xl="Mới giao chi tiết">
   <summary>
-    <span class="tile-top"><span class="tile-grp">B2 · Bổ sung NQ 27</span><span class="badge badge-neutral">Chờ UBND giao chi tiết</span></span>
+    <span class="tile-top"><span class="tile-grp">B2 · Bổ sung NQ 27</span><span class="badge badge-new">Mới giao chi tiết</span></span>
     <span class="tile-name">Cải tạo đường Tăng Bạt Hổ</span>
     <span class="tile-big">0,0%</span>
-    <span class="bar bar-sm"><i class="fill-neutral" style="width:0.00%"></i></span>
+    <span class="bar bar-sm"><i class="fill-new" style="width:0.00%"></i><em style="left:calc(2.60% - 1px)"></em></span>
   </summary>
-  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>2.100.000.000 đ</dd></div><div><dt>Đã giải ngân</dt><dd>0 đ</dd></div><div><dt>Còn lại</dt><dd>2.100.000.000 đ</dd></div><div><dt>Ngày phân bổ</dt><dd>06/10/2026</dd></div><div><dt>Hạn giải ngân</dt><dd>31/12/2027</dd></div><div><dt>Tiến độ thời gian</dt><dd></dd></div></dl>
+  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>2.100.000.000 đ</dd></div><div><dt>Đã giải ngân</dt><dd>0 đ</dd></div><div><dt>Còn lại</dt><dd>2.100.000.000 đ</dd></div><div><dt>Đã giao chi tiết</dt><dd>203.000.000 đ</dd></div><div><dt>Ngày giao vốn</dt><dd>03/11/2026</dd></div><div><dt>Hạn giải ngân</dt><dd>31/12/2027</dd></div><div><dt>Tiến độ thời gian</dt><dd>2,6%</dd></div><div class="wide"><dt>Tình hình thực hiện</dt><dd>UBND phường đã giao chi tiết 203.000.000 đồng để thực hiện chuẩn bị đầu tư tại Quyết định số 1994/QĐ-UBND ngày 03/11/2026 của UBND phường (đợt 1, chuẩn bị đầu tư); phần còn lại giao khi dự án được phê duyệt.</dd></div></dl>
 </details>
-<details class="tile tile-neutral" data-khoi="B" data-nhom="V" data-xl="Chờ UBND giao chi tiết">
+<details class="tile tile-new" data-khoi="B" data-nhom="V" data-xl="Mới giao chi tiết">
   <summary>
-    <span class="tile-top"><span class="tile-grp">B2 · Bổ sung NQ 27</span><span class="badge badge-neutral">Chờ UBND giao chi tiết</span></span>
+    <span class="tile-top"><span class="tile-grp">B2 · Bổ sung NQ 27</span><span class="badge badge-new">Mới giao chi tiết</span></span>
     <span class="tile-name">Cải tạo 02 trục đường hẻm Phạm Văn Đồng</span>
     <span class="tile-big">0,0%</span>
-    <span class="bar bar-sm"><i class="fill-neutral" style="width:0.00%"></i></span>
+    <span class="bar bar-sm"><i class="fill-new" style="width:0.00%"></i><em style="left:calc(2.60% - 1px)"></em></span>
   </summary>
-  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>2.500.000.000 đ</dd></div><div><dt>Đã giải ngân</dt><dd>0 đ</dd></div><div><dt>Còn lại</dt><dd>2.500.000.000 đ</dd></div><div><dt>Ngày phân bổ</dt><dd>06/10/2026</dd></div><div><dt>Hạn giải ngân</dt><dd>31/12/2027</dd></div><div><dt>Tiến độ thời gian</dt><dd></dd></div></dl>
+  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>2.500.000.000 đ</dd></div><div><dt>Đã giải ngân</dt><dd>0 đ</dd></div><div><dt>Còn lại</dt><dd>2.500.000.000 đ</dd></div><div><dt>Đã giao chi tiết</dt><dd>221.000.000 đ</dd></div><div><dt>Ngày giao vốn</dt><dd>03/11/2026</dd></div><div><dt>Hạn giải ngân</dt><dd>31/12/2027</dd></div><div><dt>Tiến độ thời gian</dt><dd>2,6%</dd></div><div class="wide"><dt>Tình hình thực hiện</dt><dd>UBND phường đã giao chi tiết 221.000.000 đồng để thực hiện chuẩn bị đầu tư tại Quyết định số 1994/QĐ-UBND ngày 03/11/2026 của UBND phường (đợt 1, chuẩn bị đầu tư); phần còn lại giao khi dự án được phê duyệt.</dd></div></dl>
 </details>
-<details class="tile tile-neutral" data-khoi="B" data-nhom="V" data-xl="Chờ UBND giao chi tiết">
+<details class="tile tile-new" data-khoi="B" data-nhom="V" data-xl="Mới giao chi tiết">
   <summary>
-    <span class="tile-top"><span class="tile-grp">B2 · Bổ sung NQ 27</span><span class="badge badge-neutral">Chờ UBND giao chi tiết</span></span>
-    <span class="tile-name">Đường Hoàng Minh Giám</span>
+    <span class="tile-top"><span class="tile-grp">B2 · Bổ sung NQ 27</span><span class="badge badge-new">Mới giao chi tiết</span></span>
+    <span class="tile-name">Đầu tư xây dựng đường Hoàng Minh Giám (đoạn khu dân cư TDP 4 đến đường Trương Quang Tuân)</span>
     <span class="tile-big">0,0%</span>
-    <span class="bar bar-sm"><i class="fill-neutral" style="width:0.00%"></i></span>
+    <span class="bar bar-sm"><i class="fill-new" style="width:0.00%"></i><em style="left:calc(2.60% - 1px)"></em></span>
   </summary>
-  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>600.000.000 đ</dd></div><div><dt>Đã giải ngân</dt><dd>0 đ</dd></div><div><dt>Còn lại</dt><dd>600.000.000 đ</dd></div><div><dt>Ngày phân bổ</dt><dd>06/10/2026</dd></div><div><dt>Hạn giải ngân</dt><dd>31/12/2027</dd></div><div><dt>Tiến độ thời gian</dt><dd></dd></div></dl>
+  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>600.000.000 đ</dd></div><div><dt>Đã giải ngân</dt><dd>0 đ</dd></div><div><dt>Còn lại</dt><dd>600.000.000 đ</dd></div><div><dt>Đã giao chi tiết</dt><dd>88.000.000 đ</dd></div><div><dt>Ngày giao vốn</dt><dd>03/11/2026</dd></div><div><dt>Hạn giải ngân</dt><dd>31/12/2027</dd></div><div><dt>Tiến độ thời gian</dt><dd>2,6%</dd></div><div class="wide"><dt>Tình hình thực hiện</dt><dd>UBND phường đã giao chi tiết 88.000.000 đồng để thực hiện chuẩn bị đầu tư tại Quyết định số 1994/QĐ-UBND ngày 03/11/2026 của UBND phường (đợt 1, chuẩn bị đầu tư); phần còn lại giao khi dự án được phê duyệt.</dd></div></dl>
 </details>
-<details class="tile tile-neutral" data-khoi="B" data-nhom="V" data-xl="Chờ UBND giao chi tiết">
+<details class="tile tile-new" data-khoi="B" data-nhom="V" data-xl="Mới giao chi tiết">
   <summary>
-    <span class="tile-top"><span class="tile-grp">B2 · Bổ sung NQ 27</span><span class="badge badge-neutral">Chờ UBND giao chi tiết</span></span>
+    <span class="tile-top"><span class="tile-grp">B2 · Bổ sung NQ 27</span><span class="badge badge-new">Mới giao chi tiết</span></span>
     <span class="tile-name">Hệ thống hội nghị truyền hình trực tuyến và các hoạt động chuyển đổi số trên địa bàn phường Tân Lập</span>
     <span class="tile-big">0,0%</span>
-    <span class="bar bar-sm"><i class="fill-neutral" style="width:0.00%"></i></span>
+    <span class="bar bar-sm"><i class="fill-new" style="width:0.00%"></i><em style="left:calc(2.60% - 1px)"></em></span>
   </summary>
-  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>2.500.000.000 đ</dd></div><div><dt>Đã giải ngân</dt><dd>0 đ</dd></div><div><dt>Còn lại</dt><dd>2.500.000.000 đ</dd></div><div><dt>Ngày phân bổ</dt><dd>06/10/2026</dd></div><div><dt>Hạn giải ngân</dt><dd>31/12/2027</dd></div><div><dt>Tiến độ thời gian</dt><dd></dd></div></dl>
+  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>2.500.000.000 đ</dd></div><div><dt>Đã giải ngân</dt><dd>0 đ</dd></div><div><dt>Còn lại</dt><dd>2.500.000.000 đ</dd></div><div><dt>Đã giao chi tiết</dt><dd>484.000.000 đ</dd></div><div><dt>Ngày giao vốn</dt><dd>03/11/2026</dd></div><div><dt>Hạn giải ngân</dt><dd>31/12/2027</dd></div><div><dt>Tiến độ thời gian</dt><dd>2,6%</dd></div><div class="wide"><dt>Tình hình thực hiện</dt><dd>UBND phường đã giao chi tiết 484.000.000 đồng để thực hiện chuẩn bị đầu tư tại Quyết định số 1994/QĐ-UBND ngày 03/11/2026 của UBND phường (đợt 1, chuẩn bị đầu tư); phần còn lại giao khi dự án được phê duyệt.</dd></div></dl>
 </details>
-<details class="tile tile-neutral" data-khoi="B" data-nhom="V" data-xl="Chờ UBND giao chi tiết">
+<details class="tile tile-new" data-khoi="B" data-nhom="V" data-xl="Mới giao chi tiết">
   <summary>
-    <span class="tile-top"><span class="tile-grp">B2 · Bổ sung NQ 27</span><span class="badge badge-neutral">Chờ UBND giao chi tiết</span></span>
+    <span class="tile-top"><span class="tile-grp">B2 · Bổ sung NQ 27</span><span class="badge badge-new">Mới giao chi tiết</span></span>
     <span class="tile-name">Đầu tư nâng cấp phòng họp không giấy tại phường Tân Lập</span>
     <span class="tile-big">0,0%</span>
-    <span class="bar bar-sm"><i class="fill-neutral" style="width:0.00%"></i></span>
+    <span class="bar bar-sm"><i class="fill-new" style="width:0.00%"></i><em style="left:calc(2.60% - 1px)"></em></span>
   </summary>
-  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>1.500.000.000 đ</dd></div><div><dt>Đã giải ngân</dt><dd>0 đ</dd></div><div><dt>Còn lại</dt><dd>1.500.000.000 đ</dd></div><div><dt>Ngày phân bổ</dt><dd>06/10/2026</dd></div><div><dt>Hạn giải ngân</dt><dd>31/12/2027</dd></div><div><dt>Tiến độ thời gian</dt><dd></dd></div></dl>
+  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>1.500.000.000 đ</dd></div><div><dt>Đã giải ngân</dt><dd>0 đ</dd></div><div><dt>Còn lại</dt><dd>1.500.000.000 đ</dd></div><div><dt>Đã giao chi tiết</dt><dd>107.000.000 đ</dd></div><div><dt>Ngày giao vốn</dt><dd>03/11/2026</dd></div><div><dt>Hạn giải ngân</dt><dd>31/12/2027</dd></div><div><dt>Tiến độ thời gian</dt><dd>2,6%</dd></div><div class="wide"><dt>Tình hình thực hiện</dt><dd>UBND phường đã giao chi tiết 107.000.000 đồng để thực hiện chuẩn bị đầu tư tại Quyết định số 1994/QĐ-UBND ngày 03/11/2026 của UBND phường (đợt 1, chuẩn bị đầu tư); phần còn lại giao khi dự án được phê duyệt.</dd></div></dl>
 </details>
-<details class="tile tile-neutral" data-khoi="B" data-nhom="V" data-xl="Chờ UBND giao chi tiết">
+<details class="tile tile-new" data-khoi="B" data-nhom="V" data-xl="Mới giao chi tiết">
   <summary>
-    <span class="tile-top"><span class="tile-grp">B2 · Bổ sung NQ 27</span><span class="badge badge-neutral">Chờ UBND giao chi tiết</span></span>
+    <span class="tile-top"><span class="tile-grp">B2 · Bổ sung NQ 27</span><span class="badge badge-new">Mới giao chi tiết</span></span>
     <span class="tile-name">Phá dỡ, hoàn trả mặt bằng Rạp chiếu bóng 10-3</span>
     <span class="tile-big">0,0%</span>
-    <span class="bar bar-sm"><i class="fill-neutral" style="width:0.00%"></i></span>
+    <span class="bar bar-sm"><i class="fill-new" style="width:0.00%"></i><em style="left:calc(2.60% - 1px)"></em></span>
   </summary>
-  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>900.000.000 đ</dd></div><div><dt>Đã giải ngân</dt><dd>0 đ</dd></div><div><dt>Còn lại</dt><dd>900.000.000 đ</dd></div><div><dt>Ngày phân bổ</dt><dd>06/10/2026</dd></div><div><dt>Hạn giải ngân</dt><dd>31/12/2027</dd></div><div><dt>Tiến độ thời gian</dt><dd></dd></div></dl>
+  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>900.000.000 đ</dd></div><div><dt>Đã giải ngân</dt><dd>0 đ</dd></div><div><dt>Còn lại</dt><dd>900.000.000 đ</dd></div><div><dt>Đã giao chi tiết</dt><dd>59.000.000 đ</dd></div><div><dt>Ngày giao vốn</dt><dd>03/11/2026</dd></div><div><dt>Hạn giải ngân</dt><dd>31/12/2027</dd></div><div><dt>Tiến độ thời gian</dt><dd>2,6%</dd></div><div class="wide"><dt>Tình hình thực hiện</dt><dd>UBND phường đã giao chi tiết 59.000.000 đồng để thực hiện chuẩn bị đầu tư tại Quyết định số 1994/QĐ-UBND ngày 03/11/2026 của UBND phường (đợt 1, chuẩn bị đầu tư); phần còn lại giao khi dự án được phê duyệt.</dd></div></dl>
 </details>
 <details class="tile tile-neutral" data-khoi="B" data-nhom="VIII" data-xl="Chờ UBND giao chi tiết">
   <summary>
@@ -773,16 +774,16 @@ footer .slogan{color:var(--brand-green)}
 <tr class="sub"><td></td><td>Cộng giao trước ngày 30/9/2026</td><td class="num">34.340.000.000</td><td class="num">14.687.668.000</td><td class="num">42,8%</td><td></td></tr>
 <tr class="grp2"><td colspan="6">Bổ sung sau ngày 30/9/2026</td></tr>
 <tr class="grp"><td colspan="6">B2. Bổ sung kế hoạch vốn năm 2026 (tiền sử dụng đất)</td></tr>
-<tr><td class="center">1</td><td>Trường TH – THCS Nguyễn Văn Cừ</td><td class="num">4.000.000.000</td><td class="num">0</td><td class="num">0,0%</td><td><span class="badge badge-neutral">Chờ UBND giao chi tiết</span></td></tr>
-<tr><td class="center">2</td><td>Cải tạo chỉnh trang 06 trục đường hẻm Hùng Vương, Ama Khê</td><td class="num">1.000.000.000</td><td class="num">0</td><td class="num">0,0%</td><td><span class="badge badge-neutral">Chờ UBND giao chi tiết</span></td></tr>
-<tr><td class="center">3</td><td>Cải tạo đường Nguyễn Đình Thi</td><td class="num">2.000.000.000</td><td class="num">0</td><td class="num">0,0%</td><td><span class="badge badge-neutral">Chờ UBND giao chi tiết</span></td></tr>
-<tr><td class="center">4</td><td>Cải tạo đường Má Hai</td><td class="num">1.300.000.000</td><td class="num">0</td><td class="num">0,0%</td><td><span class="badge badge-neutral">Chờ UBND giao chi tiết</span></td></tr>
-<tr><td class="center">5</td><td>Cải tạo đường Tăng Bạt Hổ</td><td class="num">2.100.000.000</td><td class="num">0</td><td class="num">0,0%</td><td><span class="badge badge-neutral">Chờ UBND giao chi tiết</span></td></tr>
-<tr><td class="center">6</td><td>Cải tạo 02 trục đường hẻm Phạm Văn Đồng</td><td class="num">2.500.000.000</td><td class="num">0</td><td class="num">0,0%</td><td><span class="badge badge-neutral">Chờ UBND giao chi tiết</span></td></tr>
-<tr><td class="center">7</td><td>Đường Hoàng Minh Giám</td><td class="num">600.000.000</td><td class="num">0</td><td class="num">0,0%</td><td><span class="badge badge-neutral">Chờ UBND giao chi tiết</span></td></tr>
-<tr><td class="center">8</td><td>Hệ thống hội nghị truyền hình trực tuyến và các hoạt động chuyển đổi số trên địa bàn phường Tân Lập</td><td class="num">2.500.000.000</td><td class="num">0</td><td class="num">0,0%</td><td><span class="badge badge-neutral">Chờ UBND giao chi tiết</span></td></tr>
-<tr><td class="center">9</td><td>Đầu tư nâng cấp phòng họp không giấy tại phường Tân Lập</td><td class="num">1.500.000.000</td><td class="num">0</td><td class="num">0,0%</td><td><span class="badge badge-neutral">Chờ UBND giao chi tiết</span></td></tr>
-<tr><td class="center">10</td><td>Phá dỡ, hoàn trả mặt bằng Rạp chiếu bóng 10-3</td><td class="num">900.000.000</td><td class="num">0</td><td class="num">0,0%</td><td><span class="badge badge-neutral">Chờ UBND giao chi tiết</span></td></tr>
+<tr><td class="center">1</td><td>Trường TH - THCS Nguyễn Văn Cừ</td><td class="num">4.000.000.000</td><td class="num">0</td><td class="num">0,0%</td><td><span class="badge badge-new">Mới giao chi tiết</span></td></tr>
+<tr><td class="center">2</td><td>Cải tạo các đường hẻm Hùng Vương – Ama Khê</td><td class="num">1.000.000.000</td><td class="num">0</td><td class="num">0,0%</td><td><span class="badge badge-new">Mới giao chi tiết</span></td></tr>
+<tr><td class="center">3</td><td>Cải tạo đường Nguyễn Đình Thi</td><td class="num">2.000.000.000</td><td class="num">0</td><td class="num">0,0%</td><td><span class="badge badge-new">Mới giao chi tiết</span></td></tr>
+<tr><td class="center">4</td><td>Cải tạo đường Má Hai</td><td class="num">1.300.000.000</td><td class="num">0</td><td class="num">0,0%</td><td><span class="badge badge-new">Mới giao chi tiết</span></td></tr>
+<tr><td class="center">5</td><td>Cải tạo đường Tăng Bạt Hổ</td><td class="num">2.100.000.000</td><td class="num">0</td><td class="num">0,0%</td><td><span class="badge badge-new">Mới giao chi tiết</span></td></tr>
+<tr><td class="center">6</td><td>Cải tạo 02 trục đường hẻm Phạm Văn Đồng</td><td class="num">2.500.000.000</td><td class="num">0</td><td class="num">0,0%</td><td><span class="badge badge-new">Mới giao chi tiết</span></td></tr>
+<tr><td class="center">7</td><td>Đầu tư xây dựng đường Hoàng Minh Giám (đoạn khu dân cư TDP 4 đến đường Trương Quang Tuân)</td><td class="num">600.000.000</td><td class="num">0</td><td class="num">0,0%</td><td><span class="badge badge-new">Mới giao chi tiết</span></td></tr>
+<tr><td class="center">8</td><td>Hệ thống hội nghị truyền hình trực tuyến và các hoạt động chuyển đổi số trên địa bàn phường Tân Lập</td><td class="num">2.500.000.000</td><td class="num">0</td><td class="num">0,0%</td><td><span class="badge badge-new">Mới giao chi tiết</span></td></tr>
+<tr><td class="center">9</td><td>Đầu tư nâng cấp phòng họp không giấy tại phường Tân Lập</td><td class="num">1.500.000.000</td><td class="num">0</td><td class="num">0,0%</td><td><span class="badge badge-new">Mới giao chi tiết</span></td></tr>
+<tr><td class="center">10</td><td>Phá dỡ, hoàn trả mặt bằng Rạp chiếu bóng 10-3</td><td class="num">900.000.000</td><td class="num">0</td><td class="num">0,0%</td><td><span class="badge badge-new">Mới giao chi tiết</span></td></tr>
 <tr class="grp"><td colspan="6">B3. Phân bổ bổ sung kế hoạch vốn năm 2026, ngân sách phường (tiền sử dụng đất)</td></tr>
 <tr><td class="center">1</td><td>Xây dựng cơ sở hạ tầng khu dân cư C5-C6-C7 thuộc Quy hoạch Km7, phường Tân Lập, tỉnh Đắk Lắk</td><td class="num">1.000.000.000</td><td class="num">0</td><td class="num">0,0%</td><td><span class="badge badge-neutral">Chờ UBND giao chi tiết</span></td></tr>
 <tr><td class="center">2</td><td>Trường tiểu học Nguyễn Du; Hạng mục: Nhà lớp học kết hợp nhà bộ môn và Hạ tầng kỹ thuật khác</td><td class="num">2.800.000.000</td><td class="num">0</td><td class="num">0,0%</td><td><span class="badge badge-neutral">Chờ UBND giao chi tiết</span></td></tr>
@@ -799,7 +800,7 @@ footer .slogan{color:var(--brand-green)}
   </section>
 
   <section class="notes" aria-label="Ghi chú">
-    <p>Đánh giá: so tỷ lệ giải ngân với tiến độ thời gian riêng của từng nguồn, dự án, tính từ ngày giao vốn đến hạn giải ngân. Bằng hoặc cao hơn là đạt tiến độ; thấp hơn là chậm tiến độ. Vốn cấp trên giao chưa đủ 60 ngày kể từ ngày giao mà chưa giải ngân hết được xếp cấp bách (mới giao, không đánh giá chậm, nhưng phải giải ngân hết trong năm 2026). Vốn ngân sách phường tính theo các nghị quyết HĐND phường đã phân bổ chi tiết cho dự án; phần UBND phường chưa giao chi tiết vẫn tính vào kế hoạch và tỷ lệ, được đánh dấu chờ UBND giao chi tiết. Dự án đã phê duyệt quyết toán được đánh dấu đã quyết toán; số vốn dư sau quyết toán mà UBND phường đã đề nghị cấp có thẩm quyền điều chỉnh giảm vẫn giữ trong kế hoạch vốn cho đến khi có quyết định điều chỉnh, nhưng không tính vào số vốn còn phải giải ngân và mức cần giải ngân mỗi ngày. Hạn giải ngân: vốn năm 2025 kéo dài đến 31/12/2026; kế hoạch năm 2026 đến 31/01/2027; vốn bổ sung theo Nghị quyết số 27/NQ-HĐND và số 31/NQ-HĐND đến 31/12/2027 (khoản 1 Điều 72 Luật Đầu tư công số 58/2024/QH15).</p>
+    <p>Đánh giá: so tỷ lệ giải ngân với tiến độ thời gian riêng của từng nguồn, dự án, tính từ ngày giao vốn đến hạn giải ngân. Bằng hoặc cao hơn là đạt tiến độ; thấp hơn là chậm tiến độ. Vốn cấp trên giao chưa đủ 60 ngày kể từ ngày giao mà chưa giải ngân hết được xếp cấp bách (mới giao, không đánh giá chậm, nhưng phải giải ngân hết trong năm 2026). Vốn ngân sách phường tính theo các nghị quyết HĐND phường đã phân bổ chi tiết cho dự án; phần UBND phường chưa giao chi tiết vẫn tính vào kế hoạch và tỷ lệ, được đánh dấu chờ UBND giao chi tiết; phần UBND phường đã giao chi tiết (như vốn chuẩn bị đầu tư) được đánh giá trên số đã giao, trong 60 ngày đầu ghi là mới giao chi tiết. Dự án đã phê duyệt quyết toán được đánh dấu đã quyết toán; số vốn dư sau quyết toán mà UBND phường đã đề nghị cấp có thẩm quyền điều chỉnh giảm vẫn giữ trong kế hoạch vốn cho đến khi có quyết định điều chỉnh, nhưng không tính vào số vốn còn phải giải ngân và mức cần giải ngân mỗi ngày. Hạn giải ngân: vốn năm 2025 kéo dài đến 31/12/2026; kế hoạch năm 2026 đến 31/01/2027; vốn bổ sung theo Nghị quyết số 27/NQ-HĐND và số 31/NQ-HĐND đến 31/12/2027 (khoản 1 Điều 72 Luật Đầu tư công số 58/2024/QH15).</p>
     <p>Số giải ngân theo kỳ: đến ngày 14/11/2026 tính theo ngày hoàn thành thanh toán; từ ngày 15/11/2026 tính theo ngày số liệu được cập nhật trên bảng theo dõi. Tỷ lệ lũy kế tính trên tổng kế hoạch vốn hiện hành. Danh mục 10 dự án bổ sung theo Biểu 02 kèm theo Nghị quyết số 27/NQ-HĐND ngày 06/10/2026; 06 dự án phân bổ vốn ngân sách phường và kế hoạch vốn năm 2026 của 02 dự án nhà văn hóa cộng đồng theo Biểu 02 kèm theo Nghị quyết số 31/NQ-HĐND ngày 10/11/2026 của HĐND phường.</p>
     <p>Trang được cập nhật tự động hằng ngày từ bảng theo dõi của Trung tâm Cung ứng dịch vụ sự nghiệp công phường Tân Lập và bảng số liệu giải ngân vốn chuyển đổi số, chương trình mục tiêu quốc gia. Vốn chuyển đổi số và chương trình mục tiêu quốc gia chỉ gồm các dự án đầu tư; các khoản chi thường xuyên không đưa vào trang này.</p>
   </section>
