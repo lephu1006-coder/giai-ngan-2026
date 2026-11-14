@@ -28,6 +28,7 @@ jobs:
       - name: Tải số liệu từ Google Sheet
         env:
           SHEET_CSV_URL: ${{ secrets.SHEET_CSV_URL }}
+          SHEET2_CSV_URL: ${{ secrets.SHEET2_CSV_URL }}
         run: python fetch.py
       - name: Dựng trang (dừng nếu số liệu không khớp)
         run: python build.py
@@ -35,7 +36,7 @@ jobs:
         run: |
           git config user.name "cap-nhat-tu-dong"
           git config user.email "actions@users.noreply.github.com"
-          git add tonghop.json history.json index.html og.png
+          git add tonghop.json cds_mtqg.json history.json index.html og.png
           if git diff --cached --quiet; then echo "Không có thay đổi"; exit 0; fi
           git commit -m "Cập nhật số liệu $(TZ=Asia/Ho_Chi_Minh date +%d/%m/%Y)"
           git push
