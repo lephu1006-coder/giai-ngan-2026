@@ -83,6 +83,9 @@ h2::before{content:"";flex:none;width:6px;height:26px;background:var(--brand-red
 .kpi-value{margin:var(--s2) 0 0;font-size:24px;line-height:32px;font-weight:800;color:var(--ink-strong);white-space:nowrap}
 @media (max-width:640px){.kpi-value{font-size:28px;line-height:34px}}
 .kpi-note{margin:var(--s1) 0 0;font-size:13px;line-height:19px;color:var(--ink-muted)}
+.kpi-sub{margin:2px 0 0;font-size:15px;line-height:22px;font-weight:700;color:var(--ink)}
+.kpis-3{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.kpis-3 .kpi-value{font-size:34px;line-height:40px}
 
 /* nhu cầu mỗi ngày */
 .need{display:grid;grid-template-columns:minmax(220px,300px) 1fr;gap:var(--s5);align-items:stretch}
@@ -127,7 +130,7 @@ h2::before{content:"";flex:none;width:6px;height:26px;background:var(--brand-red
 
 /* nguồn vốn */
 .sources{display:grid;gap:var(--s5)}
-.src-top{display:flex;justify-content:space-between;gap:var(--s4);align-items:baseline}
+.src-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(--s2) var(--s4);align-items:baseline}
 .src-name{font-weight:700;font-size:15px;line-height:22px;color:var(--ink-strong)}
 .src-no{display:inline-block;min-width:30px;margin-right:6px;padding:0 6px;border-radius:var(--r-sm);background:var(--brand-brown);color:#fff;font-size:12px;text-align:center}
 .src-pct{font-size:20px;font-weight:800;color:var(--ink-strong);white-space:nowrap}
@@ -141,6 +144,10 @@ h2::before{content:"";flex:none;width:6px;height:26px;background:var(--brand-red
 .blegend span{display:inline-flex;align-items:center;gap:6px}
 .blegend i{display:inline-block;width:18px;height:8px;border-radius:9999px}
 .blegend em{display:inline-block;width:2px;height:14px;background:var(--ink-strong)}
+.khoi-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;margin:var(--s3) 0 0;padding-bottom:var(--s2);border-bottom:2px solid var(--ink);font-size:17px;line-height:24px;font-weight:800;color:var(--ink-strong)}
+.khoi-h small{font-size:13px;font-weight:600;color:var(--ink-muted)}
+.khoi-tag{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:var(--r-sm);background:var(--brand-red);color:#fff;font-size:15px}
+.src-right{display:inline-flex;align-items:center;gap:var(--s3);flex:none}
 
 /* thẻ dự án */
 .filters{display:flex;flex-wrap:wrap;gap:var(--s2);margin:0 0 var(--s3)}
@@ -154,7 +161,7 @@ h2::before{content:"";flex:none;width:6px;height:26px;background:var(--brand-red
 .tile-ok{border-top-color:var(--accent-green-text)}.tile-warn{border-top-color:#c9950a}.tile-late{border-top-color:var(--brand-red)}
 .tile summary{list-style:none;cursor:pointer;display:flex;flex-direction:column;gap:var(--s2);padding:var(--s4)}
 .tile summary::-webkit-details-marker{display:none}
-.tile-top{display:flex;justify-content:space-between;gap:var(--s2);align-items:center}
+.tile-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(--s2);align-items:center}
 .tile-grp{font-size:12px;font-weight:700;color:var(--ink-muted);text-transform:uppercase;letter-spacing:.03em}
 .tile-name{font-size:14px;line-height:20px;font-weight:600;color:var(--ink-strong);min-height:40px}
 .tile-big{font-size:26px;line-height:32px;font-weight:800;color:var(--ink-strong)}
@@ -175,6 +182,8 @@ th{background:var(--brand-brown);color:#fff;font-weight:600;font-size:13px;line-
 th:first-child{border-top-left-radius:var(--r-md)}th:last-child{border-top-right-radius:var(--r-md)}
 td{padding:var(--s2) var(--s3);border-bottom:1px solid var(--line);vertical-align:top}
 tr.grp td{background:var(--surface-muted);font-weight:700;border-bottom:0}
+tr.khoi td{background:var(--cover);color:#fff;font-weight:800;letter-spacing:.02em;border-bottom:0}
+tr.sub td{font-weight:800;color:var(--ink-strong);border-top:1px solid var(--line-strong)}
 .num{text-align:right;white-space:nowrap}.center{text-align:center}.strong{font-weight:800;color:var(--ink-strong)}
 tfoot td{font-weight:700;border-top:2px solid var(--ink);border-bottom:0}
 .full{min-width:720px}
@@ -215,6 +224,14 @@ footer .slogan{color:var(--brand-green)}
 <main>
 <div class="wrap">
   <p class="lead">%%take%%</p>
+
+  <section aria-labelledby="cap-giao">
+    <h2 id="cap-giao">Theo cấp giao vốn</h2>
+    <p class="sub">Kế hoạch năm 2026 gồm nhiều nguồn, giao ở nhiều thời điểm, nên tách theo cấp giao vốn. Khối A là vốn cấp trên giao, tính vào KPI và phải giải ngân hết trong năm 2026. Khối B là ngân sách phường do HĐND phường phân bổ. Tỷ lệ tính trên kế hoạch vốn đã giao chi tiết.</p>
+    <div class="kpis kpis-3">
+      %%khoi_cards%%
+    </div>
+  </section>
 
   <section aria-labelledby="luy-ke">
     <h2 id="luy-ke">Giải ngân theo kỳ</h2>
@@ -259,7 +276,7 @@ footer .slogan{color:var(--brand-green)}
 
   <section aria-labelledby="theo-nguon">
     <h2 id="theo-nguon">Theo nguồn vốn</h2>
-    <div class="blegend"><span><i class="fill-ok"></i>Bằng hoặc nhanh hơn tiến độ thời gian</span><span><i class="fill-warn"></i>Chậm hơn tiến độ thời gian</span><span><em></em>Tiến độ thời gian đến hôm nay</span></div>
+    <div class="blegend"><span><i class="fill-ok"></i>Đạt tiến độ</span><span><i class="fill-warn"></i>Chậm tiến độ</span><span><i class="fill-late"></i>Cấp bách (vốn cấp trên giao chưa đủ %%urgent_days%% ngày)</span><span><i class="fill-neutral"></i>Chờ giao chi tiết</span><span><em></em>Tiến độ thời gian tính từ ngày giao vốn đến hạn</span></div>
     <div class="sources">
 %%sources%%
     </div>
@@ -267,7 +284,8 @@ footer .slogan{color:var(--brand-green)}
 
   <section aria-labelledby="du-an">
     <h2 id="du-an">Theo dự án</h2>
-    <p class="sub">Bấm vào từng thẻ để xem số chi tiết. Có %%cnt_tot%% dự án tốt, %%cnt_tb%% trung bình, %%cnt_cham%% chậm và %%cnt_chua%% dự án chờ giao chi tiết kế hoạch vốn.</p>
+    <p class="sub">Bấm vào từng thẻ để xem số chi tiết. Có %%cnt_dat%% dự án đạt tiến độ, %%cnt_cham%% chậm tiến độ, %%cnt_cb%% cấp bách và %%cnt_chua%% dự án chờ giao chi tiết kế hoạch vốn.</p>
+    <div class="filters" role="group" aria-label="Lọc theo cấp giao vốn"><button type="button" class="chip all" data-f="khoi" data-v="" aria-pressed="true">Cả hai khối</button>%%chips_khoi%%</div>
     <div class="filters" role="group" aria-label="Lọc theo nguồn vốn"><button type="button" class="chip all" data-f="nhom" data-v="" aria-pressed="true">Tất cả nguồn vốn</button>%%chips_nhom%%</div>
     <div class="filters" role="group" aria-label="Lọc theo đánh giá"><button type="button" class="chip all" data-f="xl" data-v="" aria-pressed="true">Mọi mức đánh giá</button>%%chips_xl%%</div>
     <p class="count" aria-live="polite"></p>
@@ -287,8 +305,8 @@ footer .slogan{color:var(--brand-green)}
   </section>
 
   <section class="notes" aria-label="Ghi chú">
-    <p>Đánh giá dự án: trên 70% là tốt; từ tỷ lệ chung của các dự án đã giao chi tiết đến 70% là trung bình; dưới tỷ lệ chung là chậm. Tiến độ thời gian tính từ ngày 01/01/2026 đến hạn giải ngân của từng nguồn: vốn năm 2025 kéo dài đến 31/12/2026; kế hoạch năm 2026 đến 31/01/2027; vốn bổ sung theo Nghị quyết số 27/NQ-HĐND đến 31/12/2027 (khoản 1 Điều 72 Luật Đầu tư công số 58/2024/QH15).</p>
-    <p>Số giải ngân theo kỳ: đến ngày 14/11/2026 tính theo ngày hoàn thành thanh toán; từ ngày 15/11/2026 tính theo ngày số liệu được cập nhật trên bảng theo dõi. Tỷ lệ lũy kế tính trên kế hoạch vốn đã giao chi tiết hiện hành. Danh mục 10 dự án bổ sung theo Biểu 02 kèm theo Nghị quyết số 27/NQ-HĐND ngày 06/10/2026 của HĐND phường.</p>
+    <p>Đánh giá: so tỷ lệ giải ngân với tiến độ thời gian riêng của từng nguồn, dự án, tính từ ngày giao vốn đến hạn giải ngân. Bằng hoặc cao hơn là đạt tiến độ; thấp hơn là chậm tiến độ. Vốn cấp trên giao chưa đủ %%urgent_days%% ngày kể từ ngày giao mà chưa giải ngân hết được xếp cấp bách (mới giao, không đánh giá chậm, nhưng phải giải ngân hết trong năm 2026). Vốn HĐND phường đã phân bổ nhưng UBND phường chưa giao chi tiết thì chờ giao chi tiết, chưa tính vào tỷ lệ. Hạn giải ngân: vốn năm 2025 kéo dài đến 31/12/2026; kế hoạch năm 2026 đến 31/01/2027; vốn bổ sung theo Nghị quyết số 27/NQ-HĐND và số 31/NQ-HĐND đến 31/12/2027 (khoản 1 Điều 72 Luật Đầu tư công số 58/2024/QH15).</p>
+    <p>Số giải ngân theo kỳ: đến ngày 14/11/2026 tính theo ngày hoàn thành thanh toán; từ ngày 15/11/2026 tính theo ngày số liệu được cập nhật trên bảng theo dõi. Tỷ lệ lũy kế tính trên kế hoạch vốn đã giao chi tiết hiện hành. Danh mục 10 dự án bổ sung theo Biểu 02 kèm theo Nghị quyết số 27/NQ-HĐND ngày 06/10/2026; 06 dự án phân bổ vốn ngân sách phường và kế hoạch vốn năm 2026 của 02 dự án nhà văn hóa cộng đồng theo Biểu 02 kèm theo Nghị quyết số 31/NQ-HĐND ngày 10/11/2026 của HĐND phường.</p>
     <p>Trang được cập nhật tự động hằng ngày từ bảng theo dõi của Trung tâm Cung ứng dịch vụ sự nghiệp công phường Tân Lập và bảng số liệu giải ngân vốn chuyển đổi số, chương trình mục tiêu quốc gia. Vốn chuyển đổi số và chương trình mục tiêu quốc gia chỉ gồm các dự án đầu tư; các khoản chi thường xuyên không đưa vào trang này.</p>
   </section>
 </div>
@@ -298,8 +316,8 @@ footer .slogan{color:var(--brand-green)}
 
 <script>
 (function(){
-  var f={nhom:"",xl:""},tiles=[].slice.call(document.querySelectorAll(".tile")),cnt=document.querySelector(".count");
-  function apply(){var n=0;tiles.forEach(function(t){var ok=(!f.nhom||t.dataset.nhom===f.nhom)&&(!f.xl||t.dataset.xl===f.xl);t.hidden=!ok;if(ok)n++;});
+  var f={khoi:"",nhom:"",xl:""},tiles=[].slice.call(document.querySelectorAll(".tile")),cnt=document.querySelector(".count");
+  function apply(){var n=0;tiles.forEach(function(t){var ok=(!f.khoi||t.dataset.khoi===f.khoi)&&(!f.nhom||t.dataset.nhom===f.nhom)&&(!f.xl||t.dataset.xl===f.xl);t.hidden=!ok;if(ok)n++;});
     if(cnt)cnt.textContent="Đang hiện "+n+"/"+tiles.length+" dự án";}
   document.querySelectorAll(".chip").forEach(function(b){b.addEventListener("click",function(){var k=b.dataset.f;f[k]=f[k]===b.dataset.v?"":b.dataset.v;
     document.querySelectorAll('.chip[data-f="'+k+'"]').forEach(function(c){c.setAttribute("aria-pressed",String(c.dataset.v===f[k]));});apply();});});
