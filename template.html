@@ -246,6 +246,29 @@ details.more[open]>summary{margin-bottom:var(--s4)}
 footer{background:var(--cover);color:var(--cover-muted);font-size:12px;line-height:18px;font-weight:700}
 footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(--s2);padding-top:var(--s4);padding-bottom:var(--s5)}
 footer .slogan{color:var(--brand-green)}
+/* mục lục cố định và liên kết đi sâu */
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+section,h2[id],#bang{scroll-margin-top:64px}
+.toc{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.88);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);box-shadow:0 4px 14px rgba(59,42,32,.06)}
+.toc .wrap{display:flex;align-items:center;gap:2px;overflow-x:auto;scrollbar-width:none}
+.toc .wrap::-webkit-scrollbar{display:none}
+.toc a{flex:none;display:inline-flex;align-items:center;gap:8px;padding:13px 12px 10px;border-bottom:3px solid transparent;font-size:13px;line-height:18px;font-weight:700;color:var(--ink-muted);text-decoration:none;white-space:nowrap}
+.toc a:hover{color:var(--ink-strong)}
+.toc a.on{color:var(--ink-strong);border-bottom-color:var(--brand-red)}
+.toc-home img{display:block;width:22px;height:auto}
+.go{display:inline-flex;align-items:center;gap:4px;margin-top:6px;padding:0;border:0;background:none;font:inherit;font-size:12px;line-height:18px;font-weight:700;color:var(--accent-red-text);cursor:pointer}
+.go:hover{text-decoration:underline}
+.drill{cursor:pointer;transition:transform .15s,box-shadow .15s}
+.drill:hover{transform:translateY(-2px)}
+.kpis-3 .kpi.drill:hover{box-shadow:0 6px 18px rgba(59,42,32,.12)}
+.src.drill{margin:0 -10px;padding:8px 10px;border-radius:var(--r-md)}
+.src.drill:hover{transform:none;background:var(--surface-muted)}
+tr.drill:hover td{background:var(--surface-muted)}
+.ring.drill:hover{transform:translateY(-3px)}
+.totop{position:fixed;right:18px;bottom:18px;z-index:30;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink-strong);font-size:20px;line-height:1;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.15);opacity:0;pointer-events:none;transition:opacity .2s}
+.totop.show{opacity:1;pointer-events:auto}
+@media print{.toc,.totop,.go{display:none!important}}
 /* chế độ tối: tự động theo cài đặt của thiết bị */
 @media screen and (prefers-color-scheme:dark){
 :root{
@@ -286,6 +309,7 @@ footer .slogan{color:var(--brand-green)}
 .tile-new{border-top-color:#2ec4da}.tile-done{border-top-color:#4f9cc0}.tile-warn{border-top-color:#e0ad2a}
 .badge-new{background:#0f3a40;color:#7fe0ec}
 .badge-done{background:#13303d;color:#8cc6e0}
+.toc{background:rgba(18,24,27,.88);box-shadow:0 4px 14px rgba(0,0,0,.35)}
 .tmap .m-tham{stroke:#4cc35d}.tmap .m-cb{stroke:#e0ad2a}.tmap .m-chua{stroke:#6d7a81}.tmap .m-lab circle{fill:var(--surface)}
 .map-lg .m-tham{border-color:#4cc35d}.map-lg .m-cb{border-color:#e0ad2a}.map-lg .m-chua{border-color:#6d7a81}
 .bar .tgt{border-left-color:#5fd3e3}
@@ -299,7 +323,7 @@ tr.khoi td{background:#3a1b1b}
 </style>
 </head>
 <body>
-<header class="hero">
+<header class="hero" id="top">
   %%pattern%%
   <div class="wrap hero-in">
     <div class="masthead">
@@ -326,6 +350,18 @@ tr.khoi td{background:#3a1b1b}
   </div>
   <div class="rule" role="presentation"></div>
 </header>
+<nav class="toc" aria-label="Mục lục trang">
+  <div class="wrap">
+    <a href="#top" class="toc-home"><img src="emblem.webp" alt="" width="22" height="23">Tổng quan</a>
+    <a href="#cap-giao">Cấp giao vốn</a>
+    <a href="#luy-ke">Theo kỳ</a>
+    <a href="#dien-bien">Diễn biến</a>
+    <a href="#moi-ngay">Mỗi ngày cần</a>
+    <a href="#theo-nguon">Nguồn vốn</a>
+    <a href="#du-an">Dự án</a>
+    <a href="#bang" data-open="1">Bảng chi tiết</a>
+  </div>
+</nav>
 
 <main>
 <div class="wrap">
@@ -398,7 +434,7 @@ tr.khoi td{background:#3a1b1b}
     <div class="tiles">
 %%tiles%%
     </div>
-    <details class="more">
+    <details class="more" id="bang">
       <summary>Xem dạng bảng đầy đủ</summary>
       <div class="table-wrap"><table class="full">
         <thead><tr><th class="center">STT</th><th>Tên dự án</th><th class="num">Kế hoạch vốn<br>(đồng)</th><th class="num">Đã giải ngân<br>(đồng)</th><th class="num">Tỷ lệ</th><th>Đánh giá</th></tr></thead>
@@ -420,14 +456,47 @@ tr.khoi td{background:#3a1b1b}
 <div class="rule" role="presentation"></div>
 <footer><div class="wrap"><span>UBND PHƯỜNG TÂN LẬP</span><span class="slogan">XANH - SINH THÁI - THÔNG MINH - BẢN SẮC</span></div></footer>
 
+<button type="button" class="totop" aria-label="Về đầu trang">&#8593;</button>
 <script>
 (function(){
   var f={khoi:"",nhom:"",xl:""},tiles=[].slice.call(document.querySelectorAll(".tile")),cnt=document.querySelector(".count");
+  function sync(){["khoi","nhom","xl"].forEach(function(k){document.querySelectorAll('.chip[data-f="'+k+'"]').forEach(function(c){c.setAttribute("aria-pressed",String(c.dataset.v===f[k]));});});}
   function apply(){var n=0;tiles.forEach(function(t){var ok=(!f.khoi||t.dataset.khoi===f.khoi)&&(!f.nhom||t.dataset.nhom===f.nhom)&&(!f.xl||t.dataset.xl===f.xl);t.hidden=!ok;if(ok)n++;});
     if(cnt)cnt.textContent="Đang hiện "+n+"/"+tiles.length+" dự án";}
-  document.querySelectorAll(".chip").forEach(function(b){b.addEventListener("click",function(){var k=b.dataset.f;f[k]=f[k]===b.dataset.v?"":b.dataset.v;
-    document.querySelectorAll('.chip[data-f="'+k+'"]').forEach(function(c){c.setAttribute("aria-pressed",String(c.dataset.v===f[k]));});apply();});});
+  document.querySelectorAll(".chip").forEach(function(b){b.addEventListener("click",function(){var k=b.dataset.f;f[k]=f[k]===b.dataset.v?"":b.dataset.v;sync();apply();});});
   apply();
+  function to(id){var el=document.getElementById(id);if(el)el.scrollIntoView({block:"start"});}
+  function go(o){f={khoi:o.khoi||"",nhom:o.nhom||"",xl:o.xl||""};sync();apply();to("du-an");}
+  function drill(el,fn,label){if(!el)return;el.classList.add("drill");el.setAttribute("tabindex","0");el.setAttribute("role","link");if(label)el.setAttribute("title",label);
+    el.addEventListener("click",function(e){if(e.target.closest("a,button:not(.go)"))return;fn();});
+    el.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();fn();}});}
+  function addGo(el,text){var b=document.createElement("button");b.type="button";b.className="go";b.tabIndex=-1;b.textContent=text+" \u203A";el.appendChild(b);}
+  var nhomOf={};document.querySelectorAll('.chip[data-f="nhom"]').forEach(function(c){var m=(c.textContent||"").match(/^([AB]\d+)\./);if(m)nhomOf[m[1]]=c.dataset.v;});
+  function nTiles(o){return tiles.filter(function(t){return(!o.khoi||t.dataset.khoi===o.khoi)&&(!o.nhom||t.dataset.nhom===o.nhom);}).length;}
+  // vòng tròn đầu trang
+  var rings=document.querySelectorAll(".rings .ring");
+  drill(rings[0],function(){to("cap-giao");},"Xem theo cấp giao vốn");
+  drill(rings[1],function(){go({khoi:"A"});},"Xem các dự án vốn cấp trên giao");
+  drill(rings[2],function(){go({khoi:"B"});},"Xem các dự án vốn HĐND phường giao");
+  drill(rings[3],function(){to("dien-bien");},"Xem diễn biến lũy kế");
+  // thẻ theo cấp giao vốn
+  var kc=document.querySelectorAll(".kpis-3 > .kpi"),ko=[{},{khoi:"A"},{khoi:"B"}];
+  [].forEach.call(kc,function(k,i){var o=ko[i]||{};addGo(k,"Xem "+nTiles(o)+" dự án");drill(k,function(){go(o);});});
+  // từng nguồn vốn
+  document.querySelectorAll(".src").forEach(function(s){var no=s.querySelector(".src-no"),code=no&&no.textContent.trim(),v=nhomOf[code];if(!v)return;
+    addGo(s,"Xem "+nTiles({nhom:v})+" dự án của nguồn "+code);drill(s,function(){go({nhom:v});});});
+  // bảng mỗi ngày cần giải ngân
+  document.querySelectorAll("#moi-ngay tbody tr").forEach(function(r){var b=r.querySelector("td b"),m=b&&b.textContent.match(/^([AB]\d+)/),v=m&&nhomOf[m[1]];if(v)drill(r,function(){go({nhom:v});},"Xem các dự án của nguồn "+m[1]);});
+  // mục lục: mở bảng chi tiết, đánh dấu mục đang xem
+  var links=[].slice.call(document.querySelectorAll(".toc a"));
+  links.forEach(function(a){if(a.dataset.open)a.addEventListener("click",function(){var d=document.getElementById("bang");if(d)d.open=true;});});
+  var secs=links.map(function(a){return document.getElementById(a.getAttribute("href").slice(1));});
+  var top=document.querySelector(".totop"),bar=document.querySelector(".toc .wrap");
+  function spy(){var y=window.scrollY+90,cur=0;secs.forEach(function(s,i){if(s&&s.getBoundingClientRect().top+window.scrollY<=y)cur=i;});
+    links.forEach(function(a,i){var on=i===cur;if(on&&!a.classList.contains("on")&&bar)bar.scrollTo({left:a.offsetLeft-bar.clientWidth/2+a.clientWidth/2,behavior:"smooth"});a.classList.toggle("on",on);});
+    if(top)top.classList.toggle("show",window.scrollY>600);}
+  window.addEventListener("scroll",spy,{passive:true});spy();
+  if(top)top.addEventListener("click",function(){window.scrollTo({top:0});});
 })();
 </script>
 </body>
