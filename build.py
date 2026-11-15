@@ -638,7 +638,8 @@ def render(groups, projects, t, hist, fetched):
         od = own_progress(today, p["giao"], p["due"])
         mark = "" if p["chua_giao"] or p["done"] else f'<em style="left:calc({od*100:.2f}% - 1px)"></em>'
         big = pct(p["tl"])
-        tiles.append(f'''<details class="tile tile-{b}" data-khoi="{p["khoi"]}" data-nhom="{e(p["nhom"])}" data-xl="{e(p["xl"])}">
+        th = " tile-th th-cds" if "CĐS" in g["nguon"] else (" tile-th th-mtqg" if "MTQG" in g["nguon"] else "")
+        tiles.append(f'''<details class="tile tile-{b}{th}" data-khoi="{p["khoi"]}" data-nhom="{e(p["nhom"])}" data-xl="{e(p["xl"])}">
   <summary>
     <span class="tile-top"><span class="tile-grp">{e(g["ma"])} · {e(g["short"])}</span><span class="badge badge-{b}">{e(p["xl"])}</span></span>
     <span class="tile-name">{e(p["du_an"])}</span>
