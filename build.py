@@ -998,7 +998,7 @@ def render(groups, projects, t, hist, fetched):
         tab_w=period_table(weeks), tab_m=period_table(months), tab_q=period_table(quarters),
         need_rows="\n".join(need_rows), need_left=ty(tot_left, False), need_per=ty(per_day, False), per_day_num=ty(per_day, False),
         sources="\n".join(src), tiles="\n".join(tiles), chips_khoi=chips_khoi, chips_nhom=chips_nhom, chips_xl=chips_xl,
-        rows="\n".join(body_rows), cdt_cards="\n".join(cdt_cards), cdt_rows="\n".join(cdt_rows), chips_cdt=chips_cdt, n_cdt=len(cdt_list), f_kh=vi(t["kh"] / 1e6), f_gn=vi(t["gn"] / 1e6), f_tl=pct(t["gn"] / t["kh"] if t["kh"] else 0), v_kh="%.0f" % t["kh"], v_gn="%.0f" % t["gn"], v_tl="%.6f" % (t["gn"] / t["kh"] if t["kh"] else 0),
+        rows="\n".join(body_rows), cdt_cards="\n".join(cdt_cards), cdt_rows="\n".join(cdt_rows), chips_cdt=chips_cdt, **{"opt_" + k: re.sub(r'<button type="button" class="chip" data-f="\w+" data-v="([^"]*)">(.*?)</button>', r'<option value="\1">\2</option>', v) for k, v in (("khoi", chips_khoi), ("nhom", chips_nhom), ("cdt", chips_cdt), ("xl", chips_xl))}, n_cdt=len(cdt_list), f_kh=vi(t["kh"] / 1e6), f_gn=vi(t["gn"] / 1e6), f_tl=pct(t["gn"] / t["kh"] if t["kh"] else 0), v_kh="%.0f" % t["kh"], v_gn="%.0f" % t["gn"], v_tl="%.6f" % (t["gn"] / t["kh"] if t["kh"] else 0),
     )
     out = (ROOT / "template.html").read_text(encoding="utf-8")
     for k, v in vals.items():
