@@ -208,6 +208,7 @@ def pkey(name):
 CDT_TT = "Trung tâm Cung ứng dịch vụ sự nghiệp công phường Tân Lập"
 CDT_VH = "Phòng Văn hóa - Xã hội phường Tân Lập"
 CDT_NGAN = {CDT_TT: "Trung tâm CƯDVSNC", CDT_VH: "Phòng VH-XH"}
+CDT_MA = {CDT_TT: "tt", CDT_VH: "vh"}
 THONG_TIN_DA = [
     ("cao đạt", 28_849_181_000, CDT_TT, "pd", "Quyết định số 1648/QĐ-UBND ngày 29/9/2026 của UBND phường phê duyệt điều chỉnh tổng mức đầu tư; Trung tâm là đại diện chủ đầu tư"),
     ("mầm non tân hòa", 3_417_352_000, CDT_TT, "qt", "Giá trị quyết toán theo Quyết định số 1348/QĐ-UBND ngày 07/8/2026 của UBND phường"),
@@ -888,7 +889,7 @@ def render(groups, projects, t, hist, fetched):
         th = " tile-th th-cds" if "CĐS" in g["nguon"] else (" tile-th th-mtqg" if "MTQG" in g["nguon"] else "")
         ti = thong_tin(p["du_an"])
         tt_dd = (f'<div class="wide"><dt>Chủ đầu tư</dt><dd>{e(ti["cdt"])}</dd></div><div class="wide"><dt>{LOAI_TM[ti["loai"]]}</dt><dd>{vi(ti["tm"])} đ<span class="cc">{e(ti["cc"])}.</span></dd></div>') if ti else ""
-        tiles.append(f'''<details class="tile tile-{b}{th}" id="{tid[id(p)]}" data-khoi="{p["khoi"]}" data-nhom="{e(" ".join(p["nhoms"]))}" data-xl="{e(p["xl"])}">
+        tiles.append(f'''<details class="tile tile-{b}{th}" id="{tid[id(p)]}" data-khoi="{p["khoi"]}" data-nhom="{e(" ".join(p["nhoms"]))}" data-xl="{e(p["xl"])}" data-cdt="{CDT_MA.get((thong_tin(p["du_an"]) or {}).get("cdt"), "")}">
   <summary>
     <span class="tile-top"><span class="tile-grp">{e(grp)}</span><span class="badge badge-{b}">{e(p["xl"])}</span></span>
     <span class="tile-name">{e(p["du_an"])}</span>{multi}
@@ -900,6 +901,38 @@ def render(groups, projects, t, hist, fetched):
 
     chips_khoi = "".join(f'<button type="button" class="chip" data-f="khoi" data-v="{k}">{k}. {e(KHOI[k][0])}</button>' for k in ("A", "B"))
     chips_nhom = "".join(f'<button type="button" class="chip" data-f="nhom" data-v="{e(g["nhom"])}">{e(g["ma"])}. {e(g["short"])}</button>' for g in groups)
+    # tổng hợp theo chủ đầu tư
+    cdts = {}
+    for p in projects:
+        ti = thong_tin(p["du_an"])
+        c = ti["cdt"] if ti else "Chưa xác định chủ đầu tư"
+        d = cdts.setdefault(c, {"kh": 0.0, "gn": 0.0, "A": [0.0, 0.0], "B": [0.0, 0.0], "da": set(), "xl": {}})
+        d["kh"] += p["kh"]; d["gn"] += p["gn"]; d[p["khoi"]][0] += p["kh"]; d[p["khoi"]][1] += p["gn"]
+        d["da"].add(pkey(p["du_an"]))
+    for c in cards:
+        ti = thong_tin(c["du_an"])
+        k = ti["cdt"] if ti else "Chưa xác định chủ đầu tư"
+        cdts[k]["xl"][c["xl"]] = cdts[k]["xl"].get(c["xl"], 0) + 1
+    cdt_list = sorted(cdts.items(), key=lambda kv: -kv[1]["kh"])
+    cdt_cards, cdt_rows = [], []
+    for i, (c, d) in enumerate(cdt_list, 1):
+        tl = d["gn"] / d["kh"] if d["kh"] else 0
+        xl = "đánh giá theo nguồn vốn: " + ", ".join(f"{d['xl'][k]} {k[0].lower() + k[1:]}" for k in BADGE if d["xl"].get(k))
+        ab = "; ".join(f"{KHOI[k][0]} {pct(d[k][1] / d[k][0] if d[k][0] else 0)} ({ty(d[k][1])} / {ty(d[k][0])})" for k in ("A", "B") if d[k][0])
+        cdt_cards.append(f'''<div class="src cdt-card" data-cdt="{CDT_MA.get(c, "")}">
+  <div class="src-top"><span class="src-name"><span class="src-no">{i}</span>{e(c)}</span><span class="src-right"><span class="src-pct">{pct(tl)}</span></span></div>
+  <div class="bar" role="img" aria-label="{e(c)}: {pct(tl)}"><i class="fill-cdt" style="width:{min(100, tl*100):.2f}%"></i></div>
+  <p class="src-meta">Đã giải ngân {ty(d["gn"])} / {ty(d["kh"])} kế hoạch vốn, còn lại {ty(d["kh"] - d["gn"])} · {len(d["da"])} dự án ({e(xl)})</p>
+  <p class="src-meta">{e(ab)}</p>
+</div>''')
+        cdt_rows.append(f'<tr data-cdt="{e(c)}" data-n="{len(d["da"])}"><td class="center">{i}</td><td>{e(c)}</td><td class="center">{len(d["da"])}</td>'
+                        f'<td class="num">{vi(d["kh"] / 1e6)}</td><td class="num">{vi(d["gn"] / 1e6)}</td><td class="num">{pct(tl)}</td><td class="num">{vi((d["kh"] - d["gn"]) / 1e6)}</td>'
+                        f'<td class="num">{vi(d["A"][0] / 1e6)}</td><td class="num">{vi(d["A"][1] / 1e6)}</td><td class="num">{vi(d["B"][0] / 1e6)}</td><td class="num">{vi(d["B"][1] / 1e6)}</td></tr>')
+    n_da = len({pkey(p["du_an"]) for p in projects})
+    cdt_rows.append(f'<tr class="sub"><td></td><td>Tổng cộng</td><td class="center">{n_da}</td><td class="num">{vi(t["kh"] / 1e6)}</td><td class="num">{vi(t["gn"] / 1e6)}</td><td class="num">{pct(t["gn"] / t["kh"] if t["kh"] else 0)}</td><td class="num">{vi((t["kh"] - t["gn"]) / 1e6)}</td>'
+                    f'<td class="num">{vi(blk["A"]["kh"] / 1e6)}</td><td class="num">{vi(blk["A"]["gn"] / 1e6)}</td><td class="num">{vi(blk["B"]["kh"] / 1e6)}</td><td class="num">{vi(blk["B"]["gn"] / 1e6)}</td></tr>')
+    chips_cdt = "".join(f'<button type="button" class="chip" data-f="cdt" data-v="{CDT_MA[c]}">{e(c)}</button>' for c, _ in cdt_list if c in CDT_MA)
+
     chips_xl = "".join(f'<button type="button" class="chip" data-f="xl" data-v="{k}">{k} · {cnt[k]}</button>' for k in BADGE if cnt[k])
 
     def tr(x):  # bảng chi tiết: đơn vị triệu đồng, làm tròn
@@ -965,7 +998,7 @@ def render(groups, projects, t, hist, fetched):
         tab_w=period_table(weeks), tab_m=period_table(months), tab_q=period_table(quarters),
         need_rows="\n".join(need_rows), need_left=ty(tot_left, False), need_per=ty(per_day, False), per_day_num=ty(per_day, False),
         sources="\n".join(src), tiles="\n".join(tiles), chips_khoi=chips_khoi, chips_nhom=chips_nhom, chips_xl=chips_xl,
-        rows="\n".join(body_rows), f_kh=vi(t["kh"] / 1e6), f_gn=vi(t["gn"] / 1e6), f_tl=pct(t["gn"] / t["kh"] if t["kh"] else 0), v_kh="%.0f" % t["kh"], v_gn="%.0f" % t["gn"], v_tl="%.6f" % (t["gn"] / t["kh"] if t["kh"] else 0),
+        rows="\n".join(body_rows), cdt_cards="\n".join(cdt_cards), cdt_rows="\n".join(cdt_rows), chips_cdt=chips_cdt, n_cdt=len(cdt_list), f_kh=vi(t["kh"] / 1e6), f_gn=vi(t["gn"] / 1e6), f_tl=pct(t["gn"] / t["kh"] if t["kh"] else 0), v_kh="%.0f" % t["kh"], v_gn="%.0f" % t["gn"], v_tl="%.6f" % (t["gn"] / t["kh"] if t["kh"] else 0),
     )
     out = (ROOT / "template.html").read_text(encoding="utf-8")
     for k, v in vals.items():
