@@ -149,6 +149,41 @@ GIAO_CT = [
     ("CĐS", "Trung tâm Phục vụ hành chính công", 115_273_161, "Quyết định số 2057/QĐ-UBND ngày 11/11/2026 của UBND phường (đợt 01, chuẩn bị đầu tư)", dt.date(2026, 11, 11), None),
 ]
 
+# Sơ đồ tuyến (từ bản vẽ vị trí các tuyến của chủ đầu tư, đơn vị mét) và trạng thái thi công từng trục
+SO_DO_TUYEN = {
+    "TDP 5B": {"vb": "680 0 810 1030", "paths": {
+        "1": "M1340 339 1328 341 1320 306M1050 86 1059 83M1148 311 1128 317M1014 94 1092 72M1051 218 1090 207M1055 85 1101 242M1132 349 1143 384 1328 341M1108 251 1118 248M1071 142 1073 142M1233 364 1233 363M1320 341 1321 345M1108 270 1078 278",
+        "2": "M1257 88 1116 125 1131 176 1273 142M1285 140 1273 142 1247 54M1116 125 1108 95M1249 89 1249 90M1265 143 1266 144",
+        "3": "M1320 306 1309 257M1312 270 1148 311M1128 317 1123 318M1116 294 1132 349M1126 334 1128 334M1123 312 1121 313M1195 297 1196 299",
+        "4": "M866 138 856 140M860 139 918 322 948 441M940 472 956 470M903 326 949 314M848 141 895 128M882 264 932 251M878 197 879 196M925 349 926 349M946 469 961 468M985 466 925 473",
+        "5": "M927 121 1014 431M949 314 1014 296M895 128 965 108M932 251 1002 232M930 125 928 125M1009 459 1015 458M1020 457 1026 456M1048 456 990 465",
+        "6": "M1014 431 1020 458M948 441 956 470M1014 296 1043 288M747 975 755 1011M840 660 778 673M1101 242 1116 294M1103 252 1108 251M764 1009 741 1014M952 460 953 460M1015 458 1020 457M1078 278 1043 288 1075 410 1077 453 1048 456M990 465 985 466M925 473 774 489 802 634M807 661 809 672M814 698 871 989 570 1045 551 1066 525 1124 453 1235 299 1310 223 1343 90 1389 18 1405",
+        "7": "M686 677 697 731M1463 533 840 660M778 673 689 691M1461 522 1465 542M802 634 807 661M809 672 814 698"
+    }, "lab": {"1": (1065, 34), "2": (1280, 34), "3": (1232, 248), "4": (828, 110), "5": (945, 40), "6": (905, 850), "7": (1440, 492)}},
+}
+TT_TRUC = {"tham": "Đã triển khai thảm bê tông nhựa", "cb": "Đang vệ sinh mặt đường, chuẩn bị thảm", "chua": "Chưa có báo cáo"}
+TRUC_TT = {
+    "TDP 5B": ({"1": "tham", "2": "cb", "3": "cb", "4": "cb", "5": "cb", "7": "cb", "6": "chua"},
+               "Theo báo cáo của chủ đầu tư ngày 14/11/2026."),
+}
+
+
+def so_do(du_an):
+    for key, sd in SO_DO_TUYEN.items():
+        if key.lower() not in du_an.lower():
+            continue
+        tt, nguon = TRUC_TT.get(key, ({}, ""))
+        order = sorted(sd["paths"], key=lambda k: {"chua": 0, "cb": 1, "tham": 2}.get(tt.get(k, "chua"), 0))
+        g = "".join(f'<path class="m-{tt.get(k, "chua")}" d="{sd["paths"][k]}"/>' for k in order)
+        g += "".join(f'<g class="m-lab"><circle cx="{x}" cy="{y}" r="34"/><text x="{x}" y="{y + 13}">{k}</text></g>' for k, (x, y) in sd["lab"].items())
+        groups = {}
+        for k in sorted(sd["paths"]):
+            groups.setdefault(tt.get(k, "chua"), []).append(k)
+        lg = "".join(f'<li><i class="m-{st}"></i>Trục {", ".join(ks)}: {TT_TRUC[st]}</li>' for st in ("tham", "cb", "chua") if (ks := groups.get(st)))
+        return (f'<div class="wide"><dt>Sơ đồ tuyến</dt><dd><svg class="tmap" viewBox="{sd["vb"]}" role="img" aria-label="Sơ đồ các trục của dự án">{g}</svg>'
+                f'<ul class="map-lg">{lg}</ul><small class="map-src">{e(nguon)} Sơ đồ thể hiện một phần trục 6, đoạn còn lại tiếp tục về hướng Tây Nam.</small></dd></div>')
+    return ""
+
 
 def date_in(text):
     m = re.search(r"ngày\s+(\d{1,2})/(\d{1,2})/(\d{4})", text or "")
@@ -674,7 +709,7 @@ def render(groups, projects, t, hist, fetched):
     <span class="tile-big">{e(big)}</span>
     <span class="bar bar-sm"><i class="{FILL[b]}" style="width:{min(100,p['tl']*100):.2f}%"></i>{mark}</span>
   </summary>
-  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>{vi(p["kh"])} đ</dd></div><div><dt>Đã giải ngân</dt><dd>{vi(p["gn"])} đ</dd></div><div><dt>{"Vốn dư đề nghị giảm" if p["du"] else "Còn lại"}</dt><dd>{vi(p["kh"]-p["gn"])} đ</dd></div>{('<div><dt>Đã giao chi tiết</dt><dd>' + vi(p["kh_gct"]) + ' đ</dd></div>') if p["kh_gct"] else ''}<div><dt>{"Ngày phân bổ" if p["chua_giao"] else "Ngày giao vốn"}</dt><dd>{p["giao"]:%d/%m/%Y}</dd></div><div><dt>Hạn giải ngân</dt><dd>{p["due"]:%d/%m/%Y}</dd></div><div><dt>Tiến độ thời gian</dt><dd>{"" if p["chua_giao"] else pct(od)}</dd></div>{('<div class="wide"><dt>Tình hình thực hiện</dt><dd>' + e(p["note"]) + '</dd></div>') if p.get("note") else ''}</dl>
+  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>{vi(p["kh"])} đ</dd></div><div><dt>Đã giải ngân</dt><dd>{vi(p["gn"])} đ</dd></div><div><dt>{"Vốn dư đề nghị giảm" if p["du"] else "Còn lại"}</dt><dd>{vi(p["kh"]-p["gn"])} đ</dd></div>{('<div><dt>Đã giao chi tiết</dt><dd>' + vi(p["kh_gct"]) + ' đ</dd></div>') if p["kh_gct"] else ''}<div><dt>{"Ngày phân bổ" if p["chua_giao"] else "Ngày giao vốn"}</dt><dd>{p["giao"]:%d/%m/%Y}</dd></div><div><dt>Hạn giải ngân</dt><dd>{p["due"]:%d/%m/%Y}</dd></div><div><dt>Tiến độ thời gian</dt><dd>{"" if p["chua_giao"] else pct(od)}</dd></div>{so_do(p["du_an"])}{('<div class="wide"><dt>Tình hình thực hiện</dt><dd>' + e(p["note"]) + '</dd></div>') if p.get("note") else ''}</dl>
 </details>''')
 
     chips_khoi = "".join(f'<button type="button" class="chip" data-f="khoi" data-v="{k}">{k}. {e(KHOI[k][0])}</button>' for k in ("A", "B"))
