@@ -172,6 +172,8 @@ h2::before{content:"";flex:none;width:6px;height:26px;background:var(--brand-red
 .bar i{position:absolute;left:0;top:0;bottom:0;border-radius:9999px}
 .bar em{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink-strong)}
 .bar-sm{height:8px}
+.bar .tgt{position:absolute;top:-5px;bottom:-5px;width:0;border-left:2px dotted #1f8ea0}
+.src-plan{margin:4px 0 0;padding:6px 10px;border-left:3px solid #1f8ea0;background:rgba(31,142,160,.07);border-radius:0 var(--r-sm) var(--r-sm) 0;font-size:12px;line-height:18px;color:var(--ink)}
 .fill-new{background:#2bb3c8}.fill-done{background:#2f6f8f}.fill-ok{background:var(--accent-green-text)}.fill-warn{background:#c9950a}.fill-late{background:var(--brand-red)}.fill-neutral{background:var(--line-strong)}
 .blegend{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s5);margin:0 0 var(--s4);font-size:13px;color:var(--ink-muted)}
 .blegend span{display:inline-flex;align-items:center;gap:6px}
@@ -275,6 +277,8 @@ footer .slogan{color:var(--brand-green)}
 .tile-new{border-top-color:#2ec4da}.tile-done{border-top-color:#4f9cc0}.tile-warn{border-top-color:#e0ad2a}
 .badge-new{background:#0f3a40;color:#7fe0ec}
 .badge-done{background:#13303d;color:#8cc6e0}
+.bar .tgt{border-left-color:#5fd3e3}
+.src-plan{border-left-color:#5fd3e3;background:rgba(95,211,227,.08)}
 .tile.th-cds{background-repeat:no-repeat;background-size:100% 100%,150px auto;background-position:0 0,right 10px top 40px;background-image:linear-gradient(rgba(25,33,38,.84),rgba(25,33,38,.84)),url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 130' fill='none' stroke='%235fd3e3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='66' y='44' width='40' height='40' rx='5'/><path d='M74 44V30M86 44V22M98 44V30M74 84V98M86 84V108M98 84V98M66 56H50M66 72H40M106 56H124M106 72H140'/><path d='M74 30L60 16H30M86 22V8M98 30L112 16H150M74 98L60 112H24M86 108V124M98 98L114 114H160M50 56L38 44H10M40 72L28 84H6M124 56L136 44H172M140 72L152 84H176'/><g fill='%235fd3e3' stroke='none'><circle cx='30' cy='16' r='3.5'/><circle cx='86' cy='8' r='3.5'/><circle cx='150' cy='16' r='3.5'/><circle cx='24' cy='112' r='3.5'/><circle cx='86' cy='124' r='3.5'/><circle cx='160' cy='114' r='3.5'/><circle cx='10' cy='44' r='3.5'/><circle cx='6' cy='84' r='3.5'/><circle cx='172' cy='44' r='3.5'/><circle cx='176' cy='84' r='3.5'/></g><rect x='76' y='54' width='20' height='20' rx='2'/></svg>")}
 .tile.th-mtqg{background-repeat:no-repeat;background-size:100% 100%,190px auto;background-position:0 0,right 8px top 54px;background-image:linear-gradient(rgba(25,33,38,.84),rgba(25,33,38,.84)),url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 210 116' fill='none' stroke='%23e2b48f' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M6 46L34 12H182L204 46Z'/><path d='M34 12L44 46M182 12L172 46M60 22H160M70 32H150'/><path d='M26 46H190V74H26Z'/><path d='M60 46V74M84 46V74M108 46V74M132 46V74M156 46V74'/><path d='M20 74H196'/><path d='M34 74V104M58 74V104M82 74V104M106 74V104M130 74V104M154 74V104M178 74V104'/><path d='M4 112H206'/><path d='M8 110L26 74M20 110L38 74M11 104H23M14 97H27M18 90H30M21 83H34'/><rect x='92' y='52' width='16' height='22'/></svg>")}
 th{background:#3b2b22}
@@ -439,8 +443,9 @@ tr.khoi td{background:#3a1b1b}
 </div>
 <div class="src">
   <div class="src-top"><span class="src-name"><span class="src-no">A3</span>Kế hoạch vốn chi đầu tư phát triển khác, ngân sách tỉnh bổ sung có mục tiêu</span><span class="src-right"><span class="badge badge-warn">Chậm tiến độ</span><span class="src-pct">39,5%</span></span></div>
-  <div class="bar" role="img" aria-label="Kế hoạch vốn chi đầu tư phát triển khác, ngân sách tỉnh bổ sung có mục tiêu: 39,5%"><i class="fill-warn" style="width:39.46%"></i><em style="left:calc(53.61% - 1px)" title="Tiến độ thời gian từ ngày giao 53,6%"></em></div>
+  <div class="bar" role="img" aria-label="Kế hoạch vốn chi đầu tư phát triển khác, ngân sách tỉnh bổ sung có mục tiêu: 39,5%"><i class="fill-warn" style="width:39.46%"></i><em style="left:calc(53.61% - 1px)" title="Tiến độ thời gian từ ngày giao 53,6%"></em><b class="tgt" style="left:calc(60.00% - 1px)" title="Mục tiêu 60,0% đến 30/11/2026"></b><b class="tgt" style="left:calc(98.00% - 1px)" title="Mục tiêu 98,0% đến 20/12/2026"></b></div>
   <p class="src-meta">33,54 tỷ đồng / 85,00 tỷ đồng · giao từ ngày 18/08/2026, hạn 31/01/2027 · 6 dự án · Quyết định số 2347/QĐ-UBND ngày 24/7/2026 của UBND tỉnh; UBND phường giao đợt 1 tại Quyết định số 1385/QĐ-UBND ngày 18/8/2026</p>
+  <p class="src-plan">Kế hoạch giải ngân của chủ đầu tư (vạch chấm trên thanh): đạt ít nhất 60% đến ngày 30/11/2026 và 98% trước ngày 20/12/2026; phần còn lại chủ yếu là chi phí dự phòng chưa phát sinh khối lượng. Theo hợp đồng thi công, 06 dự án hoàn thành toàn bộ khối lượng trước ngày 23/12/2026; chủ đầu tư đánh giá tiến độ hiện nay ổn định.</p>
 </div>
 <div class="src">
   <div class="src-top"><span class="src-name"><span class="src-no">A4</span>Vốn chuyển đổi số, ngân sách tỉnh bổ sung có mục tiêu</span><span class="src-right"><span class="badge badge-late">Cấp bách</span><span class="src-pct">0,0%</span></span></div>
@@ -515,7 +520,7 @@ tr.khoi td{background:#3a1b1b}
     <span class="tile-big">38,3%</span>
     <span class="bar bar-sm"><i class="fill-warn" style="width:38.31%"></i><em style="left:calc(53.61% - 1px)"></em></span>
   </summary>
-  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>20.000.000.000 đ</dd></div><div><dt>Đã giải ngân</dt><dd>7.661.956.000 đ</dd></div><div><dt>Còn lại</dt><dd>12.338.044.000 đ</dd></div><div><dt>Ngày giao vốn</dt><dd>18/08/2026</dd></div><div><dt>Hạn giải ngân</dt><dd>31/01/2027</dd></div><div><dt>Tiến độ thời gian</dt><dd>53,6%</dd></div></dl>
+  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>20.000.000.000 đ</dd></div><div><dt>Đã giải ngân</dt><dd>7.661.956.000 đ</dd></div><div><dt>Còn lại</dt><dd>12.338.044.000 đ</dd></div><div><dt>Ngày giao vốn</dt><dd>18/08/2026</dd></div><div><dt>Hạn giải ngân</dt><dd>31/01/2027</dd></div><div><dt>Tiến độ thời gian</dt><dd>53,6%</dd></div><div class="wide"><dt>Tình hình thực hiện</dt><dd>Đã bàn giao mặt bằng, khởi công ngày 01/11/2026; theo hợp đồng thi công (sau thương thảo với nhà thầu), hoàn thành toàn bộ khối lượng trước ngày 23/12/2026. Theo sơ đồ tiến độ, từ 03/11 đến 28/11/2026 cày xới mặt đường hư hỏng nặng, thay lớp móng và thảm mặt đường; tiếp đến thảm tăng cường mặt đường bê tông nhựa, gia cố lề, rãnh thoát nước và hệ thống an toàn giao thông. Dự kiến phê duyệt quyết toán ngày 12/01/2027.</dd></div></dl>
 </details>
 <details class="tile tile-warn" data-khoi="A" data-nhom="IV" data-xl="Chậm tiến độ">
   <summary>
@@ -524,7 +529,7 @@ tr.khoi td{background:#3a1b1b}
     <span class="tile-big">39,9%</span>
     <span class="bar bar-sm"><i class="fill-warn" style="width:39.88%"></i><em style="left:calc(53.61% - 1px)"></em></span>
   </summary>
-  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>16.000.000.000 đ</dd></div><div><dt>Đã giải ngân</dt><dd>6.381.105.000 đ</dd></div><div><dt>Còn lại</dt><dd>9.618.895.000 đ</dd></div><div><dt>Ngày giao vốn</dt><dd>18/08/2026</dd></div><div><dt>Hạn giải ngân</dt><dd>31/01/2027</dd></div><div><dt>Tiến độ thời gian</dt><dd>53,6%</dd></div></dl>
+  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>16.000.000.000 đ</dd></div><div><dt>Đã giải ngân</dt><dd>6.381.105.000 đ</dd></div><div><dt>Còn lại</dt><dd>9.618.895.000 đ</dd></div><div><dt>Ngày giao vốn</dt><dd>18/08/2026</dd></div><div><dt>Hạn giải ngân</dt><dd>31/01/2027</dd></div><div><dt>Tiến độ thời gian</dt><dd>53,6%</dd></div><div class="wide"><dt>Tình hình thực hiện</dt><dd>Đã bàn giao mặt bằng, khởi công ngày 01/11/2026; theo hợp đồng thi công (sau thương thảo với nhà thầu), hoàn thành toàn bộ khối lượng trước ngày 23/12/2026. Theo sơ đồ tiến độ, từ 03/11 đến 28/11/2026 thi công nền, móng đường hư hỏng; tiếp đến thảm mặt đường bê tông nhựa, gia cố lề, rãnh thoát nước và hệ thống an toàn giao thông. Dự kiến phê duyệt quyết toán ngày 10/01/2027.</dd></div></dl>
 </details>
 <details class="tile tile-warn" data-khoi="A" data-nhom="IV" data-xl="Chậm tiến độ">
   <summary>
@@ -533,7 +538,7 @@ tr.khoi td{background:#3a1b1b}
     <span class="tile-big">40,0%</span>
     <span class="bar bar-sm"><i class="fill-warn" style="width:40.05%"></i><em style="left:calc(53.61% - 1px)"></em></span>
   </summary>
-  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>16.000.000.000 đ</dd></div><div><dt>Đã giải ngân</dt><dd>6.407.895.000 đ</dd></div><div><dt>Còn lại</dt><dd>9.592.105.000 đ</dd></div><div><dt>Ngày giao vốn</dt><dd>18/08/2026</dd></div><div><dt>Hạn giải ngân</dt><dd>31/01/2027</dd></div><div><dt>Tiến độ thời gian</dt><dd>53,6%</dd></div></dl>
+  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>16.000.000.000 đ</dd></div><div><dt>Đã giải ngân</dt><dd>6.407.895.000 đ</dd></div><div><dt>Còn lại</dt><dd>9.592.105.000 đ</dd></div><div><dt>Ngày giao vốn</dt><dd>18/08/2026</dd></div><div><dt>Hạn giải ngân</dt><dd>31/01/2027</dd></div><div><dt>Tiến độ thời gian</dt><dd>53,6%</dd></div><div class="wide"><dt>Tình hình thực hiện</dt><dd>Đã bàn giao mặt bằng, khởi công ngày 01/11/2026; theo hợp đồng thi công (sau thương thảo với nhà thầu), hoàn thành toàn bộ khối lượng trước ngày 23/12/2026. Theo sơ đồ tiến độ, đã thảm tăng cường mặt đường bê tông nhựa; từ 09/11 đến 19/11/2026 thay mới bó vỉa, hoàn trả vỉa hè; tiếp đến sửa chữa hệ thống thoát nước, điện trang trí và an toàn giao thông. Dự kiến phê duyệt quyết toán ngày 31/12/2026.</dd></div></dl>
 </details>
 <details class="tile tile-warn" data-khoi="A" data-nhom="IV" data-xl="Chậm tiến độ">
   <summary>
@@ -542,7 +547,7 @@ tr.khoi td{background:#3a1b1b}
     <span class="tile-big">39,0%</span>
     <span class="bar bar-sm"><i class="fill-warn" style="width:39.00%"></i><em style="left:calc(53.61% - 1px)"></em></span>
   </summary>
-  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>13.500.000.000 đ</dd></div><div><dt>Đã giải ngân</dt><dd>5.265.366.000 đ</dd></div><div><dt>Còn lại</dt><dd>8.234.634.000 đ</dd></div><div><dt>Ngày giao vốn</dt><dd>18/08/2026</dd></div><div><dt>Hạn giải ngân</dt><dd>31/01/2027</dd></div><div><dt>Tiến độ thời gian</dt><dd>53,6%</dd></div></dl>
+  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>13.500.000.000 đ</dd></div><div><dt>Đã giải ngân</dt><dd>5.265.366.000 đ</dd></div><div><dt>Còn lại</dt><dd>8.234.634.000 đ</dd></div><div><dt>Ngày giao vốn</dt><dd>18/08/2026</dd></div><div><dt>Hạn giải ngân</dt><dd>31/01/2027</dd></div><div><dt>Tiến độ thời gian</dt><dd>53,6%</dd></div><div class="wide"><dt>Tình hình thực hiện</dt><dd>Đã bàn giao mặt bằng, khởi công ngày 01/11/2026; theo hợp đồng thi công (sau thương thảo với nhà thầu), hoàn thành toàn bộ khối lượng trước ngày 23/12/2026. Theo sơ đồ tiến độ, từ 03/11 đến 23/11/2026 cày xới mặt đường hư hỏng nặng, thay lớp móng và thảm mặt đường; tiếp đến thảm tăng cường mặt đường bê tông nhựa, gia cố lề, rãnh thoát nước và hệ thống an toàn giao thông. Dự kiến phê duyệt quyết toán ngày 12/01/2027.</dd></div></dl>
 </details>
 <details class="tile tile-warn" data-khoi="A" data-nhom="IV" data-xl="Chậm tiến độ">
   <summary>
@@ -551,7 +556,7 @@ tr.khoi td{background:#3a1b1b}
     <span class="tile-big">39,5%</span>
     <span class="bar bar-sm"><i class="fill-warn" style="width:39.52%"></i><em style="left:calc(53.61% - 1px)"></em></span>
   </summary>
-  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>12.000.000.000 đ</dd></div><div><dt>Đã giải ngân</dt><dd>4.742.302.000 đ</dd></div><div><dt>Còn lại</dt><dd>7.257.698.000 đ</dd></div><div><dt>Ngày giao vốn</dt><dd>18/08/2026</dd></div><div><dt>Hạn giải ngân</dt><dd>31/01/2027</dd></div><div><dt>Tiến độ thời gian</dt><dd>53,6%</dd></div></dl>
+  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>12.000.000.000 đ</dd></div><div><dt>Đã giải ngân</dt><dd>4.742.302.000 đ</dd></div><div><dt>Còn lại</dt><dd>7.257.698.000 đ</dd></div><div><dt>Ngày giao vốn</dt><dd>18/08/2026</dd></div><div><dt>Hạn giải ngân</dt><dd>31/01/2027</dd></div><div><dt>Tiến độ thời gian</dt><dd>53,6%</dd></div><div class="wide"><dt>Tình hình thực hiện</dt><dd>Đã bàn giao mặt bằng, khởi công ngày 01/11/2026; theo hợp đồng thi công (sau thương thảo với nhà thầu), hoàn thành toàn bộ khối lượng trước ngày 23/12/2026. Ngày 14/11/2026 đơn vị thi công thảm bê tông nhựa trục 1, vệ sinh các trục 2, 3, 4, 5 và 7 để thảm. Theo sơ đồ tiến độ, từ 09/11 đến 24/11/2026 cày xới, thay kết cấu và thảm mặt đường đoạn hư hỏng nặng; tiếp đến gia cố lề, rãnh thoát nước. Dự kiến phê duyệt quyết toán ngày 05/01/2027.</dd></div></dl>
 </details>
 <details class="tile tile-warn" data-khoi="A" data-nhom="IV" data-xl="Chậm tiến độ">
   <summary>
@@ -560,7 +565,7 @@ tr.khoi td{background:#3a1b1b}
     <span class="tile-big">41,1%</span>
     <span class="bar bar-sm"><i class="fill-warn" style="width:41.13%"></i><em style="left:calc(53.61% - 1px)"></em></span>
   </summary>
-  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>7.500.000.000 đ</dd></div><div><dt>Đã giải ngân</dt><dd>3.084.651.000 đ</dd></div><div><dt>Còn lại</dt><dd>4.415.349.000 đ</dd></div><div><dt>Ngày giao vốn</dt><dd>18/08/2026</dd></div><div><dt>Hạn giải ngân</dt><dd>31/01/2027</dd></div><div><dt>Tiến độ thời gian</dt><dd>53,6%</dd></div></dl>
+  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>7.500.000.000 đ</dd></div><div><dt>Đã giải ngân</dt><dd>3.084.651.000 đ</dd></div><div><dt>Còn lại</dt><dd>4.415.349.000 đ</dd></div><div><dt>Ngày giao vốn</dt><dd>18/08/2026</dd></div><div><dt>Hạn giải ngân</dt><dd>31/01/2027</dd></div><div><dt>Tiến độ thời gian</dt><dd>53,6%</dd></div><div class="wide"><dt>Tình hình thực hiện</dt><dd>Đã bàn giao mặt bằng, khởi công ngày 01/11/2026; theo hợp đồng thi công (sau thương thảo với nhà thầu), hoàn thành toàn bộ khối lượng trước ngày 23/12/2026. Theo sơ đồ tiến độ, đã thảm tăng cường mặt đường bê tông nhựa; từ 09/11 đến 29/11/2026 cày xới mặt đường hư hỏng nặng, thay lớp móng và thảm mặt đường; tiếp đến gia cố lề, rãnh thoát nước. Dự kiến phê duyệt quyết toán ngày 10/01/2027.</dd></div></dl>
 </details>
 <details class="tile tile-late tile-th th-cds" data-khoi="A" data-nhom="VI" data-xl="Cấp bách">
   <summary>
