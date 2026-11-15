@@ -91,6 +91,7 @@ def label(nguon):
 
 # Tình hình thực hiện theo văn bản đã ban hành (thư mục Lưu trữ trình duyệt, báo cáo tuần của Phòng KT-HT&ĐT).
 # (khóa nguồn vốn, cụm tên dự án, số vốn dư không còn nhu cầu giải ngân, ghi chú)
+HD_2347 = 'Đã bàn giao mặt bằng, khởi công ngày 01/11/2026; theo hợp đồng thi công (sau thương thảo với nhà thầu), hoàn thành toàn bộ khối lượng trước ngày 23/12/2026. '
 TIEN_DO = [
     ("kéo dài", "Mầm non Tân Hòa", 81_686_000,
      "Dự án hoàn thành, đã phê duyệt quyết toán tại Quyết định số 1348/QĐ-UBND ngày 07/8/2026 của UBND phường. "
@@ -104,7 +105,29 @@ TIEN_DO = [
     ("1133", "Nguyễn Văn Cừ", 0, "Đang thi công; Phòng KT-HT&ĐT đôn đốc, giám sát nhà thầu đẩy nhanh tiến độ."),
     ("1133", "Trạm Y tế", 0, "Đang thi công; Phòng KT-HT&ĐT đôn đốc, giám sát nhà thầu đẩy nhanh tiến độ."),
     ("1133", "hội trường", 0, "Đang thi công; Phòng KT-HT&ĐT đôn đốc, giám sát nhà thầu đẩy nhanh tiến độ."),
+    # 06 dự án ngân sách tỉnh bổ sung (QĐ 2347): sơ đồ tiến độ và báo cáo của chủ đầu tư ngày 15/11/2026
+    ("2347", "Kom Leo", 0, HD_2347 + "Theo sơ đồ tiến độ, từ 03/11 đến 28/11/2026 cày xới mặt đường hư hỏng nặng, thay lớp móng và thảm mặt đường; "
+     "tiếp đến thảm tăng cường mặt đường bê tông nhựa, gia cố lề, rãnh thoát nước và hệ thống an toàn giao thông. Dự kiến phê duyệt quyết toán ngày 12/01/2027."),
+    ("2347", "TDP 10B", 0, HD_2347 + "Theo sơ đồ tiến độ, từ 03/11 đến 28/11/2026 thi công nền, móng đường hư hỏng; "
+     "tiếp đến thảm mặt đường bê tông nhựa, gia cố lề, rãnh thoát nước và hệ thống an toàn giao thông. Dự kiến phê duyệt quyết toán ngày 10/01/2027."),
+    ("2347", "Đam San", 0, HD_2347 + "Theo sơ đồ tiến độ, đã thảm tăng cường mặt đường bê tông nhựa; từ 09/11 đến 19/11/2026 thay mới bó vỉa, hoàn trả vỉa hè; "
+     "tiếp đến sửa chữa hệ thống thoát nước, điện trang trí và an toàn giao thông. Dự kiến phê duyệt quyết toán ngày 31/12/2026."),
+    ("2347", "TDP 2B", 0, HD_2347 + "Theo sơ đồ tiến độ, từ 03/11 đến 23/11/2026 cày xới mặt đường hư hỏng nặng, thay lớp móng và thảm mặt đường; "
+     "tiếp đến thảm tăng cường mặt đường bê tông nhựa, gia cố lề, rãnh thoát nước và hệ thống an toàn giao thông. Dự kiến phê duyệt quyết toán ngày 12/01/2027."),
+    ("2347", "TDP 5B", 0, HD_2347 + "Ngày 14/11/2026 đơn vị thi công thảm bê tông nhựa trục 1, vệ sinh các trục 2, 3, 4, 5 và 7 để thảm. "
+     "Theo sơ đồ tiến độ, từ 09/11 đến 24/11/2026 cày xới, thay kết cấu và thảm mặt đường đoạn hư hỏng nặng; tiếp đến gia cố lề, rãnh thoát nước. "
+     "Dự kiến phê duyệt quyết toán ngày 05/01/2027."),
+    ("2347", "TDP 9B", 0, HD_2347 + "Theo sơ đồ tiến độ, đã thảm tăng cường mặt đường bê tông nhựa; từ 09/11 đến 29/11/2026 cày xới mặt đường hư hỏng nặng, thay lớp móng và thảm mặt đường; "
+     "tiếp đến gia cố lề, rãnh thoát nước. Dự kiến phê duyệt quyết toán ngày 10/01/2027."),
 ]
+
+# Kế hoạch giải ngân do chủ đầu tư báo cáo, theo nguồn: (mốc, tỷ lệ) và ghi chú
+KH_GN = {
+    "2347": ([(dt.date(2026, 11, 30), 0.60), (dt.date(2026, 12, 20), 0.98)],
+             "Kế hoạch giải ngân của chủ đầu tư (vạch chấm trên thanh): đạt ít nhất 60% đến ngày 30/11/2026 và 98% trước ngày 20/12/2026; "
+             "phần còn lại chủ yếu là chi phí dự phòng chưa phát sinh khối lượng. Theo hợp đồng thi công, 06 dự án hoàn thành toàn bộ khối lượng trước ngày 23/12/2026; "
+             "chủ đầu tư đánh giá tiến độ hiện nay ổn định."),
+}
 DONE = "Đã quyết toán"
 NEW = "Mới giao chi tiết"
 
@@ -623,10 +646,15 @@ def render(groups, projects, t, hist, fetched):
                 if g["du"]:
                     val += f"; {vi(g['du'])} đồng vốn dư sau quyết toán đã đề nghị điều chỉnh giảm, không tính vào số còn phải giải ngân"
                 mark = f'<em style="left:calc({od*100:.2f}% - 1px)" title="Tiến độ thời gian từ ngày giao {pct(od)}"></em>'
+            plan = ""
+            for key, (mocs, txt) in KH_GN.items():
+                if key in g["nguon"]:
+                    mark += "".join(f'<b class="tgt" style="left:calc({r*100:.2f}% - 1px)" title="Mục tiêu {pct(r)} đến {d:%d/%m/%Y}"></b>' for d, r in mocs)
+                    plan = f'\n  <p class="src-plan">{e(txt)}</p>'
             src.append(f'''<div class="src">
   <div class="src-top"><span class="src-name"><span class="src-no">{e(g["ma"])}</span>{e(g["long"])}</span><span class="src-right"><span class="badge badge-{b}">{e(g["xl"])}</span><span class="src-pct">{pct(g["tl"])}</span></span></div>
   <div class="bar" role="img" aria-label="{e(g['long'])}: {pct(g['tl'])}"><i class="{FILL[b]}" style="width:{min(100, g['tl']*100):.2f}%"></i>{mark}</div>
-  <p class="src-meta">{e(val)} · {n} dự án · {e(g["basis"])}</p>
+  <p class="src-meta">{e(val)} · {n} dự án · {e(g["basis"])}</p>{plan}
 </div>''')
 
     # thẻ dự án
