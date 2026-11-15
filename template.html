@@ -205,6 +205,8 @@ h2::before{content:"";flex:none;width:6px;height:26px;background:var(--brand-red
 .tile[hidden]{display:none}
 .tile-multi{align-self:flex-start;margin-top:-4px;padding:1px 8px;border-radius:9999px;background:rgba(31,142,160,.10);color:#11707e;font-size:11.5px;line-height:18px;font-weight:700}
 .xref-a{font-weight:700;color:var(--accent-red-text)}
+.tile-sub{margin-top:-8px;font-size:12.5px;line-height:18px;font-weight:600;color:var(--ink-muted)}
+.parts{margin:2px 0 0;padding-left:18px;display:grid;gap:4px}.parts b{color:var(--ink-strong)}
 .tile:target,.tile.flash{box-shadow:0 0 0 3px rgba(31,142,160,.55)}
 .tmap{display:block;width:100%;height:auto;margin-top:4px;background:var(--surface-muted);border-radius:var(--r-md)}
 .tmap path,.tmap line{fill:none;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
@@ -475,7 +477,7 @@ tr.khoi td{background:#3a1b1b}
 (function(){
   var f={khoi:"",nhom:"",xl:""},tiles=[].slice.call(document.querySelectorAll(".tile")),cnt=document.querySelector(".count");
   function sync(){["khoi","nhom","xl"].forEach(function(k){document.querySelectorAll('.chip[data-f="'+k+'"]').forEach(function(c){c.setAttribute("aria-pressed",String(c.dataset.v===f[k]));});});}
-  function apply(){var n=0;tiles.forEach(function(t){var ok=(!f.khoi||t.dataset.khoi===f.khoi)&&(!f.nhom||t.dataset.nhom===f.nhom)&&(!f.xl||t.dataset.xl===f.xl);t.hidden=!ok;if(ok)n++;});
+  function apply(){var n=0;tiles.forEach(function(t){var ok=(!f.khoi||t.dataset.khoi===f.khoi)&&(!f.nhom||(" "+t.dataset.nhom+" ").indexOf(" "+f.nhom+" ")>=0)&&(!f.xl||t.dataset.xl===f.xl);t.hidden=!ok;if(ok)n++;});
     if(cnt)cnt.textContent="Đang hiện "+n+"/"+tiles.length+" dự án";}
   document.querySelectorAll(".chip").forEach(function(b){b.addEventListener("click",function(){var k=b.dataset.f;f[k]=f[k]===b.dataset.v?"":b.dataset.v;sync();apply();});});
   apply();
@@ -486,7 +488,7 @@ tr.khoi td{background:#3a1b1b}
     el.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();fn();}});}
   function addGo(el,text){var b=document.createElement("button");b.type="button";b.className="go";b.tabIndex=-1;b.textContent=text+" \u203A";el.appendChild(b);}
   var nhomOf={};document.querySelectorAll('.chip[data-f="nhom"]').forEach(function(c){var m=(c.textContent||"").match(/^([AB]\d+)\./);if(m)nhomOf[m[1]]=c.dataset.v;});
-  function nTiles(o){return tiles.filter(function(t){return(!o.khoi||t.dataset.khoi===o.khoi)&&(!o.nhom||t.dataset.nhom===o.nhom);}).length;}
+  function nTiles(o){return tiles.filter(function(t){return(!o.khoi||t.dataset.khoi===o.khoi)&&(!o.nhom||(" "+t.dataset.nhom+" ").indexOf(" "+o.nhom+" ")>=0);}).length;}
   // vòng tròn đầu trang
   var rings=document.querySelectorAll(".rings .ring");
   drill(rings[0],function(){to("cap-giao");},"Xem theo cấp giao vốn");
