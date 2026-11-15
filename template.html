@@ -203,6 +203,9 @@ h2::before{content:"";flex:none;width:6px;height:26px;background:var(--brand-red
 .tile-dl{margin:0;padding:0 var(--s4) var(--s4);display:grid;grid-template-columns:1fr 1fr;gap:var(--s2) var(--s4);font-size:13px;line-height:19px}
 .tile-dl .wide{grid-column:1/-1}.tile-dl dt{color:var(--ink-muted)}.tile-dl dd{margin:0;font-weight:600;color:var(--ink-strong)}
 .tile[hidden]{display:none}
+.tile-multi{align-self:flex-start;margin-top:-4px;padding:1px 8px;border-radius:9999px;background:rgba(31,142,160,.10);color:#11707e;font-size:11.5px;line-height:18px;font-weight:700}
+.xref-a{font-weight:700;color:var(--accent-red-text)}
+.tile:target,.tile.flash{box-shadow:0 0 0 3px rgba(31,142,160,.55)}
 .tmap{display:block;width:100%;height:auto;margin-top:4px;background:var(--surface-muted);border-radius:var(--r-md)}
 .tmap path{fill:none;stroke-linecap:round;stroke-linejoin:round}
 .tmap .m-tham{stroke:#2e9e47;stroke-width:14}.tmap .m-cb{stroke:#c9950a;stroke-width:12;stroke-dasharray:26 16}.tmap .m-chua{stroke:#9b8f87;stroke-width:8}
@@ -309,6 +312,7 @@ tr.drill:hover td{background:var(--surface-muted)}
 .tile-new{border-top-color:#2ec4da}.tile-done{border-top-color:#4f9cc0}.tile-warn{border-top-color:#e0ad2a}
 .badge-new{background:#0f3a40;color:#7fe0ec}
 .badge-done{background:#13303d;color:#8cc6e0}
+.tile-multi{background:rgba(95,211,227,.12);color:#7fe0ec}
 .toc{background:rgba(18,24,27,.88);box-shadow:0 4px 14px rgba(0,0,0,.35)}
 .tmap .m-tham{stroke:#4cc35d}.tmap .m-cb{stroke:#e0ad2a}.tmap .m-chua{stroke:#6d7a81}.tmap .m-lab circle{fill:var(--surface)}
 .map-lg .m-tham{border-color:#4cc35d}.map-lg .m-cb{border-color:#e0ad2a}.map-lg .m-chua{border-color:#6d7a81}
@@ -497,6 +501,8 @@ tr.khoi td{background:#3a1b1b}
     if(top)top.classList.toggle("show",window.scrollY>600);}
   window.addEventListener("scroll",spy,{passive:true});spy();
   if(top)top.addEventListener("click",function(){window.scrollTo({top:0});});
+  document.querySelectorAll(".xref-a").forEach(function(a){a.addEventListener("click",function(e){var d=document.getElementById(a.getAttribute("href").slice(1));if(!d)return;e.preventDefault();
+    if(d.hidden){f={khoi:"",nhom:"",xl:""};sync();apply();}d.open=true;d.scrollIntoView({block:"center"});d.classList.add("flash");setTimeout(function(){d.classList.remove("flash");},2200);});});
 })();
 </script>
 </body>
