@@ -161,11 +161,33 @@ SO_DO_TUYEN = {
         "7": "M686 677 697 731M1463 533 840 660M778 673 689 691M1461 522 1465 542M802 634 807 661M809 672 814 698"
     }, "lab": {"1": (1065, 34), "2": (1280, 34), "3": (1232, 248), "4": (828, 110), "5": (945, 40), "6": (905, 850), "7": (1440, 492)}},
 }
-TT_TRUC = {"tham": "Đã triển khai thảm bê tông nhựa", "cb": "Đang vệ sinh mặt đường, chuẩn bị thảm", "chua": "Chưa có báo cáo"}
+SO_DO_TUYEN["TDP 10B"] = {"vb": "0 0 3205 2512", "r": 95, "fs": 105, "paths": {
+        "1": "M172 2340 330 2232 291 2183 542 2013 583 2055 1091 1702 1092 1332 1311 1265 1584 1068 1556 984 1561 925 1537 822 1538 732 1521 507 1545 497 1549 488 1562 420 1703 409 1746 373 1778 361 1920 339 2212 281 3033 172",
+        "2": "M430 1795 351 1651 414 1621 393 1556 677 1443 839 1362 1088 1327",
+        "3": "M684 1440 688 1618"
+    }, "lab": {"1": (1450, 690), "2": (250, 1440), "3": (845, 1560)}}
+# Đường Đam San là một tuyến gần thẳng: thể hiện dạng dải theo lý trình (km0+000 đến km1+054 theo bản vẽ)
+SO_DO_TUYEN["Đam San"] = {"kind": "strip", "dai": 1054, "ten": "Tuyến đường Đam San"}
+TT_TRUC = {"tham": "Đã triển khai thảm bê tông nhựa", "cb": "Đang vệ sinh mặt đường, chuẩn bị thảm", "chua": "Chưa có báo cáo",
+           "pv": "Phạm vi thi công; chưa có báo cáo tiến độ chi tiết"}
 TRUC_TT = {
     "TDP 5B": ({"1": "tham", "2": "cb", "3": "cb", "4": "cb", "5": "cb", "7": "cb", "6": "chua"},
-               "Theo báo cáo của chủ đầu tư ngày 14/11/2026."),
+               "Theo báo cáo của chủ đầu tư ngày 14/11/2026. Sơ đồ thể hiện một phần trục 6, đoạn còn lại tiếp tục về hướng Tây Nam."),
+    "TDP 10B": ({"1": "pv", "2": "pv", "3": "pv"}, "Theo bản vẽ vị trí các trục của chủ đầu tư."),
+    "Đam San": ({"tuyen": "pv"}, "Theo bản vẽ vị trí tuyến của chủ đầu tư; lý trình từ Km0+000 đến Km1+054."),
 }
+RANK = {"chua": 0, "pv": 1, "cb": 2, "tham": 3}
+
+
+def so_do_strip(sd, st):
+    dai, x0, w = sd["dai"], 60, 980
+    sx = lambda m: x0 + w * m / dai
+    ticks = "".join(f'<line x1="{sx(m):.0f}" y1="58" x2="{sx(m):.0f}" y2="92" class="m-tick"/><text x="{sx(m):.0f}" y="116" class="m-km">H{m // 100}</text>'
+                    for m in range(100, dai, 100))
+    return (f'<svg class="tmap tstrip" viewBox="0 0 1100 150" role="img" aria-label="Sơ đồ lý trình {e(sd["ten"])}">'
+            f'<line x1="{x0}" y1="56" x2="{x0 + w}" y2="56" class="m-vs"/><line x1="{x0}" y1="94" x2="{x0 + w}" y2="94" class="m-vs"/>'
+            f'<path class="m-{st}" d="M{x0} 75H{x0 + w}"/>{ticks}'
+            f'<text x="{x0}" y="36" class="m-end" text-anchor="start">Km0+000</text><text x="{x0 + w}" y="36" class="m-end" text-anchor="end">Km1+054</text></svg>')
 
 
 def so_do(du_an):
@@ -173,15 +195,23 @@ def so_do(du_an):
         if key.lower() not in du_an.lower():
             continue
         tt, nguon = TRUC_TT.get(key, ({}, ""))
-        order = sorted(sd["paths"], key=lambda k: {"chua": 0, "cb": 1, "tham": 2}.get(tt.get(k, "chua"), 0))
-        g = "".join(f'<path class="m-{tt.get(k, "chua")}" d="{sd["paths"][k]}"/>' for k in order)
-        g += "".join(f'<g class="m-lab"><circle cx="{x}" cy="{y}" r="34"/><text x="{x}" y="{y + 13}">{k}</text></g>' for k, (x, y) in sd["lab"].items())
-        groups = {}
-        for k in sorted(sd["paths"]):
-            groups.setdefault(tt.get(k, "chua"), []).append(k)
-        lg = "".join(f'<li><i class="m-{st}"></i>Trục {", ".join(ks)}: {TT_TRUC[st]}</li>' for st in ("tham", "cb", "chua") if (ks := groups.get(st)))
-        return (f'<div class="wide"><dt>Sơ đồ tuyến</dt><dd><svg class="tmap" viewBox="{sd["vb"]}" role="img" aria-label="Sơ đồ các trục của dự án">{g}</svg>'
-                f'<ul class="map-lg">{lg}</ul><small class="map-src">{e(nguon)} Sơ đồ thể hiện một phần trục 6, đoạn còn lại tiếp tục về hướng Tây Nam.</small></dd></div>')
+        if sd.get("kind") == "strip":
+            st = tt.get("tuyen", "chua")
+            svg = so_do_strip(sd, st)
+            lg = f'<li><i class="m-{st}"></i>{e(sd["ten"])}: {TT_TRUC[st]}</li>'
+        else:
+            r, fs = sd.get("r", 34), sd.get("fs", 38)
+            order = sorted(sd["paths"], key=lambda k: RANK.get(tt.get(k, "chua"), 0))
+            g = "".join(f'<path class="m-{tt.get(k, "chua")}" d="{sd["paths"][k]}"/>' for k in order)
+            g += "".join(f'<g class="m-lab"><circle cx="{x}" cy="{y}" r="{r}" style="stroke-width:{r / 8:.0f}"/><text x="{x}" y="{y + fs * 0.36:.0f}" style="font-size:{fs}px">{k}</text></g>'
+                         for k, (x, y) in sd["lab"].items())
+            svg = f'<svg class="tmap" viewBox="{sd["vb"]}" role="img" aria-label="Sơ đồ các trục của dự án">{g}</svg>'
+            groups = {}
+            for k in sorted(sd["paths"]):
+                groups.setdefault(tt.get(k, "chua"), []).append(k)
+            lg = "".join(f'<li><i class="m-{st}"></i>Trục {", ".join(ks)}: {TT_TRUC[st]}</li>' for st in ("tham", "cb", "pv", "chua") if (ks := groups.get(st)))
+        return (f'<div class="wide"><dt>Sơ đồ tuyến</dt><dd>{svg}'
+                f'<ul class="map-lg">{lg}</ul><small class="map-src">{e(nguon)}</small></dd></div>')
     return ""
 
 
