@@ -189,7 +189,18 @@ h2::before{content:"";flex:none;width:6px;height:26px;background:var(--brand-red
 .chip{font:inherit;font-size:13px;font-weight:600;line-height:18px;padding:6px 12px;border-radius:9999px;border:1px solid var(--line-strong);background:#fff;color:var(--ink);cursor:pointer}
 .chip[aria-pressed=true]{background:var(--brand-brown);border-color:var(--brand-brown);color:#fff}
 .chip.all{border-style:dashed}
-.count{margin:0 0 var(--s4);font-size:13px;color:var(--ink-muted)}
+.count{margin:0;font-size:13px;color:var(--ink-muted)}
+.fbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;margin:0 0 var(--s4)}
+.fact{display:contents}
+.fpill{font:inherit;font-size:13px;font-weight:700;line-height:18px;padding:5px 12px;border-radius:9999px;border:1px solid var(--brand-brown);background:var(--brand-brown);color:#fff;cursor:pointer}
+.fbtn{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font:inherit;font-size:13px;font-weight:700;line-height:18px;padding:6px 12px;border-radius:var(--r-md);border:1px solid var(--line-strong);background:var(--surface);color:var(--ink-strong);cursor:pointer}
+.fbtn svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linejoin:round}
+.fbtn[aria-expanded=true]{border-color:var(--ink-strong);background:var(--surface-muted)}
+.fpanel{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px 14px;align-items:end;margin:-6px 0 var(--s4);padding:12px 14px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--surface-muted)}
+.fpanel[hidden]{display:none}
+.fpanel label{display:grid;gap:4px;font-size:12px;font-weight:700;color:var(--ink-muted)}
+.fpanel select{font:inherit;font-size:14px;padding:7px 8px;border:1px solid var(--line-strong);border-radius:var(--r-sm);background:var(--surface);color:var(--ink-strong);min-width:0;width:100%}
+.fclear{justify-self:start;font:inherit;font-size:13px;font-weight:700;padding:7px 12px;border:0;background:none;color:var(--accent-red-text);cursor:pointer}
 .tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:var(--s4)}
 .tile{border:1px solid var(--line);border-radius:var(--r-lg);background:#fff;border-top:5px solid var(--line-strong);transition:box-shadow .15s}
 .tile:hover{box-shadow:0 4px 14px rgba(59,42,32,.10)}
@@ -340,6 +351,7 @@ body.print-table section.tbl,body.print-table #bang{margin:0!important;padding:0
 #p-w:checked~.seg label[for=p-w],#p-m:checked~.seg label[for=p-m],#p-q:checked~.seg label[for=p-q]{background:#3a4750;box-shadow:none}
 .chip{background:transparent}
 .chip[aria-pressed=true]{background:#e9dccf;border-color:#e9dccf;color:#2a1d15}
+.fpill{background:#e9dccf;border-color:#e9dccf;color:#2a1d15}
 .tile{background:var(--surface-muted)}
 .tile:hover{box-shadow:0 4px 18px rgba(0,0,0,.45)}
 .fill-new{background:#2ec4da}.fill-done{background:#4f9cc0}.fill-warn{background:#e0ad2a}
@@ -357,7 +369,7 @@ body.print-table section.tbl,body.print-table #bang{margin:0!important;padding:0
 th{background:#3b2b22}
 tr.khoi td{background:#3a1b1b}
 }
-@media print{html,main{background:#fff}.hero{-webkit-print-color-adjust:exact;print-color-adjust:exact}.filters,.seg{display:none}.pp{display:block!important}.tile{break-inside:avoid}details.fold{display:block}details.fold>*{display:block}details.fold>summary{display:none}h2{break-after:avoid}}
+@media print{html,main{background:#fff}.hero{-webkit-print-color-adjust:exact;print-color-adjust:exact}.fbar,.fpanel,.filters,.seg{display:none!important}.pp{display:block!important}.tile{break-inside:avoid}details.fold{display:block}details.fold>*{display:block}details.fold>summary{display:none}h2{break-after:avoid}}
 </style>
 </head>
 <body>
@@ -474,11 +486,18 @@ tr.khoi td{background:#3a1b1b}
   <section class="tbl" aria-labelledby="du-an">
     <h2 id="du-an">Theo dự án</h2>
     <p class="sub">Bấm vào từng thẻ để xem số chi tiết. Có %%cnt_dat%% dự án đạt tiến độ, %%cnt_cham%% chậm tiến độ, %%cnt_cb%% cấp bách, %%cnt_new%% mới giao chi tiết, %%cnt_qt%% đã quyết toán và %%cnt_chua%% dự án chờ UBND giao chi tiết kế hoạch vốn.</p>
-    <div class="filters" role="group" aria-label="Lọc theo cấp giao vốn"><button type="button" class="chip all" data-f="khoi" data-v="" aria-pressed="true">Cả hai khối</button>%%chips_khoi%%</div>
-    <div class="filters" role="group" aria-label="Lọc theo nguồn vốn"><button type="button" class="chip all" data-f="nhom" data-v="" aria-pressed="true">Tất cả nguồn vốn</button>%%chips_nhom%%</div>
-    <div class="filters" role="group" aria-label="Lọc theo chủ đầu tư"><button type="button" class="chip all" data-f="cdt" data-v="" aria-pressed="true">Tất cả chủ đầu tư</button>%%chips_cdt%%</div>
-    <div class="filters" role="group" aria-label="Lọc theo đánh giá"><button type="button" class="chip all" data-f="xl" data-v="" aria-pressed="true">Mọi mức đánh giá</button>%%chips_xl%%</div>
-    <p class="count" aria-live="polite"></p>
+    <div class="fbar">
+      <p class="count" aria-live="polite"></p>
+      <span class="fact"></span>
+      <button type="button" class="fbtn" aria-expanded="false" aria-controls="fpanel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18l-7 8v6l-4 2v-8z"/></svg>Lọc nâng cao</button>
+    </div>
+    <div class="fpanel" id="fpanel" hidden>
+      <label>Cấp giao vốn<select data-f="khoi"><option value="">Cả hai khối</option>%%opt_khoi%%</select></label>
+      <label>Nguồn vốn<select data-f="nhom"><option value="">Tất cả nguồn vốn</option>%%opt_nhom%%</select></label>
+      <label>Chủ đầu tư<select data-f="cdt"><option value="">Tất cả chủ đầu tư</option>%%opt_cdt%%</select></label>
+      <label>Đánh giá<select data-f="xl"><option value="">Mọi mức đánh giá</option>%%opt_xl%%</select></label>
+      <button type="button" class="fclear">Bỏ lọc</button>
+    </div>
     <div class="tiles">
 %%tiles%%
     </div>
@@ -527,10 +546,15 @@ tr.khoi td{background:#3a1b1b}
 <script>
 (function(){
   var f={khoi:"",nhom:"",xl:"",cdt:""},tiles=[].slice.call(document.querySelectorAll(".tile")),cnt=document.querySelector(".count");
-  function sync(){["khoi","nhom","xl","cdt"].forEach(function(k){document.querySelectorAll('.chip[data-f="'+k+'"]').forEach(function(c){c.setAttribute("aria-pressed",String(c.dataset.v===f[k]));});});}
+  var sels=[].slice.call(document.querySelectorAll(".fpanel select")),fact=document.querySelector(".fact"),fbtn=document.querySelector(".fbtn"),fpanel=document.getElementById("fpanel");
+  function lbl(k){var s=document.querySelector('.fpanel select[data-f="'+k+'"]'),o=s&&[].filter.call(s.options,function(x){return x.value===f[k];})[0];return o?o.textContent.replace(/ · \d+$/,""):"";}
+  function sync(){sels.forEach(function(s){s.value=f[s.dataset.f];});
+    if(fact){fact.innerHTML="";["khoi","nhom","cdt","xl"].forEach(function(k){if(!f[k])return;var b=document.createElement("button");b.type="button";b.className="fpill";b.title="Bỏ điều kiện lọc này";b.textContent=lbl(k)+" \u00D7";b.addEventListener("click",function(){f[k]="";sync();apply();});fact.appendChild(b);});}}
   function apply(){var n=0;tiles.forEach(function(t){var ok=(!f.khoi||t.dataset.khoi===f.khoi)&&(!f.nhom||(" "+t.dataset.nhom+" ").indexOf(" "+f.nhom+" ")>=0)&&(!f.xl||t.dataset.xl===f.xl)&&(!f.cdt||t.dataset.cdt===f.cdt);t.hidden=!ok;if(ok)n++;});
-    if(cnt)cnt.textContent="Đang hiện "+n+"/"+tiles.length+" dự án";}
-  document.querySelectorAll(".chip").forEach(function(b){b.addEventListener("click",function(){var k=b.dataset.f;f[k]=f[k]===b.dataset.v?"":b.dataset.v;sync();apply();});});
+    var on=f.khoi||f.nhom||f.xl||f.cdt;if(cnt)cnt.textContent=on?"Đang lọc "+n+"/"+tiles.length+" thẻ dự án:":"Hiển thị tất cả "+tiles.length+" thẻ dự án";}
+  sels.forEach(function(s){s.addEventListener("change",function(){f[s.dataset.f]=s.value;sync();apply();});});
+  if(fbtn)fbtn.addEventListener("click",function(){var o=fpanel.hidden;fpanel.hidden=!o;fbtn.setAttribute("aria-expanded",String(o));});
+  var fcl=document.querySelector(".fclear");if(fcl)fcl.addEventListener("click",function(){f={khoi:"",nhom:"",xl:"",cdt:""};sync();apply();});
   apply();
   function to(id){var el=document.getElementById(id);if(el)el.scrollIntoView({block:"start"});}
   function go(o){f={khoi:o.khoi||"",nhom:o.nhom||"",xl:o.xl||"",cdt:o.cdt||""};sync();apply();to("du-an");}
@@ -538,7 +562,7 @@ tr.khoi td{background:#3a1b1b}
     el.addEventListener("click",function(e){if(e.target.closest("a,button:not(.go)"))return;fn();});
     el.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();fn();}});}
   function addGo(el,text){var b=document.createElement("button");b.type="button";b.className="go";b.tabIndex=-1;b.textContent=text+" \u203A";el.appendChild(b);}
-  var nhomOf={};document.querySelectorAll('.chip[data-f="nhom"]').forEach(function(c){var m=(c.textContent||"").match(/^([AB]\d+)\./);if(m)nhomOf[m[1]]=c.dataset.v;});
+  var nhomOf={};document.querySelectorAll('.fpanel select[data-f="nhom"] option').forEach(function(c){var m=(c.textContent||"").match(/^([AB]\d+)\./);if(m)nhomOf[m[1]]=c.value;});
   function nTiles(o){return tiles.filter(function(t){return(!o.khoi||t.dataset.khoi===o.khoi)&&(!o.nhom||(" "+t.dataset.nhom+" ").indexOf(" "+o.nhom+" ")>=0)&&(!o.cdt||t.dataset.cdt===o.cdt);}).length;}
   // vòng tròn đầu trang
   var rings=document.querySelectorAll(".rings .ring");
