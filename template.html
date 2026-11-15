@@ -207,13 +207,14 @@ h2::before{content:"";flex:none;width:6px;height:26px;background:var(--brand-red
 .xref-a{font-weight:700;color:var(--accent-red-text)}
 .tile:target,.tile.flash{box-shadow:0 0 0 3px rgba(31,142,160,.55)}
 .tmap{display:block;width:100%;height:auto;margin-top:4px;background:var(--surface-muted);border-radius:var(--r-md)}
-.tmap path{fill:none;stroke-linecap:round;stroke-linejoin:round}
-.tmap .m-tham{stroke:#2e9e47;stroke-width:14}.tmap .m-cb{stroke:#c9950a;stroke-width:12;stroke-dasharray:26 16}.tmap .m-chua{stroke:#9b8f87;stroke-width:8}
-.tmap .m-lab circle{fill:#fff;stroke:var(--ink-strong);stroke-width:4}.tmap .m-lab text{font:800 38px var(--font);fill:var(--ink-strong);text-anchor:middle}
+.tmap path,.tmap line{fill:none;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.tmap .m-tham{stroke:#2e9e47;stroke-width:5px}.tmap .m-cb{stroke:#c9950a;stroke-width:4px;stroke-dasharray:8 5}.tmap .m-chua{stroke:#9b8f87;stroke-width:3px}.tmap .m-pv{stroke:#1f8ea0;stroke-width:4px}
+.tstrip .m-vs{stroke:#9b8f87;stroke-width:1.5px}.tstrip path{stroke-width:9px!important}.tstrip .m-tick{stroke:var(--ink-muted);stroke-width:1.5px}.tstrip .m-km{font:600 20px var(--font);fill:var(--ink-muted);text-anchor:middle}.tstrip .m-end{font:800 24px var(--font);fill:var(--ink-strong)}
+.tmap .m-lab circle{fill:#fff;stroke:var(--ink-strong)}.tmap .m-lab text{font-family:var(--font);font-weight:800;fill:var(--ink-strong);text-anchor:middle}
 @media (min-width:640px){.tile:has(.tmap)[open]{grid-column:span 2}}
 .map-lg{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:3px;font-size:12px;line-height:17px;font-weight:600}
 .map-lg i{display:inline-block;width:18px;height:0;margin-right:6px;vertical-align:middle;border-top:4px solid}
-.map-lg .m-tham{border-color:#2e9e47}.map-lg .m-cb{border-top-style:dashed;border-color:#c9950a}.map-lg .m-chua{border-top-width:3px;border-color:#9b8f87}
+.map-lg .m-tham{border-color:#2e9e47}.map-lg .m-cb{border-top-style:dashed;border-color:#c9950a}.map-lg .m-chua{border-top-width:3px;border-color:#9b8f87}.map-lg .m-pv{border-color:#1f8ea0}
 .map-src{display:block;margin-top:2px;font-size:11px;font-weight:500;color:var(--ink-muted)}
 .tile.tile-th{background-repeat:no-repeat;background-position:right 10px top 40px;background-size:150px auto}
 .tile.th-cds{background-image:linear-gradient(rgba(255,255,255,.80),rgba(255,255,255,.80)),url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 130' fill='none' stroke='%231fa3b7' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='66' y='44' width='40' height='40' rx='5'/><path d='M74 44V30M86 44V22M98 44V30M74 84V98M86 84V108M98 84V98M66 56H50M66 72H40M106 56H124M106 72H140'/><path d='M74 30L60 16H30M86 22V8M98 30L112 16H150M74 98L60 112H24M86 108V124M98 98L114 114H160M50 56L38 44H10M40 72L28 84H6M124 56L136 44H172M140 72L152 84H176'/><g fill='%231fa3b7' stroke='none'><circle cx='30' cy='16' r='3.5'/><circle cx='86' cy='8' r='3.5'/><circle cx='150' cy='16' r='3.5'/><circle cx='24' cy='112' r='3.5'/><circle cx='86' cy='124' r='3.5'/><circle cx='160' cy='114' r='3.5'/><circle cx='10' cy='44' r='3.5'/><circle cx='6' cy='84' r='3.5'/><circle cx='172' cy='44' r='3.5'/><circle cx='176' cy='84' r='3.5'/></g><rect x='76' y='54' width='20' height='20' rx='2'/></svg>");background-size:100% 100%,150px auto;background-position:0 0,right 10px top 40px}
@@ -323,7 +324,7 @@ tr.drill:hover td{background:var(--surface-muted)}
 .badge-done{background:#13303d;color:#8cc6e0}
 .tile-multi{background:rgba(95,211,227,.12);color:#7fe0ec}
 .toc{background:rgba(18,24,27,.88);box-shadow:0 4px 14px rgba(0,0,0,.35)}
-.tmap .m-tham{stroke:#4cc35d}.tmap .m-cb{stroke:#e0ad2a}.tmap .m-chua{stroke:#6d7a81}.tmap .m-lab circle{fill:var(--surface)}
+.tmap .m-tham{stroke:#4cc35d}.tmap .m-cb{stroke:#e0ad2a}.tmap .m-chua{stroke:#6d7a81}.tmap .m-pv{stroke:#5fd3e3}.map-lg .m-pv{border-color:#5fd3e3}.tmap .m-lab circle{fill:var(--surface)}
 .map-lg .m-tham{border-color:#4cc35d}.map-lg .m-cb{border-color:#e0ad2a}.map-lg .m-chua{border-color:#6d7a81}
 .bar .tgt{border-left-color:#5fd3e3}
 .src-plan{border-left-color:#5fd3e3;background:rgba(95,211,227,.08)}
