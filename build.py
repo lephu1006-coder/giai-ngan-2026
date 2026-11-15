@@ -902,30 +902,45 @@ def render(groups, projects, t, hist, fetched):
     chips_nhom = "".join(f'<button type="button" class="chip" data-f="nhom" data-v="{e(g["nhom"])}">{e(g["ma"])}. {e(g["short"])}</button>' for g in groups)
     chips_xl = "".join(f'<button type="button" class="chip" data-f="xl" data-v="{k}">{k} · {cnt[k]}</button>' for k in BADGE if cnt[k])
 
+    def tr(x):  # bảng chi tiết: đơn vị triệu đồng, làm tròn
+        return vi(x / 1e6)
+
     def tm_cells(du_an):
         ti = thong_tin(du_an)
         if not ti:
-            return '<td></td><td class="num"></td>'
+            return '<td class="cdt"></td><td class="num"></td>'
         cdt = CDT_NGAN.get(ti["cdt"], ti["cdt"])
         return (f'<td class="cdt" title="{e(ti["cdt"])}">{e(cdt)}</td>'
-                f'<td class="num" title="{e(ti["cc"])}">{vi(ti["tm"])}{DAU_TM[ti["loai"]]}</td>')
+                f'<td class="num" title="{e(ti["cc"])}">{tr(ti["tm"])}{DAU_TM[ti["loai"]]}</td>')
 
     def sub_row(label, x):
-        return f'<tr class="sub"><td></td><td>{e(label)}</td><td></td><td></td><td class="num">{vi(x["kh"])}</td><td class="num">{vi(x["gn"])}</td><td class="num">{pct(x["tl"])}</td><td></td></tr>'
+        return f'<tr class="sub"><td></td><td>{e(label)}</td><td></td><td></td><td class="num">{tr(x["kh"])}</td><td class="num">{tr(x["gn"])}</td><td class="num">{pct(x["tl"])}</td><td></td><td class="pr"></td></tr>'
+
+    # bản in: thêm tình hình thực hiện, chủ đầu tư và quyết định làm căn cứ dưới tên dự án
+    nmap = {pkey(c["du_an"]): c.get("note") or "" for c in cards}
+
+    def pr_sub(du_an):
+        ti = thong_tin(du_an)
+        if not ti:
+            return ""
+        return f'<span class="pr-sub">Chủ đầu tư: {e(CDT_NGAN.get(ti["cdt"], ti["cdt"]))}. {e(ti["cc"])}.</span>'
+
+    def pr_note(p):
+        return f'<td class="pr pr-note">{e(p.get("note") or nmap.get(pkey(p["du_an"]), ""))}</td>'
 
     body_rows = []
     for k in ("A", "B"):
-        body_rows.append(f'<tr class="khoi"><td colspan="8">{k}. {e(KHOI[k][0]).upper()}</td></tr>')
+        body_rows.append(f'<tr class="khoi"><td colspan="9">{k}. {e(KHOI[k][0]).upper()}</td></tr>')
         last_sub = None
         for g in blk[k]["gs"]:
             if g["sub"] and g["sub"] != last_sub:
                 if last_sub:
                     body_rows.append(sub_row("Cộng " + SUB_B[last_sub].lower(), subs[last_sub]))
-                body_rows.append(f'<tr class="grp2"><td colspan="8">{e(SUB_B[g["sub"]])}</td></tr>')
+                body_rows.append(f'<tr class="grp2"><td colspan="9">{e(SUB_B[g["sub"]])}</td></tr>')
                 last_sub = g["sub"]
-            body_rows.append(f'<tr class="grp"><td colspan="8">{e(g["ma"])}. {e(g["long"])}</td></tr>')
+            body_rows.append(f'<tr class="grp"><td colspan="9">{e(g["ma"])}. {e(g["long"])}<span class="pr"> (hạn giải ngân {g["due"]:%d/%m/%Y})</span></td></tr>')
             for p in [p for p in projects if p["nhom"] == g["nhom"]]:
-                body_rows.append(f'<tr><td class="center">{p["stt"]}</td><td>{e(p["du_an"])}</td>{tm_cells(p["du_an"])}<td class="num">{vi(p["kh"])}</td><td class="num">{vi(p["gn"])}</td><td class="num">{pct(p["tl"])}</td><td><span class="badge badge-{BADGE[p["xl"]]}">{e(p["xl"])}</span></td></tr>')
+                body_rows.append(f'<tr><td class="center">{p["stt"]}</td><td>{e(p["du_an"])}{pr_sub(p["du_an"])}</td>{tm_cells(p["du_an"])}<td class="num">{tr(p["kh"])}</td><td class="num">{tr(p["gn"])}</td><td class="num">{pct(p["tl"])}</td><td><span class="badge badge-{BADGE[p["xl"]]}">{e(p["xl"])}</span></td>{pr_note(p)}</tr>')
         if last_sub:
             body_rows.append(sub_row("Cộng " + SUB_B[last_sub].lower(), subs[last_sub]))
         body_rows.append(sub_row(f"Cộng khối {k}", blk[k]))
@@ -950,7 +965,7 @@ def render(groups, projects, t, hist, fetched):
         tab_w=period_table(weeks), tab_m=period_table(months), tab_q=period_table(quarters),
         need_rows="\n".join(need_rows), need_left=ty(tot_left, False), need_per=ty(per_day, False), per_day_num=ty(per_day, False),
         sources="\n".join(src), tiles="\n".join(tiles), chips_khoi=chips_khoi, chips_nhom=chips_nhom, chips_xl=chips_xl,
-        rows="\n".join(body_rows), f_kh=vi(t["kh"]), f_gn=vi(t["gn"]), f_tl=pct(t["gn"] / t["kh"] if t["kh"] else 0),
+        rows="\n".join(body_rows), f_kh=vi(t["kh"] / 1e6), f_gn=vi(t["gn"] / 1e6), f_tl=pct(t["gn"] / t["kh"] if t["kh"] else 0),
     )
     out = (ROOT / "template.html").read_text(encoding="utf-8")
     for k, v in vals.items():
