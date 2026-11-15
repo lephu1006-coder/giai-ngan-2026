@@ -99,12 +99,22 @@ TIEN_DO = [
      "Báo cáo số 663/BC-UBND ngày 27/10/2026 gửi Sở Tài chính, chờ UBND tỉnh quyết định."),
     ("kéo dài", "Cao Đạt", 0,
      "Đang vận động bàn giao phần mặt bằng còn lại, tháo gỡ vướng mắc đơn thư. Thời hạn giải ngân vốn năm 2025 kéo dài "
-     "được điều chỉnh đến hết ngày 31/12/2026 tại Quyết định số 3598/QĐ-UBND ngày 09/11/2026 của UBND tỉnh."),
-    ("02558", "Cao Đạt", 0, "Đang vận động bàn giao phần mặt bằng còn lại, tháo gỡ vướng mắc đơn thư."),
+     "được điều chỉnh đến hết ngày 31/12/2026 tại Quyết định số 3598/QĐ-UBND ngày 09/11/2026 của UBND tỉnh."
+     " Ngày 13/11/2026 UBND phường phê duyệt phương án bồi thường, hỗ trợ đợt 3 (Quyết định số 2060/QĐ-UBND) và điều chỉnh, bổ sung phương án bồi thường, hỗ trợ (Quyết định số 2066/QĐ-UBND)."),
+    ("02558", "Cao Đạt", 0, "Đang vận động bàn giao phần mặt bằng còn lại, tháo gỡ vướng mắc đơn thư. Ngày 13/11/2026 UBND phường phê duyệt phương án bồi thường, hỗ trợ đợt 3 (Quyết định số 2060/QĐ-UBND) và điều chỉnh, bổ sung phương án bồi thường, hỗ trợ (Quyết định số 2066/QĐ-UBND)."),
     ("1133", "Nguyễn Du", 0, "Đang thi công; Phòng KT-HT&ĐT đôn đốc, giám sát nhà thầu đẩy nhanh tiến độ."),
     ("1133", "Nguyễn Văn Cừ", 0, "Đang thi công; Phòng KT-HT&ĐT đôn đốc, giám sát nhà thầu đẩy nhanh tiến độ."),
     ("1133", "Trạm Y tế", 0, "Đang thi công; Phòng KT-HT&ĐT đôn đốc, giám sát nhà thầu đẩy nhanh tiến độ."),
     ("1133", "hội trường", 0, "Đang thi công; Phòng KT-HT&ĐT đôn đốc, giám sát nhà thầu đẩy nhanh tiến độ."),
+    ("1133", "D8 và N14", 0, "Dự án đã được phê duyệt tại Quyết định số 2037/QĐ-UBND ngày 06/11/2026 của UBND phường; chủ đầu tư triển khai các bước tiếp theo."),
+    ("1133", "hạ tầng kỹ thuật trên địa bàn", 0, "Dự án đã được phê duyệt tại Quyết định số 1731/QĐ-UBND ngày 09/10/2026 của UBND phường; chủ đầu tư triển khai các bước tiếp theo."),
+    ("27/NQ", "Má Hai", 0, "Ngày 26/10/2026 chủ đầu tư phê duyệt dự toán và kế hoạch lựa chọn nhà thầu."),
+    ("27/NQ", "Nguyễn Đình Thi", 0, "Ngày 26/10/2026 chủ đầu tư phê duyệt dự toán và kế hoạch lựa chọn nhà thầu."),
+    ("27/NQ", "Tăng Bạt Hổ", 0, "Ngày 26/10/2026 chủ đầu tư phê duyệt dự toán và kế hoạch lựa chọn nhà thầu."),
+    ("27/NQ", "Phạm Văn Đồng", 0, "Ngày 26/10/2026 chủ đầu tư phê duyệt dự toán và kế hoạch lựa chọn nhà thầu."),
+    ("27/NQ", "Hoàng Minh Giám", 0, "Ngày 26/10/2026 chủ đầu tư phê duyệt dự toán và kế hoạch lựa chọn nhà thầu."),
+    ("27/NQ", "phòng họp không giấy", 0, "Ngày 26/10/2026 chủ đầu tư phê duyệt dự toán và kế hoạch lựa chọn nhà thầu."),
+    ("27/NQ", "Rạp chiếu bóng", 0, "Ngày 11/11/2026 chủ đầu tư phê duyệt kết quả chỉ định thầu gói thầu thẩm tra thiết kế bản vẽ thi công, dự toán."),
     # 06 dự án ngân sách tỉnh bổ sung (QĐ 2347): sơ đồ tiến độ và báo cáo của chủ đầu tư ngày 15/11/2026
     ("2347", "Kom Leo", 0, HD_2347 + "Theo sơ đồ tiến độ, từ 03/11 đến 28/11/2026 cày xới mặt đường hư hỏng nặng, thay lớp móng và thảm mặt đường; "
      "tiếp đến thảm tăng cường mặt đường bê tông nhựa, gia cố lề, rãnh thoát nước và hệ thống an toàn giao thông. Dự kiến phê duyệt quyết toán ngày 12/01/2027."),
@@ -119,6 +129,14 @@ TIEN_DO = [
      "Dự kiến phê duyệt quyết toán ngày 05/01/2027."),
     ("2347", "TDP 9B", 0, HD_2347 + "Theo sơ đồ tiến độ, đã thảm tăng cường mặt đường bê tông nhựa; từ 09/11 đến 29/11/2026 cày xới mặt đường hư hỏng nặng, thay lớp móng và thảm mặt đường; "
      "tiếp đến gia cố lề, rãnh thoát nước. Dự kiến phê duyệt quyết toán ngày 10/01/2027."),
+]
+
+# Cập nhật từ văn bản trên iOffice (anh Phú đã duyệt ngày 15/11/2026): thay ghi chú của bảng số liệu khi bảng chưa kịp cập nhật.
+CAP_NHAT = [
+    ("CĐS", "trang thiết bị công nghệ thông tin", "UBND phường phê duyệt nhiệm vụ và dự toán chuẩn bị đầu tư tại Quyết định số 1993/QĐ-UBND ngày 03/11/2026; ngày 12/11/2026 chủ đầu tư phê duyệt kết quả chỉ định thầu các gói thầu tư vấn lập báo cáo nghiên cứu khả thi, thẩm định giá."),
+    ("CĐS", "hạ tầng chuyển đổi số", "UBND phường phê duyệt nhiệm vụ và dự toán chuẩn bị đầu tư tại Quyết định số 2048/QĐ-UBND ngày 11/11/2026; chủ đầu tư đã phê duyệt kế hoạch lựa chọn nhà thầu tư vấn chuẩn bị đầu tư."),
+    ("MTQG", "Kõ Mliâo", "UBND phường phê duyệt chủ trương đầu tư tại Quyết định số 1999/QĐ-UBND ngày 04/11/2026; chủ đầu tư triển khai các bước tiếp theo."),
+    ("MTQG", "Ea Cuôr Kap", "UBND phường phê duyệt chủ trương đầu tư tại Quyết định số 2000/QĐ-UBND ngày 04/11/2026; chủ đầu tư triển khai các bước tiếp theo."),
 ]
 
 # Kế hoạch giải ngân do chủ đầu tư báo cáo, theo nguồn: (mốc, tỷ lệ) và ghi chú
@@ -183,6 +201,54 @@ RANK = {"chua": 0, "pv": 1, "cb": 2, "tham": 3}
 def pkey(name):
     n = unicodedata.normalize("NFC", name).lower().replace("–", "-").replace("—", "-")
     return re.sub(r"^dự án:?\s+", "", " ".join(n.split()))
+
+
+# Tổng mức đầu tư, chủ đầu tư: tra cứu quyết định phê duyệt dự án (pd), chủ trương đầu tư (ct)
+# hoặc phê duyệt quyết toán (qt) trên hệ thống iOffice; khóa là cụm từ trong tên dự án (chữ thường).
+CDT_TT = "Trung tâm Cung ứng dịch vụ sự nghiệp công phường Tân Lập"
+CDT_VH = "Phòng Văn hóa - Xã hội phường Tân Lập"
+CDT_NGAN = {CDT_TT: "Trung tâm CƯDVSNC", CDT_VH: "Phòng VH-XH"}
+THONG_TIN_DA = [
+    ("cao đạt", 28_849_181_000, CDT_TT, "pd", "Quyết định số 1648/QĐ-UBND ngày 29/9/2026 của UBND phường phê duyệt điều chỉnh tổng mức đầu tư; Trung tâm là đại diện chủ đầu tư"),
+    ("mầm non tân hòa", 3_417_352_000, CDT_TT, "qt", "Giá trị quyết toán theo Quyết định số 1348/QĐ-UBND ngày 07/8/2026 của UBND phường"),
+    ("kom leo", 20_000_000_000, CDT_TT, "pd", "Quyết định số 1729/QĐ-UBND ngày 09/10/2026 của UBND phường phê duyệt dự án"),
+    ("tdp 10b", 16_000_000_000, CDT_TT, "pd", "Quyết định số 1727/QĐ-UBND ngày 09/10/2026 của UBND phường phê duyệt dự án"),
+    ("đam san", 16_000_000_000, CDT_TT, "pd", "Quyết định số 1730/QĐ-UBND ngày 09/10/2026 của UBND phường phê duyệt dự án"),
+    ("tdp 2b", 13_500_000_000, CDT_TT, "pd", "Quyết định số 1728/QĐ-UBND ngày 09/10/2026 của UBND phường phê duyệt dự án"),
+    ("tdp 5b", 12_000_000_000, CDT_TT, "pd", "Quyết định số 1726/QĐ-UBND ngày 09/10/2026 của UBND phường phê duyệt dự án"),
+    ("tdp 9b", 7_500_000_000, CDT_TT, "pd", "Quyết định số 1725/QĐ-UBND ngày 09/10/2026 của UBND phường phê duyệt dự án"),
+    ("trang thiết bị công nghệ thông tin", 1_528_000_000, CDT_VH, "ct", "Quyết định số 1921/QĐ-UBND ngày 23/10/2026 của UBND phường về chủ trương đầu tư"),
+    ("hạ tầng chuyển đổi số tại trung tâm phục vụ", 2_758_000_000, CDT_VH, "ct", "Quyết định số 01928/QĐ-UBND ngày 27/10/2026 của UBND phường về chủ trương đầu tư"),
+    ("kõ mliâo", 3_200_000_000, CDT_VH, "ct", "Quyết định số 1999/QĐ-UBND ngày 04/11/2026 của UBND phường về chủ trương đầu tư"),
+    ("ea cuôr kap", 1_730_000_000, CDT_VH, "ct", "Quyết định số 2000/QĐ-UBND ngày 04/11/2026 của UBND phường về chủ trương đầu tư"),
+    ("th - thcs nguyễn văn cừ", 55_955_000_000, CDT_TT, "ct", "Quyết định số 1652/QĐ-UBND ngày 29/9/2026 của UBND phường về chủ trương đầu tư"),
+    ("tiểu học nguyễn du", 17_400_000_000, CDT_TT, "pd", "Quyết định số 1449/QĐ-UBND ngày 26/8/2026 của UBND phường phê duyệt dự án"),
+    ("thcs nguyễn văn cừ", 20_000_000_000, CDT_TT, "pd", "Quyết định số 1450/QĐ-UBND ngày 26/8/2026 của UBND phường phê duyệt dự án"),
+    ("d8 và n14", 48_213_000_000, CDT_TT, "pd", "Quyết định số 2037/QĐ-UBND ngày 06/11/2026 của UBND phường phê duyệt dự án"),
+    ("trạm y tế", 2_300_000_000, CDT_TT, "pd", "Quyết định số 1448/QĐ-UBND ngày 26/8/2026 của UBND phường phê duyệt dự án"),
+    ("hội trường, nhà làm việc đảng ủy", 2_300_000_000, CDT_TT, "pd", "Quyết định số 1445/QĐ-UBND ngày 25/8/2026 của UBND phường phê duyệt dự án"),
+    ("hạ tầng kỹ thuật trên địa bàn", 19_911_000_000, CDT_TT, "pd", "Quyết định số 1731/QĐ-UBND ngày 09/10/2026 của UBND phường phê duyệt dự án"),
+    ("ama khê", 5_600_000_000, CDT_TT, "ct", "Quyết định số 1657/QĐ-UBND ngày 29/9/2026 của UBND phường về chủ trương đầu tư"),
+    ("nguyễn đình thi", 4_884_692_000, CDT_TT, "ct", "Quyết định số 1660/QĐ-UBND ngày 29/9/2026 của UBND phường về chủ trương đầu tư"),
+    ("má hai", 3_268_492_000, CDT_TT, "ct", "Quyết định số 1659/QĐ-UBND ngày 29/9/2026 của UBND phường về chủ trương đầu tư"),
+    ("tăng bạt hổ", 5_117_649_000, CDT_TT, "ct", "Quyết định số 1661/QĐ-UBND ngày 29/9/2026 của UBND phường về chủ trương đầu tư"),
+    ("phạm văn đồng", 5_555_000_000, CDT_TT, "ct", "Quyết định số 1658/QĐ-UBND ngày 29/9/2026 của UBND phường về chủ trương đầu tư"),
+    ("hoàng minh giám", 1_800_000_000, CDT_TT, "ct", "Quyết định số 1656/QĐ-UBND ngày 29/9/2026 của UBND phường về chủ trương đầu tư"),
+    ("hội nghị truyền hình", 8_152_000_000, CDT_TT, "ct", "Quyết định số 1654/QĐ-UBND ngày 29/9/2026 của UBND phường về chủ trương đầu tư"),
+    ("phòng họp không giấy", 1_720_000_000, CDT_TT, "ct", "Quyết định số 1653/QĐ-UBND ngày 29/9/2026 của UBND phường về chủ trương đầu tư"),
+    ("rạp chiếu bóng", 1_000_000_000, CDT_TT, "ct", "Quyết định số 1655/QĐ-UBND ngày 29/9/2026 của UBND phường về chủ trương đầu tư"),
+    ("c5-c6-c7", 63_357_000_000, CDT_TT, "ct", "Quyết định số 2001/QĐ-UBND ngày 04/11/2026 của UBND phường về chủ trương đầu tư"),
+]
+LOAI_TM = {"pd": "Tổng mức đầu tư", "ct": "Tổng mức đầu tư (theo chủ trương)", "qt": "Giá trị quyết toán"}
+DAU_TM = {"pd": "", "ct": "*", "qt": "**"}
+
+
+def thong_tin(du_an):
+    k = pkey(du_an).replace(" – ", " - ")
+    for key, tm, cdt, loai, cc in THONG_TIN_DA:
+        if key in k:
+            return {"tm": tm, "cdt": cdt, "loai": loai, "cc": cc}
+    return None
 
 
 def gom_the(projects, gmap, today):
@@ -400,6 +466,9 @@ def model(th, nq, cds=None, today=None):
                 done = du > 0 and p["kh"] - p["gn"] - p["du"] <= 1e3
                 if not p.get("note"):
                     p["note"] = note
+        for key, ten, note in CAP_NHAT:
+            if key in g["nguon"] and ten.lower() in p["du_an"].lower():
+                p["note"] = note
         p["done"] = done
         p["kh_gct"] = 0.0
         for key, ten, amt, basis, ngay, ten_qd in GIAO_CT:
@@ -817,6 +886,8 @@ def render(groups, projects, t, hist, fetched):
         mark = "" if p["chua_giao"] or p["done"] else f'<em style="left:calc({od_bar*100:.2f}% - 1px)"></em>'
         big = pct(p["tl"])
         th = " tile-th th-cds" if "CĐS" in g["nguon"] else (" tile-th th-mtqg" if "MTQG" in g["nguon"] else "")
+        ti = thong_tin(p["du_an"])
+        tt_dd = (f'<div class="wide"><dt>Chủ đầu tư</dt><dd>{e(ti["cdt"])}</dd></div><div class="wide"><dt>{LOAI_TM[ti["loai"]]}</dt><dd>{vi(ti["tm"])} đ<span class="cc">{e(ti["cc"])}.</span></dd></div>') if ti else ""
         tiles.append(f'''<details class="tile tile-{b}{th}" id="{tid[id(p)]}" data-khoi="{p["khoi"]}" data-nhom="{e(" ".join(p["nhoms"]))}" data-xl="{e(p["xl"])}">
   <summary>
     <span class="tile-top"><span class="tile-grp">{e(grp)}</span><span class="badge badge-{b}">{e(p["xl"])}</span></span>
@@ -824,31 +895,40 @@ def render(groups, projects, t, hist, fetched):
     <span class="tile-big">{e(big)}</span>{sub}
     <span class="bar bar-sm"><i class="{FILL[b]}" style="width:{min(100,p['tl']*100):.2f}%"></i>{mark}</span>
   </summary>
-  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>{vi(p["kh"])} đ</dd></div><div><dt>Đã giải ngân</dt><dd>{vi(p["gn"])} đ</dd></div><div><dt>{"Vốn dư đề nghị giảm" if p["du"] else "Còn lại"}</dt><dd>{vi(p["kh"]-p["gn"])} đ</dd></div>{('<div><dt>Chờ UBND giao chi tiết</dt><dd>' + vi(p["chua"]) + ' đ</dd></div>') if len(p["parts"]) > 1 and p.get("chua") else ''}{('<div><dt>Đã giao chi tiết</dt><dd>' + vi(p["kh_gct"]) + ' đ</dd></div>') if p["kh_gct"] else ''}<div><dt>{"Ngày phân bổ" if p["chua_giao"] else "Ngày giao vốn"}</dt><dd>{p["giao"]:%d/%m/%Y}</dd></div><div><dt>Hạn giải ngân</dt><dd>{p["due"]:%d/%m/%Y}</dd></div><div><dt>Tiến độ thời gian</dt><dd>{"" if p["chua_giao"] else pct(od)}</dd></div>{xdd}{so_do(p["du_an"])}{('<div class="wide"><dt>Tình hình thực hiện</dt><dd>' + e(p["note"]) + '</dd></div>') if p.get("note") else ''}</dl>
+  <dl class="tile-dl">{tt_dd}<div><dt>Kế hoạch vốn</dt><dd>{vi(p["kh"])} đ</dd></div><div><dt>Đã giải ngân</dt><dd>{vi(p["gn"])} đ</dd></div><div><dt>{"Vốn dư đề nghị giảm" if p["du"] else "Còn lại"}</dt><dd>{vi(p["kh"]-p["gn"])} đ</dd></div>{('<div><dt>Chờ UBND giao chi tiết</dt><dd>' + vi(p["chua"]) + ' đ</dd></div>') if len(p["parts"]) > 1 and p.get("chua") else ''}{('<div><dt>Đã giao chi tiết</dt><dd>' + vi(p["kh_gct"]) + ' đ</dd></div>') if p["kh_gct"] else ''}<div><dt>{"Ngày phân bổ" if p["chua_giao"] else "Ngày giao vốn"}</dt><dd>{p["giao"]:%d/%m/%Y}</dd></div><div><dt>Hạn giải ngân</dt><dd>{p["due"]:%d/%m/%Y}</dd></div><div><dt>Tiến độ thời gian</dt><dd>{"" if p["chua_giao"] else pct(od)}</dd></div>{xdd}{so_do(p["du_an"])}{('<div class="wide"><dt>Tình hình thực hiện</dt><dd>' + e(p["note"]) + '</dd></div>') if p.get("note") else ''}</dl>
 </details>''')
 
     chips_khoi = "".join(f'<button type="button" class="chip" data-f="khoi" data-v="{k}">{k}. {e(KHOI[k][0])}</button>' for k in ("A", "B"))
     chips_nhom = "".join(f'<button type="button" class="chip" data-f="nhom" data-v="{e(g["nhom"])}">{e(g["ma"])}. {e(g["short"])}</button>' for g in groups)
     chips_xl = "".join(f'<button type="button" class="chip" data-f="xl" data-v="{k}">{k} · {cnt[k]}</button>' for k in BADGE if cnt[k])
 
+    def tm_cells(du_an):
+        ti = thong_tin(du_an)
+        if not ti:
+            return '<td></td><td class="num"></td>'
+        cdt = CDT_NGAN.get(ti["cdt"], ti["cdt"])
+        return (f'<td class="cdt" title="{e(ti["cdt"])}">{e(cdt)}</td>'
+                f'<td class="num" title="{e(ti["cc"])}">{vi(ti["tm"])}{DAU_TM[ti["loai"]]}</td>')
+
+    def sub_row(label, x):
+        return f'<tr class="sub"><td></td><td>{e(label)}</td><td></td><td></td><td class="num">{vi(x["kh"])}</td><td class="num">{vi(x["gn"])}</td><td class="num">{pct(x["tl"])}</td><td></td></tr>'
+
     body_rows = []
     for k in ("A", "B"):
-        body_rows.append(f'<tr class="khoi"><td colspan="6">{k}. {e(KHOI[k][0]).upper()}</td></tr>')
+        body_rows.append(f'<tr class="khoi"><td colspan="8">{k}. {e(KHOI[k][0]).upper()}</td></tr>')
         last_sub = None
         for g in blk[k]["gs"]:
             if g["sub"] and g["sub"] != last_sub:
                 if last_sub:
-                    x = subs[last_sub]
-                    body_rows.append(f'<tr class="sub"><td></td><td>Cộng {e(SUB_B[last_sub].lower())}</td><td class="num">{vi(x["kh"])}</td><td class="num">{vi(x["gn"])}</td><td class="num">{pct(x["tl"])}</td><td></td></tr>')
-                body_rows.append(f'<tr class="grp2"><td colspan="6">{e(SUB_B[g["sub"]])}</td></tr>')
+                    body_rows.append(sub_row("Cộng " + SUB_B[last_sub].lower(), subs[last_sub]))
+                body_rows.append(f'<tr class="grp2"><td colspan="8">{e(SUB_B[g["sub"]])}</td></tr>')
                 last_sub = g["sub"]
-            body_rows.append(f'<tr class="grp"><td colspan="6">{e(g["ma"])}. {e(g["long"])}</td></tr>')
+            body_rows.append(f'<tr class="grp"><td colspan="8">{e(g["ma"])}. {e(g["long"])}</td></tr>')
             for p in [p for p in projects if p["nhom"] == g["nhom"]]:
-                body_rows.append(f'<tr><td class="center">{p["stt"]}</td><td>{e(p["du_an"])}</td><td class="num">{vi(p["kh"])}</td><td class="num">{vi(p["gn"])}</td><td class="num">{pct(p["tl"])}</td><td><span class="badge badge-{BADGE[p["xl"]]}">{e(p["xl"])}</span></td></tr>')
+                body_rows.append(f'<tr><td class="center">{p["stt"]}</td><td>{e(p["du_an"])}</td>{tm_cells(p["du_an"])}<td class="num">{vi(p["kh"])}</td><td class="num">{vi(p["gn"])}</td><td class="num">{pct(p["tl"])}</td><td><span class="badge badge-{BADGE[p["xl"]]}">{e(p["xl"])}</span></td></tr>')
         if last_sub:
-            x = subs[last_sub]
-            body_rows.append(f'<tr class="sub"><td></td><td>Cộng {e(SUB_B[last_sub].lower())}</td><td class="num">{vi(x["kh"])}</td><td class="num">{vi(x["gn"])}</td><td class="num">{pct(x["tl"])}</td><td></td></tr>')
-        body_rows.append(f'<tr class="sub"><td></td><td>Cộng khối {k}</td><td class="num">{vi(blk[k]["kh"])}</td><td class="num">{vi(blk[k]["gn"])}</td><td class="num">{pct(blk[k]["tl"])}</td><td></td></tr>')
+            body_rows.append(sub_row("Cộng " + SUB_B[last_sub].lower(), subs[last_sub]))
+        body_rows.append(sub_row(f"Cộng khối {k}", blk[k]))
 
     vals = dict(
         upd=upd, take=e(take), site=SITE_URL, ogv=today.strftime("%Y%m%d"),
