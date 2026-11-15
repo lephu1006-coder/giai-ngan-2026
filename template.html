@@ -241,8 +241,17 @@ tr.sub td{font-weight:800;color:var(--ink-strong);border-top:1px solid var(--lin
 tfoot td{font-weight:700;border-top:2px solid var(--ink);border-bottom:0}
 .full{min-width:720px}
 details.more{margin-top:var(--s5)}
-details.more>summary{cursor:pointer;font-weight:700;color:var(--accent-red-text);font-size:14px}
-details.more[open]>summary{margin-bottom:var(--s4)}
+details.fold>summary{display:inline-flex;align-items:center;gap:8px;list-style:none;cursor:pointer;margin-top:var(--s3);padding:7px 14px;border:1px solid var(--line-strong);border-radius:9999px;font-size:13px;line-height:18px;font-weight:700;color:var(--ink-strong);background:var(--surface)}
+details.fold>summary::-webkit-details-marker{display:none}
+details.fold>summary::after{content:"";width:7px;height:7px;margin-top:-3px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);transition:transform .15s}
+details.fold[open]>summary::after{margin-top:3px;transform:rotate(-135deg)}
+details.fold>summary:hover{border-color:var(--ink-strong)}
+details.fold .f-o,details.fold[open] .f-c{display:none}details.fold[open] .f-o{display:inline}
+details.fold[open]>summary{margin-bottom:var(--s3)}
+.need>details.fold{grid-column:1/-1;margin-top:calc(-1 * var(--s3))}
+@media (min-width:761px){.need{grid-template-columns:1fr}.need-hero{flex-direction:row;align-items:center;justify-content:flex-start;gap:var(--s6)}.need-hero p{margin:0;max-width:60ch}}
+.tile summary::after{content:"Xem chi tiết ▾";align-self:flex-end;margin-top:2px;padding:2px 10px;border-radius:9999px;background:var(--surface-muted);font-size:12px;line-height:18px;font-weight:700;color:var(--accent-red-text)}
+.tile[open] summary::after{content:"Thu gọn ▴"}
 
 .notes{margin:var(--s7) 0 0;padding:var(--s5) 0;border-top:1px solid var(--line);font-size:13px;line-height:21px;color:var(--ink-muted)}
 .notes p{margin:0 0 var(--s2)}
@@ -323,7 +332,7 @@ tr.drill:hover td{background:var(--surface-muted)}
 th{background:#3b2b22}
 tr.khoi td{background:#3a1b1b}
 }
-@media print{html,main{background:#fff}.hero{-webkit-print-color-adjust:exact;print-color-adjust:exact}.filters,.seg{display:none}.pp{display:block!important}.tile{break-inside:avoid}details.more{display:block}details.more>*{display:block}h2{break-after:avoid}}
+@media print{html,main{background:#fff}.hero{-webkit-print-color-adjust:exact;print-color-adjust:exact}.filters,.seg{display:none}.pp{display:block!important}.tile{break-inside:avoid}details.fold{display:block}details.fold>*{display:block}details.fold>summary{display:none}h2{break-after:avoid}}
 </style>
 </head>
 <body>
@@ -392,9 +401,9 @@ tr.khoi td{background:#3a1b1b}
     <div class="card" style="margin-top:var(--s5)">
       <input type="radio" name="p" id="p-w"><input type="radio" name="p" id="p-m" checked><input type="radio" name="p" id="p-q">
       <div class="seg" role="radiogroup" aria-label="Chọn kỳ"><label for="p-w">Tuần</label><label for="p-m">Tháng</label><label for="p-q">Quý</label></div>
-      <div class="pp pp-w">%%bars_w%%%%tab_w%%</div>
-      <div class="pp pp-m">%%bars_m%%%%tab_m%%</div>
-      <div class="pp pp-q">%%bars_q%%%%tab_q%%</div>
+      <div class="pp pp-w">%%bars_w%%<details class="fold"><summary><span class="f-c">Xem bảng số liệu theo kỳ</span><span class="f-o">Thu gọn bảng</span></summary>%%tab_w%%</details></div>
+      <div class="pp pp-m">%%bars_m%%<details class="fold"><summary><span class="f-c">Xem bảng số liệu theo kỳ</span><span class="f-o">Thu gọn bảng</span></summary>%%tab_m%%</details></div>
+      <div class="pp pp-q">%%bars_q%%<details class="fold"><summary><span class="f-c">Xem bảng số liệu theo kỳ</span><span class="f-o">Thu gọn bảng</span></summary>%%tab_q%%</details></div>
     </div>
   </section>
 
@@ -412,11 +421,11 @@ tr.khoi td{background:#3a1b1b}
     <p class="sub">Số vốn còn lại của từng nguồn chia cho số ngày làm việc (thứ Hai đến thứ Sáu, chưa trừ ngày lễ) từ ngày mai đến hạn giải ngân của nguồn đó.</p>
     <div class="need">
       <div class="need-hero"><div class="big">%%per_day_num%%<small>tỷ đồng mỗi ngày làm việc</small></div><p>là mức cần giải ngân bình quân từ nay, cộng theo hạn của từng nguồn, để giải ngân hết %%k_left%% vốn còn lại.</p></div>
-      <div class="table-wrap"><table>
+      <details class="fold"><summary><span class="f-c">Xem chi tiết theo từng nguồn vốn</span><span class="f-o">Thu gọn bảng</span></summary><div class="table-wrap"><table>
         <thead><tr><th>Nguồn vốn</th><th class="num">Còn lại<br>(tỷ đồng)</th><th class="num">Hạn</th><th class="num">Ngày làm<br>việc còn</th><th class="num">Mỗi ngày<br>(tỷ đồng)</th></tr></thead>
         <tbody>%%need_rows%%</tbody>
         <tfoot><tr><td>Cộng</td><td class="num">%%need_left%%</td><td class="num"></td><td class="num"></td><td class="num">%%need_per%%</td></tr></tfoot>
-      </table></div>
+      </table></div></details>
     </div>
   </section>
 
@@ -438,8 +447,8 @@ tr.khoi td{background:#3a1b1b}
     <div class="tiles">
 %%tiles%%
     </div>
-    <details class="more" id="bang">
-      <summary>Xem dạng bảng đầy đủ</summary>
+    <details class="more fold" id="bang">
+      <summary><span class="f-c">Xem bảng chi tiết toàn bộ dự án</span><span class="f-o">Thu gọn bảng</span></summary>
       <div class="table-wrap"><table class="full">
         <thead><tr><th class="center">STT</th><th>Tên dự án</th><th class="num">Kế hoạch vốn<br>(đồng)</th><th class="num">Đã giải ngân<br>(đồng)</th><th class="num">Tỷ lệ</th><th>Đánh giá</th></tr></thead>
         <tbody>
