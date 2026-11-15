@@ -227,7 +227,7 @@ NQ31_NSP = [
     ("Trường THCS Nguyễn Văn Cừ; Hạng mục: Nhà lớp học 18 phòng và Hạ tầng kỹ thuật khác", 2_900e6),
     ("Cải tạo Trạm Y tế phường Tân Lập", 200e6),
     ("Cải tạo nhà hội trường, nhà làm việc Đảng ủy phường Tân Lập", 180e6),
-    ("Cải tạo các đường hẻm Hùng Vương - Ama Khê", 1_500e6),
+    ("Cải tạo các đường hẻm Hùng Vương – Ama Khê", 1_500e6),
 ]
 
 
@@ -695,21 +695,45 @@ def render(groups, projects, t, hist, fetched):
     # thẻ dự án
     tiles = []
     gmap = {g["nhom"]: g for g in groups}
+
+    def pkey(name):
+        n = unicodedata.normalize("NFC", name).lower().replace("–", "-").replace("—", "-")
+        n = re.sub(r"^dự án:?\s+", "", " ".join(n.split()))
+        return n
+    tid, seen = {}, {}
+    for p in projects:
+        ma = gmap[p["nhom"]]["ma"]
+        seen[ma] = seen.get(ma, 0) + 1
+        tid[id(p)] = f"da-{ma.lower()}-{seen[ma]}"
+    same = {}
+    for p in projects:
+        same.setdefault(pkey(p["du_an"]), []).append(p)
+
+    def xref(p):
+        others = [q for q in same[pkey(p["du_an"])] if q is not p]
+        if not others:
+            return "", ""
+        tong = p["kh"] + sum(q["kh"] for q in others)
+        links = "; ".join(f'<a href="#{tid[id(q)]}" class="xref-a">{e(gmap[q["nhom"]]["ma"])} · {e(gmap[q["nhom"]]["short"])}</a> {vi(q["kh"])} đồng' for q in others)
+        dd = (f'<div class="wide"><dt>Dự án được bố trí vốn từ {len(others) + 1} nguồn</dt><dd>Ngoài {vi(p["kh"])} đồng tại nguồn này, dự án còn được bố trí: {links}. '
+              f'Tổng vốn bố trí cho dự án từ các nguồn trên: {vi(tong)} đồng.</dd></div>')
+        return f'<span class="tile-multi">Vốn từ {len(others) + 1} nguồn · tổng {ty(tong)}</span>', dd
     for p in projects:
         g = gmap[p["nhom"]]
+        multi, xdd = xref(p)
         b = BADGE[p["xl"]]
         od = own_progress(today, p["giao"], p["due"])
         mark = "" if p["chua_giao"] or p["done"] else f'<em style="left:calc({od*100:.2f}% - 1px)"></em>'
         big = pct(p["tl"])
         th = " tile-th th-cds" if "CĐS" in g["nguon"] else (" tile-th th-mtqg" if "MTQG" in g["nguon"] else "")
-        tiles.append(f'''<details class="tile tile-{b}{th}" data-khoi="{p["khoi"]}" data-nhom="{e(p["nhom"])}" data-xl="{e(p["xl"])}">
+        tiles.append(f'''<details class="tile tile-{b}{th}" id="{tid[id(p)]}" data-khoi="{p["khoi"]}" data-nhom="{e(p["nhom"])}" data-xl="{e(p["xl"])}">
   <summary>
     <span class="tile-top"><span class="tile-grp">{e(g["ma"])} · {e(g["short"])}</span><span class="badge badge-{b}">{e(p["xl"])}</span></span>
-    <span class="tile-name">{e(p["du_an"])}</span>
+    <span class="tile-name">{e(p["du_an"])}</span>{multi}
     <span class="tile-big">{e(big)}</span>
     <span class="bar bar-sm"><i class="{FILL[b]}" style="width:{min(100,p['tl']*100):.2f}%"></i>{mark}</span>
   </summary>
-  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>{vi(p["kh"])} đ</dd></div><div><dt>Đã giải ngân</dt><dd>{vi(p["gn"])} đ</dd></div><div><dt>{"Vốn dư đề nghị giảm" if p["du"] else "Còn lại"}</dt><dd>{vi(p["kh"]-p["gn"])} đ</dd></div>{('<div><dt>Đã giao chi tiết</dt><dd>' + vi(p["kh_gct"]) + ' đ</dd></div>') if p["kh_gct"] else ''}<div><dt>{"Ngày phân bổ" if p["chua_giao"] else "Ngày giao vốn"}</dt><dd>{p["giao"]:%d/%m/%Y}</dd></div><div><dt>Hạn giải ngân</dt><dd>{p["due"]:%d/%m/%Y}</dd></div><div><dt>Tiến độ thời gian</dt><dd>{"" if p["chua_giao"] else pct(od)}</dd></div>{so_do(p["du_an"])}{('<div class="wide"><dt>Tình hình thực hiện</dt><dd>' + e(p["note"]) + '</dd></div>') if p.get("note") else ''}</dl>
+  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>{vi(p["kh"])} đ</dd></div><div><dt>Đã giải ngân</dt><dd>{vi(p["gn"])} đ</dd></div><div><dt>{"Vốn dư đề nghị giảm" if p["du"] else "Còn lại"}</dt><dd>{vi(p["kh"]-p["gn"])} đ</dd></div>{('<div><dt>Đã giao chi tiết</dt><dd>' + vi(p["kh_gct"]) + ' đ</dd></div>') if p["kh_gct"] else ''}<div><dt>{"Ngày phân bổ" if p["chua_giao"] else "Ngày giao vốn"}</dt><dd>{p["giao"]:%d/%m/%Y}</dd></div><div><dt>Hạn giải ngân</dt><dd>{p["due"]:%d/%m/%Y}</dd></div><div><dt>Tiến độ thời gian</dt><dd>{"" if p["chua_giao"] else pct(od)}</dd></div>{xdd}{so_do(p["du_an"])}{('<div class="wide"><dt>Tình hình thực hiện</dt><dd>' + e(p["note"]) + '</dd></div>') if p.get("note") else ''}</dl>
 </details>''')
 
     chips_khoi = "".join(f'<button type="button" class="chip" data-f="khoi" data-v="{k}">{k}. {e(KHOI[k][0])}</button>' for k in ("A", "B"))
