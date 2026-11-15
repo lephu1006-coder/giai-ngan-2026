@@ -252,6 +252,8 @@ tfoot td{font-weight:700;border-top:2px solid var(--ink);border-bottom:0}
 .tool svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .tnote{margin:var(--s3) 0 0;font-size:12.5px;line-height:19px;color:var(--ink-muted)}
 .print-head{display:none}
+.pr-only{display:none}
+.fill-cdt{background:var(--brand-brown)}
 .tunit{margin:0 0 6px;text-align:right;font-size:12.5px;font-style:italic;color:var(--ink-muted)}
 .pr,.pr-sub{display:none}
 .tile-dl .cc{display:block;margin-top:2px;font-size:12px;line-height:17px;font-weight:400;color:var(--ink-muted)}
@@ -301,7 +303,7 @@ body.print-table section.tbl,body.print-table #bang{margin:0!important;padding:0
 .print-head{display:block;margin:0 0 8px;text-align:center}.print-head p{margin:0}.ph-top{display:flex;align-items:center;gap:8px;text-align:left;margin-bottom:6px}.ph-logo{width:13mm;height:auto;-webkit-print-color-adjust:exact;print-color-adjust:exact}.ph-org{font-weight:600;font-size:11px;letter-spacing:.02em}.ph-org2{font-weight:800;font-size:12px;letter-spacing:.02em}.ph-t{font-weight:800;font-size:14px;margin-top:2px!important}.ph-s{font-style:italic;font-size:11px}
 .full td.pr,.full th.pr{display:table-cell}.full span.pr{display:inline;font-weight:400}.full .pr-sub{display:block;margin-top:2px;font-size:9.5px;line-height:13px;color:#555}
 .full td.cdt,.full th:nth-child(3),.full tfoot td:nth-child(3),.full tr.sub td:nth-child(3){display:none}
-.full td.pr-note{font-size:10px;line-height:14px;min-width:0;width:40%;white-space:normal}#bang .tunit{display:none!important}.table-wrap{overflow:visible}.full tr.sub td{font-size:11px;line-height:15px}.full tr.grp,.full tr.grp2,.full tr.khoi{break-after:avoid}.full tfoot{display:table-row-group}.full td:nth-child(2){min-width:0;width:22%}
+.full td.pr-note{font-size:10px;line-height:14px;min-width:0;width:40%;white-space:normal}#bang .tunit{display:none!important}.pr-only{display:block}.pr-h{margin:6px 0 4px;font-weight:800;font-size:12px}.pr-h2{break-before:page;margin-top:0}.sumt{width:100%;font-size:11px;line-height:15px;margin-bottom:8px}.sumt th,.sumt td{padding:4px 6px;border-bottom:1px solid #bbb}.sumt th{-webkit-print-color-adjust:exact;print-color-adjust:exact;vertical-align:middle}.sumt tr.sub td{font-weight:800}.table-wrap{overflow:visible}.full tr.sub td{font-size:11px;line-height:15px}.full tr.grp,.full tr.grp2,.full tr.khoi{break-after:avoid}.full tfoot{display:table-row-group}.full td:nth-child(2){min-width:0;width:22%}
 .full tr{break-inside:avoid}.full thead{display:table-header-group}.tnote{font-size:10px;line-height:14px}
 @page{size:A4 landscape;margin:12mm 12mm 13mm;@top-left{content:" "}@top-center{content:" "}@top-right{content:" "}@bottom-left{content:"UBND phường Tân Lập · Tình hình thực hiện và giải ngân vốn đầu tư công năm 2026 · Số liệu đến %%upd%%";font:9px/1.3 Arial,sans-serif;color:#555;vertical-align:top;padding-top:3mm}@bottom-right{content:"Trang " counter(page) "/" counter(pages);font:9px/1.3 Arial,sans-serif;color:#555;vertical-align:top;padding-top:3mm}}}
 /* chế độ tối: tự động theo cài đặt của thiết bị */
@@ -394,6 +396,7 @@ tr.khoi td{background:#3a1b1b}
     <a href="#dien-bien">Diễn biến</a>
     <a href="#moi-ngay">Mỗi ngày cần</a>
     <a href="#theo-nguon">Nguồn vốn</a>
+    <a href="#chu-dau-tu">Chủ đầu tư</a>
     <a href="#du-an">Dự án</a>
     <a href="#bang" data-open="1">Bảng chi tiết</a>
   </div>
@@ -460,11 +463,20 @@ tr.khoi td{background:#3a1b1b}
     </div>
   </section>
 
+  <section aria-labelledby="chu-dau-tu">
+    <h2 id="chu-dau-tu">Theo chủ đầu tư</h2>
+    <p class="sub">Tổng hợp kế hoạch vốn và giải ngân của %%n_cdt%% chủ đầu tư; bấm vào từng chủ đầu tư để xem các dự án.</p>
+    <div class="sources">
+%%cdt_cards%%
+    </div>
+  </section>
+
   <section class="tbl" aria-labelledby="du-an">
     <h2 id="du-an">Theo dự án</h2>
     <p class="sub">Bấm vào từng thẻ để xem số chi tiết. Có %%cnt_dat%% dự án đạt tiến độ, %%cnt_cham%% chậm tiến độ, %%cnt_cb%% cấp bách, %%cnt_new%% mới giao chi tiết, %%cnt_qt%% đã quyết toán và %%cnt_chua%% dự án chờ UBND giao chi tiết kế hoạch vốn.</p>
     <div class="filters" role="group" aria-label="Lọc theo cấp giao vốn"><button type="button" class="chip all" data-f="khoi" data-v="" aria-pressed="true">Cả hai khối</button>%%chips_khoi%%</div>
     <div class="filters" role="group" aria-label="Lọc theo nguồn vốn"><button type="button" class="chip all" data-f="nhom" data-v="" aria-pressed="true">Tất cả nguồn vốn</button>%%chips_nhom%%</div>
+    <div class="filters" role="group" aria-label="Lọc theo chủ đầu tư"><button type="button" class="chip all" data-f="cdt" data-v="" aria-pressed="true">Tất cả chủ đầu tư</button>%%chips_cdt%%</div>
     <div class="filters" role="group" aria-label="Lọc theo đánh giá"><button type="button" class="chip all" data-f="xl" data-v="" aria-pressed="true">Mọi mức đánh giá</button>%%chips_xl%%</div>
     <p class="count" aria-live="polite"></p>
     <div class="tiles">
@@ -478,6 +490,17 @@ tr.khoi td{background:#3a1b1b}
         <button type="button" class="tool" data-act="csv"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Tải bảng Excel</button>
       </div>
       <div class="print-head"><div class="ph-top"><img class="ph-logo" src="emblem.webp" alt="" width="46" height="48"><div class="ph-id"><p class="ph-org">ỦY BAN NHÂN DÂN</p><p class="ph-org2">PHƯỜNG TÂN LẬP</p></div></div><p class="ph-t">BẢNG TỔNG HỢP TÌNH HÌNH THỰC HIỆN VÀ GIẢI NGÂN VỐN ĐẦU TƯ CÔNG NĂM 2026</p><p class="ph-s">(Số liệu đến %%upd%%; đơn vị tính: triệu đồng)</p></div>
+      <div class="pr-only">
+        <p class="pr-h">I. TỔNG HỢP THEO CHỦ ĐẦU TƯ</p>
+        <table class="sumt" id="cdt-sum">
+          <thead><tr><th rowspan="2" class="center">STT</th><th rowspan="2">Chủ đầu tư</th><th rowspan="2" class="center">Số dự án</th><th rowspan="2" class="num">Kế hoạch vốn</th><th rowspan="2" class="num">Đã giải ngân</th><th rowspan="2" class="num">Tỷ lệ</th><th rowspan="2" class="num">Còn lại</th><th colspan="2" class="center">Vốn cấp trên giao</th><th colspan="2" class="center">Vốn HĐND phường giao</th></tr>
+          <tr><th class="num">Kế hoạch vốn</th><th class="num">Đã giải ngân</th><th class="num">Kế hoạch vốn</th><th class="num">Đã giải ngân</th></tr></thead>
+          <tbody>
+%%cdt_rows%%
+          </tbody>
+        </table>
+        <p class="pr-h pr-h2">II. CHI TIẾT THEO NGUỒN VỐN VÀ DỰ ÁN</p>
+      </div>
       <p class="tunit">Đơn vị tính: triệu đồng</p>
       <div class="table-wrap"><table class="full">
         <thead><tr><th class="center">STT</th><th>Tên dự án</th><th>Chủ đầu tư</th><th class="num">Tổng mức<br>đầu tư</th><th class="num">Kế hoạch<br>vốn</th><th class="num">Đã giải<br>ngân</th><th class="num">Tỷ lệ</th><th>Đánh giá</th><th class="pr">Tình hình thực hiện</th></tr></thead>
@@ -503,20 +526,20 @@ tr.khoi td{background:#3a1b1b}
 <button type="button" class="totop" aria-label="Về đầu trang">&#8593;</button>
 <script>
 (function(){
-  var f={khoi:"",nhom:"",xl:""},tiles=[].slice.call(document.querySelectorAll(".tile")),cnt=document.querySelector(".count");
-  function sync(){["khoi","nhom","xl"].forEach(function(k){document.querySelectorAll('.chip[data-f="'+k+'"]').forEach(function(c){c.setAttribute("aria-pressed",String(c.dataset.v===f[k]));});});}
-  function apply(){var n=0;tiles.forEach(function(t){var ok=(!f.khoi||t.dataset.khoi===f.khoi)&&(!f.nhom||(" "+t.dataset.nhom+" ").indexOf(" "+f.nhom+" ")>=0)&&(!f.xl||t.dataset.xl===f.xl);t.hidden=!ok;if(ok)n++;});
+  var f={khoi:"",nhom:"",xl:"",cdt:""},tiles=[].slice.call(document.querySelectorAll(".tile")),cnt=document.querySelector(".count");
+  function sync(){["khoi","nhom","xl","cdt"].forEach(function(k){document.querySelectorAll('.chip[data-f="'+k+'"]').forEach(function(c){c.setAttribute("aria-pressed",String(c.dataset.v===f[k]));});});}
+  function apply(){var n=0;tiles.forEach(function(t){var ok=(!f.khoi||t.dataset.khoi===f.khoi)&&(!f.nhom||(" "+t.dataset.nhom+" ").indexOf(" "+f.nhom+" ")>=0)&&(!f.xl||t.dataset.xl===f.xl)&&(!f.cdt||t.dataset.cdt===f.cdt);t.hidden=!ok;if(ok)n++;});
     if(cnt)cnt.textContent="Đang hiện "+n+"/"+tiles.length+" dự án";}
   document.querySelectorAll(".chip").forEach(function(b){b.addEventListener("click",function(){var k=b.dataset.f;f[k]=f[k]===b.dataset.v?"":b.dataset.v;sync();apply();});});
   apply();
   function to(id){var el=document.getElementById(id);if(el)el.scrollIntoView({block:"start"});}
-  function go(o){f={khoi:o.khoi||"",nhom:o.nhom||"",xl:o.xl||""};sync();apply();to("du-an");}
+  function go(o){f={khoi:o.khoi||"",nhom:o.nhom||"",xl:o.xl||"",cdt:o.cdt||""};sync();apply();to("du-an");}
   function drill(el,fn,label){if(!el)return;el.classList.add("drill");el.setAttribute("tabindex","0");el.setAttribute("role","link");if(label)el.setAttribute("title",label);
     el.addEventListener("click",function(e){if(e.target.closest("a,button:not(.go)"))return;fn();});
     el.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();fn();}});}
   function addGo(el,text){var b=document.createElement("button");b.type="button";b.className="go";b.tabIndex=-1;b.textContent=text+" \u203A";el.appendChild(b);}
   var nhomOf={};document.querySelectorAll('.chip[data-f="nhom"]').forEach(function(c){var m=(c.textContent||"").match(/^([AB]\d+)\./);if(m)nhomOf[m[1]]=c.dataset.v;});
-  function nTiles(o){return tiles.filter(function(t){return(!o.khoi||t.dataset.khoi===o.khoi)&&(!o.nhom||(" "+t.dataset.nhom+" ").indexOf(" "+o.nhom+" ")>=0);}).length;}
+  function nTiles(o){return tiles.filter(function(t){return(!o.khoi||t.dataset.khoi===o.khoi)&&(!o.nhom||(" "+t.dataset.nhom+" ").indexOf(" "+o.nhom+" ")>=0)&&(!o.cdt||t.dataset.cdt===o.cdt);}).length;}
   // vòng tròn đầu trang
   var rings=document.querySelectorAll(".rings .ring");
   drill(rings[0],function(){to("cap-giao");},"Xem theo cấp giao vốn");
@@ -529,6 +552,7 @@ tr.khoi td{background:#3a1b1b}
   // từng nguồn vốn
   document.querySelectorAll(".src").forEach(function(s){var no=s.querySelector(".src-no"),code=no&&no.textContent.trim(),v=nhomOf[code];if(!v)return;
     addGo(s,"Xem "+nTiles({nhom:v})+" dự án của nguồn "+code);drill(s,function(){go({nhom:v});});});
+  document.querySelectorAll(".cdt-card").forEach(function(s){var v=s.dataset.cdt;if(!v)return;addGo(s,"Xem "+nTiles({cdt:v})+" thẻ dự án");drill(s,function(){go({cdt:v});});});
   // bảng mỗi ngày cần giải ngân
   document.querySelectorAll("#moi-ngay tbody tr").forEach(function(r){var b=r.querySelector("td b"),m=b&&b.textContent.match(/^([AB]\d+)/),v=m&&nhomOf[m[1]];if(v)drill(r,function(){go({nhom:v});},"Xem các dự án của nguồn "+m[1]);});
   // mục lục: mở bảng chi tiết, đánh dấu mục đang xem
@@ -552,15 +576,15 @@ tr.khoi td{background:#3a1b1b}
   /* Tải bảng Excel (.xlsx) có định dạng, dòng tổng dùng công thức */
   function xe(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
   function xlsx(){
-    var UPD="%%upd%%",items=[];
-    bang.querySelectorAll("tbody tr").forEach(function(tr){
+    var UPD="%%upd%%",items=[],kI=-1;
+    bang.querySelectorAll("table.full tbody tr").forEach(function(tr){
       var c=tr.cells,txt=function(td){return (td.textContent||"").replace(/\s+/g," ").trim();};
-      if(tr.classList.contains("khoi"))items.push({t:"khoi",l:txt(c[0])});
+      if(tr.classList.contains("khoi")){kI++;items.push({t:"khoi",l:txt(c[0])});}
       else if(tr.classList.contains("grp2"))items.push({t:"grp2",l:txt(c[0])});
       else if(tr.classList.contains("grp")){var l=c[0].cloneNode(true);var s=l.querySelector(".pr");if(s)s.remove();items.push({t:"grp",l:txt(l)});}
       else if(tr.classList.contains("sub"))return;
       else{var nm=c[1].cloneNode(true);var sb=nm.querySelector(".pr-sub");if(sb)sb.remove();
-        var tm=c[3];items.push({t:"p",stt:+txt(c[0]),ten:txt(nm),cdt:c[2].title||txt(c[2]),tm:tm.dataset.v?+tm.dataset.v/1e6:null,mk:(txt(tm).match(/\*+$/)||[""])[0],cc:tm.title||"",kh:+c[4].dataset.v/1e6,gn:+c[5].dataset.v/1e6,xl:txt(c[7]),note:txt(c[8])});}
+        var tm=c[3];items.push({t:"p",stt:+txt(c[0]),ten:txt(nm),cdt:c[2].title||txt(c[2]),tm:tm.dataset.v?+tm.dataset.v/1e6:null,mk:(txt(tm).match(/\*+$/)||[""])[0],cc:tm.title||"",kh:+c[4].dataset.v/1e6,gn:+c[5].dataset.v/1e6,xl:txt(c[7]),note:txt(c[8]),k:kI});}
     });
     var W=[6,40,26,14,34,14,14,9,16,70],COLS="ABCDEFGHIJ",rows=[],merges=[],r=0;
     function cell(ci,v,s,f){var ref=COLS[ci]+r;if(f)return '<c r="'+ref+'" s="'+s+'"><f>'+xe(f)+'</f>'+(v!=null?'<v>'+v+'</v>':'')+'</c>';
@@ -588,7 +612,7 @@ tr.khoi td{background:#3a1b1b}
       else if(it.t==="grp"){curG=hdr(it,10,22,23);(cur2||cur).kids.push(curG);}
       else{var nl=Math.max(lines(it.ten,W[1]),lines(it.note,W[9]),lines(it.cc,W[4]),lines(it.cdt,W[2]));
         var rr=row(function(rr){return cell(0,it.stt,6)+cell(1,it.ten,5)+cell(2,it.cdt,5)+cell(3,it.tm,7)+cell(4,(it.mk==="*"?"Theo chủ trương đầu tư. ":"")+it.cc,16)+cell(5,it.kh,7)+cell(6,it.gn,7)+cell(7,null,8,"IF(F"+rr+"=0,0,G"+rr+"/F"+rr+")")+cell(8,it.xl,5)+cell(9,it.note,16);},Math.max(18,nl*14+3));
-        curG.kids.push({r:rr,kh:it.kh,gn:it.gn,leaf:true});}
+        curG.kids.push({r:rr,kh:it.kh,gn:it.gn,leaf:true});cur.lo=cur.lo||rr;cur.hi=rr;}
     });
     // công thức tổng: nhóm = SUM dự án liền nhau; khối, nhóm cấp trên = cộng các dòng con
     function fill(n){var kh=0,gn=0,refs=[];n.kids.forEach(function(k){if(!k.leaf)fill(k);kh+=k.kh;gn+=k.gn;refs.push(k.r);});n.kh=kh;n.gn=gn;
@@ -617,14 +641,46 @@ tr.khoi td{background:#3a1b1b}
       xf(4,4,1,0,"left","center",1),xf(6,4,1,164,"right","center"),xf(6,4,1,165,"right","center"),xf(4,4,1,164,"right","center"),xf(4,4,1,165,"right","center")];
     // sửa style 10 (nhóm) dùng số: 13/14 đã khai báo; nhóm cấp 2 dùng 20/21
     var styles='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><numFmts count="2"><numFmt numFmtId="164" formatCode="#,##0"/><numFmt numFmtId="165" formatCode="0.0%"/></numFmts><fonts count="'+fonts.length+'">'+fonts.join("")+'</fonts><fills count="5">'+fills+'</fills><borders count="2">'+bd+'</borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="'+X.length+'">'+X.join("")+'</cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>';
-    var SN="Bảng tổng hợp";
-    var wb='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="'+SN+'" sheetId="1" r:id="rId1"/></sheets><definedNames><definedName name="_xlnm.Print_Titles" localSheetId="0">\''+SN+'\'!$'+hr+':$'+(hr+1)+'</definedName></definedNames><calcPr calcId="191029" fullCalcOnLoad="1"/></workbook>';
-    var files=[["[Content_Types].xml",'<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/><Override PartName="/docProps/core.xml" ContentType="application/vnd.openxmlformats-package.core-properties+xml"/></Types>'],
+    var SN="Chi tiết dự án",SN0="Tổng hợp theo chủ đầu tư";
+    // sheet tổng hợp theo chủ đầu tư: số liệu lấy bằng công thức SUMIF từ sheet chi tiết
+    var S=[],SM=[],q=0,Q="'"+SN+"'!";
+    function sc(col,v,s,f){var ref=col+q;if(f)return '<c r="'+ref+'" s="'+s+'"><f>'+xe(f)+'</f>'+(v!=null?'<v>'+v+'</v>':'')+'</c>';
+      if(v==null||v==="")return '<c r="'+ref+'" s="'+s+'"/>';if(typeof v==="number")return '<c r="'+ref+'" s="'+s+'"><v>'+v+'</v></c>';
+      return '<c r="'+ref+'" s="'+s+'" t="inlineStr"><is><t xml:space="preserve">'+xe(v)+'</t></is></c>';}
+    function srow(fn,ht){q++;S.push('<row r="'+q+'"'+(ht?' ht="'+ht+'" customHeight="1"':'')+'>'+fn()+'</row>');}
+    var C11="ABCDEFGHIJK".split("");
+    srow(function(){return sc("A","ỦY BAN NHÂN DÂN PHƯỜNG TÂN LẬP",1);},18);SM.push("A1:E1");
+    srow(function(){return sc("A","BẢNG TỔNG HỢP TÌNH HÌNH GIẢI NGÂN VỐN ĐẦU TƯ CÔNG NĂM 2026 THEO CHỦ ĐẦU TƯ",2);},24);SM.push("A2:K2");
+    srow(function(){return sc("A","(Số liệu đến "+UPD+")",3);},18);SM.push("A3:K3");
+    srow(function(){return sc("K","Đơn vị tính: triệu đồng",17);},16);
+    var H1=["STT","Chủ đầu tư","Số dự án","Kế hoạch vốn năm 2026","Đã giải ngân","Tỷ lệ giải ngân","Còn lại","Vốn cấp trên giao","","Vốn HĐND phường giao",""];
+    var H2=["","","","","","","","Kế hoạch vốn","Đã giải ngân","Kế hoạch vốn","Đã giải ngân"];
+    srow(function(){return H1.map(function(h,i){return sc(C11[i],h,4);}).join("");},22);
+    srow(function(){return H2.map(function(h,i){return sc(C11[i],h,4);}).join("");},22);
+    ["A","B","C","D","E","F","G"].forEach(function(c){SM.push(c+"5:"+c+"6");});SM.push("H5:I5");SM.push("J5:K5");
+    srow(function(){return C11.map(function(c,i){return sc(c,i+1,18);}).join("");},16);
+    var cl=[];bang.querySelectorAll("#cdt-sum tbody tr[data-cdt]").forEach(function(tr){cl.push({n:tr.dataset.cdt,c:+tr.dataset.n});});
+    var tq=q+1,r1=tq+1,r2=tq+cl.length;
+    var KA=khoi[0]||{},KB=khoi[1]||{};
+    function sif(K,col,row){if(!K.lo)return "0";return "SUMIF("+Q+"$C$"+K.lo+":$C$"+K.hi+",$B"+row+","+Q+"$"+col+"$"+K.lo+":$"+col+"$"+K.hi+")";}
+    var T={c:0,h:0,i:0,j:0,k:0};
+    srow(function(){return "";},20);var tIdx=S.length-1;
+    cl.forEach(function(o,ix){var v={h:0,i:0,j:0,k:0};items.forEach(function(it){if(it.t==="p"&&it.cdt===o.n){if(it.k===0){v.h+=it.kh;v.i+=it.gn;}else{v.j+=it.kh;v.k+=it.gn;}}});
+      T.c+=o.c;T.h+=v.h;T.i+=v.i;T.j+=v.j;T.k+=v.k;
+      srow(function(){var rr=q;return sc("A",ix+1,6)+sc("B",o.n,5)+sc("C",o.c,6)+sc("D",v.h+v.j,7,"H"+rr+"+J"+rr)+sc("E",v.i+v.k,7,"I"+rr+"+K"+rr)+sc("F",(v.h+v.j)?(v.i+v.k)/(v.h+v.j):0,8,"IF(D"+rr+"=0,0,E"+rr+"/D"+rr+")")+sc("G",v.h+v.j-v.i-v.k,7,"D"+rr+"-E"+rr)
+        +sc("H",v.h,7,sif(KA,"F",rr))+sc("I",v.i,7,sif(KA,"G",rr))+sc("J",v.j,7,sif(KB,"F",rr))+sc("K",v.k,7,sif(KB,"G",rr));},20);});
+    S[tIdx]='<row r="'+tq+'" ht="20" customHeight="1">'+(function(){q=tq;var V={D:T.h+T.j,E:T.i+T.k,G:T.h+T.j-T.i-T.k,H:T.h,I:T.i,J:T.j,K:T.k};
+      var o=sc("A","",12)+sc("B","TỔNG CỘNG",12)+sc("C",T.c,12)+sc("D",V.D,13,"SUM(D"+r1+":D"+r2+")")+sc("E",V.E,13,"SUM(E"+r1+":E"+r2+")")+sc("F",V.D?V.E/V.D:0,14,"IF(D"+tq+"=0,0,E"+tq+"/D"+tq+")")
+        +["G","H","I","J","K"].map(function(c){return sc(c,V[c],13,"SUM("+c+r1+":"+c+r2+")");}).join("");q=r2;return o;})()+'</row>';
+    srow(function(){return sc("A","Ghi chú: Số dự án đếm không trùng (một dự án được bố trí từ nhiều nguồn chỉ tính một lần). Số liệu cột 8 đến 11 cộng từ sheet \"Chi tiết dự án\" theo tên chủ đầu tư (hàm SUMIF); cột 4, 5 bằng tổng vốn cấp trên giao và vốn HĐND phường giao.",15);},36);SM.push("A"+q+":K"+q);
+    var sheet0='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheetPr><pageSetUpPr fitToPage="1"/></sheetPr><dimension ref="A1:K'+q+'"/><sheetViews><sheetView tabSelected="1" workbookViewId="0" zoomScale="90"/></sheetViews><sheetFormatPr defaultRowHeight="15"/><cols>'+[6,46,10,16,16,10,16,16,16,16,16].map(function(w,i){return '<col min="'+(i+1)+'" max="'+(i+1)+'" width="'+w+'" customWidth="1"/>';}).join("")+'</cols><sheetData>'+S.join("")+'</sheetData><mergeCells count="'+SM.length+'">'+SM.map(function(m){return '<mergeCell ref="'+m+'"/>';}).join("")+'</mergeCells><printOptions horizontalCentered="1"/><pageMargins left="0.4" right="0.4" top="0.5" bottom="0.6" header="0.3" footer="0.3"/><pageSetup paperSize="9" orientation="landscape" fitToWidth="1" fitToHeight="0"/><headerFooter><oddFooter>'+xe("&L&\"Times New Roman,Regular\"&8UBND phường Tân Lập · Tổng hợp giải ngân vốn đầu tư công năm 2026 theo chủ đầu tư · Số liệu đến "+UPD+"&R&\"Times New Roman,Regular\"&8Trang &P/&N")+'</oddFooter></headerFooter></worksheet>';
+    var wb='<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><bookViews><workbookView activeTab="0"/></bookViews><sheets><sheet name="'+SN0+'" sheetId="1" r:id="rId1"/><sheet name="'+SN+'" sheetId="2" r:id="rId3"/></sheets><definedNames><definedName name="_xlnm.Print_Titles" localSheetId="1">\''+SN+'\'!$'+hr+':$'+(hr+1)+'</definedName></definedNames><calcPr calcId="191029" fullCalcOnLoad="1"/></workbook>';
+    var files=[["[Content_Types].xml",'<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/worksheets/sheet2.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/><Override PartName="/docProps/core.xml" ContentType="application/vnd.openxmlformats-package.core-properties+xml"/></Types>'],
       ["_rels/.rels",'<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties" Target="docProps/core.xml"/></Relationships>'],
       ["docProps/core.xml",'<?xml version="1.0" encoding="UTF-8" standalone="yes"?><cp:coreProperties xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><dc:title>Bảng tổng hợp tình hình thực hiện và giải ngân vốn đầu tư công năm 2026</dc:title><dc:creator>UBND phường Tân Lập</dc:creator></cp:coreProperties>'],
       ["xl/workbook.xml",wb],
-      ["xl/_rels/workbook.xml.rels",'<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>'],
-      ["xl/styles.xml",styles],["xl/worksheets/sheet1.xml",sheet]];
+      ["xl/_rels/workbook.xml.rels",'<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/><Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet2.xml"/></Relationships>'],
+      ["xl/styles.xml",styles],["xl/worksheets/sheet1.xml",sheet0],["xl/worksheets/sheet2.xml",sheet]];
     var blob=zip(files),u=URL.createObjectURL(blob),l=document.createElement("a");l.href=u;l.download="Bang tong hop giai ngan dau tu cong 2026 ("+UPD.replace(/\//g,"-")+").xlsx";document.body.appendChild(l);l.click();setTimeout(function(){URL.revokeObjectURL(u);l.remove();},1500);
   }
   var CRC=(function(){var t=[];for(var n=0;n<256;n++){var c=n;for(var k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0;}return t;})();
