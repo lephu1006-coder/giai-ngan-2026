@@ -179,6 +179,43 @@ TRUC_TT = {
 RANK = {"chua": 0, "pv": 1, "cb": 2, "tham": 3}
 
 
+
+def pkey(name):
+    n = unicodedata.normalize("NFC", name).lower().replace("–", "-").replace("—", "-")
+    return re.sub(r"^dự án:?\s+", "", " ".join(n.split()))
+
+
+def gom_the(projects, gmap, today):
+    """Gom các dự án vốn HĐND phường giao (khối B) trùng tên ở nhiều nghị quyết, quyết định vào 01 thẻ."""
+    cards, byk = [], {}
+    for p in projects:
+        if p["khoi"] == "B" and pkey(p["du_an"]) in byk:
+            byk[pkey(p["du_an"])]["parts"].append(p)
+            continue
+        c = dict(p, parts=[p])
+        if p["khoi"] == "B":
+            byk[pkey(p["du_an"])] = c
+        cards.append(c)
+    for c in cards:
+        ps = c["parts"]
+        c["nhoms"] = [q["nhom"] for q in ps]
+        if len(ps) == 1:
+            continue
+        for k in ("kh", "gn", "du", "chua", "kh_gct"):
+            c[k] = sum(q.get(k, 0.0) for q in ps)
+        c["tl"] = c["gn"] / c["kh"] if c["kh"] else 0
+        c["chua_giao"] = all(q["chua_giao"] for q in ps)
+        notes = []
+        for q in ps:
+            if q.get("note") and q["note"] not in notes:
+                notes.append(q["note"])
+        c["note"] = " ".join(notes)
+        if any(not q["chua_giao"] for q in ps[1:]) and not c.get("done"):
+            base = c["kh"] - c["chua"] - c["du"]
+            c["xl"] = status(c["gn"] / base if base > 0 else 1, "B", c["giao"], c["due"], today, c["chua_giao"])
+    return cards
+
+
 def so_do_strip(sd, st):
     dai, x0, w = sd["dai"], 60, 980
     sx = lambda m: x0 + w * m / dai
@@ -611,7 +648,8 @@ def render(groups, projects, t, hist, fetched):
     rate = gn_now / kh_all if kh_all else 0
     for g in groups:
         g["sub"] = ("truoc" if g["giao"] <= CUT_B else "sau") if g["khoi"] == "B" else ""
-    cnt = {k: sum(1 for p in projects if p["xl"] == k) for k in BADGE}
+    cards = gom_the(projects, {g["nhom"]: g for g in groups}, today)
+    cnt = {k: sum(1 for p in cards if p["xl"] == k) for k in BADGE}
     weeks, months, quarters = periods(daily, today, kh_all)
     wk, mo, qu = weeks[-1], months[-1], quarters[-1]
     prev_wk = weeks[-2] if len(weeks) > 1 else None
@@ -726,17 +764,13 @@ def render(groups, projects, t, hist, fetched):
     tiles = []
     gmap = {g["nhom"]: g for g in groups}
 
-    def pkey(name):
-        n = unicodedata.normalize("NFC", name).lower().replace("–", "-").replace("—", "-")
-        n = re.sub(r"^dự án:?\s+", "", " ".join(n.split()))
-        return n
     tid, seen = {}, {}
-    for p in projects:
+    for p in cards:
         ma = gmap[p["nhom"]]["ma"]
         seen[ma] = seen.get(ma, 0) + 1
         tid[id(p)] = f"da-{ma.lower()}-{seen[ma]}"
     same = {}
-    for p in projects:
+    for p in cards:
         same.setdefault(pkey(p["du_an"]), []).append(p)
 
     def xref(p):
@@ -748,22 +782,49 @@ def render(groups, projects, t, hist, fetched):
         dd = (f'<div class="wide"><dt>Dự án được bố trí vốn từ {len(others) + 1} nguồn</dt><dd>Ngoài {vi(p["kh"])} đồng tại nguồn này, dự án còn được bố trí: {links}. '
               f'Tổng vốn bố trí cho dự án từ các nguồn trên: {vi(tong)} đồng.</dd></div>')
         return f'<span class="tile-multi">Vốn từ {len(others) + 1} nguồn · tổng {ty(tong)}</span>', dd
-    for p in projects:
+
+    def gop(p):
+        ps = p["parts"]
+        if len(ps) < 2:
+            return "", "", ""
+        li = []
+        for q in ps:
+            gq = gmap[q["nhom"]]
+            can = gq["basis"].split(";")[0]
+            if q["chua_giao"]:
+                tt = "chờ UBND phường giao chi tiết"
+            elif q.get("chua"):
+                tt = f"UBND phường đã giao chi tiết {vi(q['kh_gct'])} đồng, còn {vi(q['chua'])} đồng chờ giao chi tiết"
+            else:
+                tt = f"đã giao chi tiết, đã giải ngân {vi(q['gn'])} đồng"
+            li.append(f'<li><b>{e(gq["ma"])} · {e(gq["short"])}</b> ({e(can)}): {vi(q["kh"])} đồng, {tt}; hạn giải ngân {q["due"]:%d/%m/%Y}.</li>')
+        dd = f'<div class="wide"><dt>Vốn theo từng nghị quyết, quyết định</dt><dd><ul class="parts">{"".join(li)}</ul></dd></div>'
+        grp = " + ".join(gmap[q["nhom"]]["ma"] for q in ps) + " · " + KHOI["B"][0]
+        tag = f'{len(ps)} nguồn vốn' + (f' · chờ giao chi tiết {ty(p["chua"])}' if p.get("chua") else "")
+        return grp, f'<span class="tile-multi">{e(tag)}</span>', dd
+    for p in cards:
         g = gmap[p["nhom"]]
-        multi, xdd = xref(p)
+        grp, multi, xdd = gop(p)
+        base_g = p["kh"] - p.get("chua", 0) - p["du"]
+        sub = (f'<span class="tile-sub">Đạt {pct(p["gn"] / base_g)} phần đã giao chi tiết</span>'
+               if len(p["parts"]) > 1 and p.get("chua") and base_g > 0 and p["gn"] > 0 else "")
+        if not grp:
+            grp = f'{g["ma"]} · {g["short"]}'
+            multi, xdd = xref(p)
         b = BADGE[p["xl"]]
         od = own_progress(today, p["giao"], p["due"])
-        mark = "" if p["chua_giao"] or p["done"] else f'<em style="left:calc({od*100:.2f}% - 1px)"></em>'
+        od_bar = od * base_g / p["kh"] if (len(p["parts"]) > 1 and p.get("chua") and p["kh"]) else od
+        mark = "" if p["chua_giao"] or p["done"] else f'<em style="left:calc({od_bar*100:.2f}% - 1px)"></em>'
         big = pct(p["tl"])
         th = " tile-th th-cds" if "CĐS" in g["nguon"] else (" tile-th th-mtqg" if "MTQG" in g["nguon"] else "")
-        tiles.append(f'''<details class="tile tile-{b}{th}" id="{tid[id(p)]}" data-khoi="{p["khoi"]}" data-nhom="{e(p["nhom"])}" data-xl="{e(p["xl"])}">
+        tiles.append(f'''<details class="tile tile-{b}{th}" id="{tid[id(p)]}" data-khoi="{p["khoi"]}" data-nhom="{e(" ".join(p["nhoms"]))}" data-xl="{e(p["xl"])}">
   <summary>
-    <span class="tile-top"><span class="tile-grp">{e(g["ma"])} · {e(g["short"])}</span><span class="badge badge-{b}">{e(p["xl"])}</span></span>
+    <span class="tile-top"><span class="tile-grp">{e(grp)}</span><span class="badge badge-{b}">{e(p["xl"])}</span></span>
     <span class="tile-name">{e(p["du_an"])}</span>{multi}
-    <span class="tile-big">{e(big)}</span>
+    <span class="tile-big">{e(big)}</span>{sub}
     <span class="bar bar-sm"><i class="{FILL[b]}" style="width:{min(100,p['tl']*100):.2f}%"></i>{mark}</span>
   </summary>
-  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>{vi(p["kh"])} đ</dd></div><div><dt>Đã giải ngân</dt><dd>{vi(p["gn"])} đ</dd></div><div><dt>{"Vốn dư đề nghị giảm" if p["du"] else "Còn lại"}</dt><dd>{vi(p["kh"]-p["gn"])} đ</dd></div>{('<div><dt>Đã giao chi tiết</dt><dd>' + vi(p["kh_gct"]) + ' đ</dd></div>') if p["kh_gct"] else ''}<div><dt>{"Ngày phân bổ" if p["chua_giao"] else "Ngày giao vốn"}</dt><dd>{p["giao"]:%d/%m/%Y}</dd></div><div><dt>Hạn giải ngân</dt><dd>{p["due"]:%d/%m/%Y}</dd></div><div><dt>Tiến độ thời gian</dt><dd>{"" if p["chua_giao"] else pct(od)}</dd></div>{xdd}{so_do(p["du_an"])}{('<div class="wide"><dt>Tình hình thực hiện</dt><dd>' + e(p["note"]) + '</dd></div>') if p.get("note") else ''}</dl>
+  <dl class="tile-dl"><div><dt>Kế hoạch vốn</dt><dd>{vi(p["kh"])} đ</dd></div><div><dt>Đã giải ngân</dt><dd>{vi(p["gn"])} đ</dd></div><div><dt>{"Vốn dư đề nghị giảm" if p["du"] else "Còn lại"}</dt><dd>{vi(p["kh"]-p["gn"])} đ</dd></div>{('<div><dt>Chờ UBND giao chi tiết</dt><dd>' + vi(p["chua"]) + ' đ</dd></div>') if len(p["parts"]) > 1 and p.get("chua") else ''}{('<div><dt>Đã giao chi tiết</dt><dd>' + vi(p["kh_gct"]) + ' đ</dd></div>') if p["kh_gct"] else ''}<div><dt>{"Ngày phân bổ" if p["chua_giao"] else "Ngày giao vốn"}</dt><dd>{p["giao"]:%d/%m/%Y}</dd></div><div><dt>Hạn giải ngân</dt><dd>{p["due"]:%d/%m/%Y}</dd></div><div><dt>Tiến độ thời gian</dt><dd>{"" if p["chua_giao"] else pct(od)}</dd></div>{xdd}{so_do(p["du_an"])}{('<div class="wide"><dt>Tình hình thực hiện</dt><dd>' + e(p["note"]) + '</dd></div>') if p.get("note") else ''}</dl>
 </details>''')
 
     chips_khoi = "".join(f'<button type="button" class="chip" data-f="khoi" data-v="{k}">{k}. {e(KHOI[k][0])}</button>' for k in ("A", "B"))
