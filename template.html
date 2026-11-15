@@ -244,7 +244,7 @@ tr.sub td{font-weight:800;color:var(--ink-strong);border-top:1px solid var(--lin
 tfoot td{font-weight:700;border-top:2px solid var(--ink);border-bottom:0}
 .full{min-width:980px}
 .full td:nth-child(2){min-width:230px}
-.full td:last-child{white-space:nowrap}
+.full td:nth-child(8){white-space:nowrap}
 .full td.cdt{white-space:nowrap;font-size:13px;color:var(--ink-muted)}
 .tools{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 var(--s3)}
 .tool{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border:1px solid var(--line-strong);border-radius:var(--r-md);background:var(--surface);color:var(--ink-strong);font:inherit;font-size:13px;line-height:18px;font-weight:700;cursor:pointer}
@@ -252,6 +252,8 @@ tfoot td{font-weight:700;border-top:2px solid var(--ink);border-bottom:0}
 .tool svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .tnote{margin:var(--s3) 0 0;font-size:12.5px;line-height:19px;color:var(--ink-muted)}
 .print-head{display:none}
+.tunit{margin:0 0 6px;text-align:right;font-size:12.5px;font-style:italic;color:var(--ink-muted)}
+.pr,.pr-sub{display:none}
 .tile-dl .cc{display:block;margin-top:2px;font-size:12px;line-height:17px;font-weight:400;color:var(--ink-muted)}
 details.more{margin-top:var(--s5)}
 details.fold>summary{display:inline-flex;align-items:center;gap:8px;list-style:none;cursor:pointer;margin-top:var(--s3);padding:7px 14px;border:1px solid var(--line-strong);border-radius:9999px;font-size:13px;line-height:18px;font-weight:700;color:var(--ink-strong);background:var(--surface)}
@@ -296,7 +298,11 @@ tr.drill:hover td{background:var(--surface-muted)}
 @media print{.toc,.totop,.go,.tools{display:none!important}.full{min-width:0;font-size:11px;line-height:15px}.full td,.full th{padding:3px 5px}.full .badge{padding:0;background:none!important;font-size:11px}.full .badge::before{display:none}th{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 body.print-table header,body.print-table main>.wrap>*:not(section.tbl),body.print-table section.tbl>*:not(#bang),body.print-table footer,body.print-table .rule,body.print-table #bang>summary{display:none!important}
 body.print-table section.tbl,body.print-table #bang{margin:0!important;padding:0!important}
-body.print-table .print-head{display:block;margin:0 0 8px;font-weight:800;font-size:13px;text-align:center}
+.print-head{display:block;margin:0 0 8px;text-align:center}.print-head p{margin:0}.ph-org{font-weight:700;font-size:12px}.ph-t{font-weight:800;font-size:14px;margin-top:4px!important}.ph-s{font-style:italic;font-size:11px}
+.full td.pr,.full th.pr{display:table-cell}.full span.pr{display:inline;font-weight:400}.full .pr-sub{display:block;margin-top:2px;font-size:9.5px;line-height:13px;color:#555}
+.full td.cdt,.full th:nth-child(3),.full tfoot td:nth-child(3),.full tr.sub td:nth-child(3){display:none}
+.full td.pr-note{font-size:10px;line-height:14px;min-width:0;width:40%;white-space:normal}.tunit{display:none}.table-wrap{overflow:visible}.full tr.sub td{font-size:11px;line-height:15px}.full tr.grp,.full tr.grp2,.full tr.khoi{break-after:avoid}.full tfoot{display:table-row-group}.full td:nth-child(2){min-width:0;width:22%}
+.full tr{break-inside:avoid}.full thead{display:table-header-group}.tnote{font-size:10px;line-height:14px}
 @page{size:A4 landscape;margin:12mm}}
 /* chế độ tối: tự động theo cài đặt của thiết bị */
 @media screen and (prefers-color-scheme:dark){
@@ -471,15 +477,16 @@ tr.khoi td{background:#3a1b1b}
         <button type="button" class="tool" data-act="print-page"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h9l5 5v15H6zM14 2v6h6M9 13h8M9 17h8"/></svg>In toàn trang</button>
         <button type="button" class="tool" data-act="csv"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Tải bảng (Excel, CSV)</button>
       </div>
-      <p class="print-head">BẢNG CHI TIẾT GIẢI NGÂN VỐN ĐẦU TƯ CÔNG NĂM 2026 · Số liệu đến %%upd%%</p>
+      <div class="print-head"><p class="ph-org">ỦY BAN NHÂN DÂN PHƯỜNG TÂN LẬP</p><p class="ph-t">BẢNG TỔNG HỢP TÌNH HÌNH THỰC HIỆN VÀ GIẢI NGÂN VỐN ĐẦU TƯ CÔNG NĂM 2026</p><p class="ph-s">(Số liệu đến %%upd%%; đơn vị tính: triệu đồng)</p></div>
+      <p class="tunit">Đơn vị tính: triệu đồng</p>
       <div class="table-wrap"><table class="full">
-        <thead><tr><th class="center">STT</th><th>Tên dự án</th><th>Chủ đầu tư</th><th class="num">Tổng mức<br>đầu tư (đồng)</th><th class="num">Kế hoạch vốn<br>(đồng)</th><th class="num">Đã giải ngân<br>(đồng)</th><th class="num">Tỷ lệ</th><th>Đánh giá</th></tr></thead>
+        <thead><tr><th class="center">STT</th><th>Tên dự án</th><th>Chủ đầu tư</th><th class="num">Tổng mức<br>đầu tư</th><th class="num">Kế hoạch<br>vốn</th><th class="num">Đã giải<br>ngân</th><th class="num">Tỷ lệ</th><th>Đánh giá</th><th class="pr">Tình hình thực hiện</th></tr></thead>
         <tbody>
 %%rows%%
         </tbody>
-        <tfoot><tr><td></td><td>Tổng cộng</td><td></td><td></td><td class="num">%%f_kh%%</td><td class="num">%%f_gn%%</td><td class="num">%%f_tl%%</td><td></td></tr></tfoot>
+        <tfoot><tr><td></td><td>Tổng cộng</td><td></td><td></td><td class="num">%%f_kh%%</td><td class="num">%%f_gn%%</td><td class="num">%%f_tl%%</td><td></td><td class="pr"></td></tr></tfoot>
       </table></div>
-      <p class="tnote">* Tổng mức đầu tư theo quyết định chủ trương đầu tư, dự án chưa được phê duyệt. ** Giá trị quyết toán vốn đầu tư dự án hoàn thành. Trung tâm CƯDVSNC: Trung tâm Cung ứng dịch vụ sự nghiệp công phường Tân Lập; Phòng VH-XH: Phòng Văn hóa - Xã hội phường Tân Lập. Đưa chuột vào ô tổng mức đầu tư để xem số, ngày của quyết định.</p>
+      <p class="tnote">Đơn vị tính: triệu đồng (làm tròn). * Tổng mức đầu tư theo quyết định chủ trương đầu tư, dự án chưa được phê duyệt. ** Giá trị quyết toán vốn đầu tư dự án hoàn thành. Trung tâm CƯDVSNC: Trung tâm Cung ứng dịch vụ sự nghiệp công phường Tân Lập; Phòng VH-XH: Phòng Văn hóa - Xã hội phường Tân Lập. Đưa chuột vào ô tổng mức đầu tư để xem số, ngày của quyết định.</p>
     </details>
   </section>
 
@@ -532,7 +539,7 @@ tr.khoi td{background:#3a1b1b}
     var a=b.dataset.act;
     if(a==="print-table"){document.body.classList.add("print-table");window.print();setTimeout(function(){document.body.classList.remove("print-table");},500);}
     else if(a==="print-page"){var st=openAll();window.print();setTimeout(function(){st.forEach(function(x){x[0].open=x[1];});},500);}
-    else if(a==="csv"){var rows=[];bang.querySelectorAll("table tr").forEach(function(tr){var c=[].slice.call(tr.cells).map(function(td){var t=(td.innerText||td.textContent).replace(/\s+/g," ").trim();
+    else if(a==="csv"){var rows=['"Bảng tổng hợp tình hình thực hiện và giải ngân vốn đầu tư công năm 2026, UBND phường Tân Lập (số liệu đến %%upd%%; đơn vị tính: triệu đồng)"'];bang.querySelectorAll("table tr").forEach(function(tr){var c=[].slice.call(tr.cells).map(function(td){var t=(td.innerText||td.textContent).replace(/\s+/g," ").trim();
         if(td.classList.contains("cdt")&&td.title)t=td.title;
         if(td.classList.contains("num")&&/^[\d.,*%]+$/.test(t)){t=t.replace(/\*/g,"");t=/%$/.test(t)?t:t.replace(/\./g,"");}
         return '"'+t.replace(/"/g,'""')+'"';});
