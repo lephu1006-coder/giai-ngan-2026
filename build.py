@@ -738,9 +738,27 @@ def render(groups, projects, t, hist, fetched):
     prev_wk = weeks[-2] if len(weeks) > 1 else None
     tomorrow = today + dt.timedelta(days=1)
 
+    # nhu cầu giải ngân theo tuần (thứ Hai đến Chủ nhật): mức cần của tuần tính cố định từ đầu tuần
+    # = vốn còn lại cuối Chủ nhật tuần trước chia cho số tuần còn đến hạn (quy đổi theo ngày làm việc, 5 ngày một tuần)
+    monday = today - dt.timedelta(days=today.weekday())
+    def wneed(g, mon):
+        gn0 = min(cum_on(daily, mon - dt.timedelta(days=1), {g["nhom"]}), g["gn"])
+        left0 = max(g["kh"] - gn0 - g["du"], 0)
+        nw = workdays(mon, g["due"]) / 5
+        return gn0, left0, nw, left0 / max(nw, 1)
+    for g in groups:
+        gn0, left0, nw, per = wneed(g, monday)
+        g["w_left0"], g["w_n"], g["w_need"], g["w_in"] = left0, nw, per, g["gn"] - gn0
+        pm = monday - dt.timedelta(days=7)
+        if g["giao"] <= pm + dt.timedelta(days=6):
+            p0, pl, pn, pp = wneed(g, pm)
+            g["p_need"], g["p_in"] = pp, gn0 - p0
+        else:
+            g["p_need"], g["p_in"] = 0.0, 0.0
+
     def need(gs):
         left = sum(max(g["kh"] - g["gn"] - g["du"], 0) for g in gs)
-        per = sum(max(g["kh"] - g["gn"] - g["du"], 0) / (workdays(tomorrow, g["due"]) or 1) for g in gs)
+        per = sum(g["w_need"] for g in gs)
         return left, per
 
     # hai khối nguồn vốn
@@ -759,6 +777,8 @@ def render(groups, projects, t, hist, fetched):
         kh, gn = sum(g["kh"] for g in gs), sum(g["gn"] for g in gs)
         subs[sk] = {"gs": gs, "kh": kh, "gn": gn, "tl": gn / kh if kh else 0, "chua": sum(g["chua"] for g in gs)}
     tot_left, per_day = need(groups)
+    w_in_all = sum(g["w_in"] for g in groups)
+    p_need_all, p_in_all = sum(g["p_need"] for g in groups), sum(g["p_in"] for g in groups)
 
     take = (f"Đến ngày {upd}, phường đã giải ngân {ty(gn_now)}, đạt {pct(rate)} tổng kế hoạch vốn năm 2026 "
             f"({ty(kh_all)}); tiến độ thời gian đã qua {pct(tg)}. "
@@ -766,8 +786,8 @@ def render(groups, projects, t, hist, fetched):
             f"vốn HĐND phường giao đạt {pct(blk['B']['tl'])} ({ty(blk['B']['gn'])}/{ty(blk['B']['kh'])}; "
             f"phần giao trước ngày 30/9/2026 đạt {pct(subs['truoc']['tl'])}). "
             f"Tuần này giải ngân thêm {ty(wk['in'])}, từ đầu tháng {today.month} là {ty(mo['in'])}. "
-            f"Để giải ngân hết kế hoạch đúng hạn, bình quân mỗi ngày làm việc cần giải ngân khoảng {ty(per_day)}, "
-            f"riêng vốn cấp trên giao là {ty(blk['A']['per'])}.")
+            f"Để giải ngân hết kế hoạch đúng hạn, tuần này ({monday:%d/%m} đến {monday + dt.timedelta(days=6):%d/%m}) cần giải ngân khoảng {ty(per_day)}, "
+            f"riêng vốn cấp trên giao là {ty(blk['A']['per'])}; đã giải ngân được {ty(w_in_all)}.")
     if blk["A"]["n_cb"]:
         take += f" {blk['A']['n_cb']} dự án vốn cấp trên mới giao (chưa đủ {URGENT_DAYS} ngày) được xếp cấp bách, cần tập trung giải ngân ngay."
     n_done = [p for p in projects if p["done"]]
@@ -792,23 +812,28 @@ def render(groups, projects, t, hist, fetched):
         kcard("k-red", "Tổng cộng toàn phường", pct(rate), f"{ty(gn_now)} / {ty(kh_all)}",
               f"Còn {ty(tot_left)}" + (f"; trong đó {ty(kh_chua)} chờ UBND giao chi tiết" if kh_chua else "")),
         kcard("k-gold", "A. " + KHOI["A"][0], pct(blk["A"]["tl"]), f"{ty(blk['A']['gn'])} / {ty(blk['A']['kh'])}",
-              f"{KHOI['A'][1]}. Còn {ty(blk['A']['left'])}, mỗi ngày làm việc cần {ty(blk['A']['per'])}"),
+              f"{KHOI['A'][1]}. Còn {ty(blk['A']['left'])}, tuần này cần {ty(blk['A']['per'])}"),
         f'<div class="kpi k-brown"><p class="kpi-label">B. {e(KHOI["B"][0])}</p><p class="kpi-value">{pct(blk["B"]["tl"])}</p>'
         f'<p class="kpi-sub">{ty(blk["B"]["gn"])} / {ty(blk["B"]["kh"])}</p><ul class="kpi-split">{split_line("truoc")}{split_line("sau")}</ul></div>',
     ])
 
-    # nhu cầu mỗi ngày, theo khối
+    # nhu cầu mỗi tuần, theo khối
+    def wpct(x, n):
+        return pct(x / n) if n > 0 else ""
     need_rows = []
     for k in ("A", "B"):
         gg = blk[k]["gs"]
         if not gg:
             continue
-        need_rows.append(f'<tr class="grp"><td colspan="5">{k}. {e(KHOI[k][0])}</td></tr>')
+        need_rows.append(f'<tr class="grp"><td colspan="7">{k}. {e(KHOI[k][0])}</td></tr>')
         for g in gg:
-            left = max(g["kh"] - g["gn"] - g["du"], 0)
-            wd = workdays(tomorrow, g["due"])
-            need_rows.append(f'<tr><td><b>{e(g["ma"])}.</b> {e(g["short"])}</td><td class="num">{ty(left, False)}</td><td class="num">{g["due"]:%d/%m/%Y}</td><td class="num">{wd}</td><td class="num strong">{ty(left/wd if wd else left, False)}</td></tr>')
-        need_rows.append(f'<tr class="sub"><td>Cộng khối {k}</td><td class="num">{ty(blk[k]["left"], False)}</td><td></td><td></td><td class="num">{ty(blk[k]["per"], False)}</td></tr>')
+            need_rows.append(f'<tr><td><b>{e(g["ma"])}.</b> {e(g["short"])}</td><td class="num">{ty(g["w_left0"], False)}</td><td class="num">{g["due"]:%d/%m/%Y}</td>'
+                             f'<td class="num">{vi(g["w_n"], 1)}</td><td class="num strong">{ty(g["w_need"], False)}</td><td class="num">{ty(g["w_in"], False)}</td><td class="num">{wpct(g["w_in"], g["w_need"])}</td></tr>')
+        wl = sum(g["w_left0"] for g in gg); wi = sum(g["w_in"] for g in gg)
+        need_rows.append(f'<tr class="sub"><td>Cộng khối {k}</td><td class="num">{ty(wl, False)}</td><td></td><td></td><td class="num">{ty(blk[k]["per"], False)}</td><td class="num">{ty(wi, False)}</td><td class="num">{wpct(wi, blk[k]["per"])}</td></tr>')
+    w_bar = min(100, w_in_all / per_day * 100) if per_day else 0
+    w_cmp = (f"Tuần trước ({monday - dt.timedelta(days=7):%d/%m} đến {monday - dt.timedelta(days=1):%d/%m}) cần {ty(p_need_all)}, "
+             f"đã giải ngân {ty(p_in_all)}, đạt {wpct(p_in_all, p_need_all)}.") if p_need_all else ""
 
     # nguồn vốn, theo khối
     src = []
@@ -1009,7 +1034,7 @@ def render(groups, projects, t, hist, fetched):
         trend=trend_svg(daily, today, kh_ref, {g["nhom"] for g in g_due26}),
         bars_w=bars_svg(weeks, "Giải ngân theo tuần"), bars_m=bars_svg(months, "Giải ngân theo tháng"), bars_q=bars_svg(quarters, "Giải ngân theo quý"),
         tab_w=period_table(weeks), tab_m=period_table(months), tab_q=period_table(quarters),
-        need_rows="\n".join(need_rows), need_left=ty(tot_left, False), need_per=ty(per_day, False), per_day_num=ty(per_day, False),
+        need_rows="\n".join(need_rows), need_left=ty(sum(g["w_left0"] for g in groups), False), need_per=ty(per_day, False), per_day_num=ty(per_day, False), need_in=ty(w_in_all, False), need_pct=wpct(w_in_all, per_day), w_this=f"{monday:%d/%m} đến {monday + dt.timedelta(days=6):%d/%m}", w_in_txt=ty(w_in_all), w_bar=f"{w_bar:.1f}", w_cmp=e(w_cmp),
         sources="\n".join(src), tiles="\n".join(tiles), chips_khoi=chips_khoi, chips_nhom=chips_nhom, chips_xl=chips_xl,
         rows="\n".join(body_rows), cdt_cards="\n".join(cdt_cards), cdt_rows="\n".join(cdt_rows), chips_cdt=chips_cdt, **{"opt_" + k: re.sub(r'<button type="button" class="chip" data-f="\w+" data-v="([^"]*)">(.*?)</button>', r'<option value="\1">\2</option>', v) for k, v in (("khoi", chips_khoi), ("nhom", chips_nhom), ("cdt", chips_cdt), ("xl", chips_xl))}, n_cdt=len(cdt_list), f_kh=vi(t["kh"] / 1e6), f_gn=vi(t["gn"] / 1e6), f_tl=pct(t["gn"] / t["kh"] if t["kh"] else 0), v_kh="%.0f" % t["kh"], v_gn="%.0f" % t["gn"], v_tl="%.6f" % (t["gn"] / t["kh"] if t["kh"] else 0),
     )
