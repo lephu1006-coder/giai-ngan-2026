@@ -122,11 +122,16 @@ h2::before{content:"";flex:none;width:6px;height:26px;background:var(--brand-red
 
 /* nhu cầu mỗi ngày */
 .need{display:grid;grid-template-columns:minmax(220px,300px) 1fr;gap:var(--s5);align-items:stretch}
-@media (max-width:760px){.need{grid-template-columns:1fr}}
+@media (max-width:760px){.need{grid-template-columns:minmax(0,1fr)}.need .table-wrap table{min-width:560px}.need td:first-child{min-width:150px}}
 .need-hero{background:var(--cover);color:var(--cover-ink);border-radius:var(--r-lg);padding:var(--s5);display:flex;flex-direction:column;justify-content:center}
 .need-hero .big{font-size:48px;line-height:54px;font-weight:800;color:#fff;white-space:nowrap}
 .need-hero .big small{display:block;font-size:16px;line-height:22px;font-weight:600;color:var(--cover-gold)}
 .need-hero p{margin:var(--s2) 0 0;font-size:14px;line-height:21px;color:var(--cover-muted)}
+.need-hero p b{color:#fff}
+.need-txt{flex:1;min-width:0}
+.wbar{display:block;height:10px;margin:10px 0 0;border-radius:9999px;background:rgba(255,255,255,.18);overflow:hidden;max-width:520px}
+.wbar i{display:block;height:100%;border-radius:9999px;background:var(--cover-gold)}
+.need-hero p.wcmp{font-size:13px}
 
 /* biểu đồ */
 .chart{display:block;width:100%;height:auto;font-family:var(--font)}
@@ -283,7 +288,7 @@ details.fold>summary:hover{border-color:var(--ink-strong)}
 details.fold .f-o,details.fold[open] .f-c{display:none}details.fold[open] .f-o{display:inline}
 details.fold[open]>summary{margin-bottom:var(--s3)}
 .need>details.fold{grid-column:1/-1;margin-top:calc(-1 * var(--s3))}
-@media (min-width:761px){.need{grid-template-columns:1fr}.need-hero{flex-direction:row;align-items:center;justify-content:flex-start;gap:var(--s6)}.need-hero p{margin:0;max-width:60ch}}
+@media (min-width:761px){.need{grid-template-columns:minmax(0,1fr)}.need-hero{flex-direction:row;align-items:center;justify-content:flex-start;gap:var(--s6)}.need-hero p{margin:0;max-width:60ch}}
 .tile summary::after{content:"Xem chi tiết ▾";align-self:flex-end;margin-top:2px;padding:2px 10px;border-radius:9999px;background:var(--surface-muted);font-size:12px;line-height:18px;font-weight:700;color:var(--accent-red-text)}
 .tile[open] summary::after{content:"Thu gọn ▴"}
 
@@ -412,7 +417,7 @@ tr.khoi td{background:#3a1b1b}
     <a href="#cap-giao">Cấp giao vốn</a>
     <a href="#luy-ke">Theo kỳ</a>
     <a href="#dien-bien">Diễn biến</a>
-    <a href="#moi-ngay">Mỗi ngày cần</a>
+    <a href="#moi-ngay">Mỗi tuần cần</a>
     <a href="#theo-nguon">Nguồn vốn</a>
     <a href="#chu-dau-tu">Chủ đầu tư</a>
     <a href="#du-an">Dự án</a>
@@ -461,14 +466,14 @@ tr.khoi td{background:#3a1b1b}
   </section>
 
   <section aria-labelledby="moi-ngay">
-    <h2 id="moi-ngay">Mỗi ngày cần giải ngân</h2>
-    <p class="sub">Số vốn còn lại của từng nguồn chia cho số ngày làm việc (thứ Hai đến thứ Sáu, chưa trừ ngày lễ) từ ngày mai đến hạn giải ngân của nguồn đó.</p>
+    <h2 id="moi-ngay">Mỗi tuần cần giải ngân</h2>
+    <p class="sub">Tuần tính từ thứ Hai đến hết Chủ nhật. Mức cần của tuần được chốt từ đầu tuần: số vốn còn lại của từng nguồn (đến hết Chủ nhật tuần trước) chia cho số tuần còn đến hạn giải ngân của nguồn đó (quy đổi theo ngày làm việc, chưa trừ ngày lễ), nên có thể so sánh với số đã giải ngân trong tuần.</p>
     <div class="need">
-      <div class="need-hero"><div class="big">%%per_day_num%%<small>tỷ đồng mỗi ngày làm việc</small></div><p>là mức cần giải ngân bình quân từ nay, cộng theo hạn của từng nguồn, để giải ngân hết %%k_left%% vốn còn lại.</p></div>
+      <div class="need-hero"><div class="big">%%per_day_num%%<small>tỷ đồng cần giải ngân tuần này</small></div><div class="need-txt"><p>Tuần này (%%w_this%%) đã giải ngân <b>%%w_in_txt%%</b>, đạt <b>%%need_pct%%</b> mức cần.</p><span class="wbar"><i style="width:%%w_bar%%%"></i></span><p class="wcmp">%%w_cmp%%</p></div></div>
       <details class="fold"><summary><span class="f-c">Xem chi tiết theo từng nguồn vốn</span><span class="f-o">Thu gọn bảng</span></summary><div class="table-wrap"><table>
-        <thead><tr><th>Nguồn vốn</th><th class="num">Còn lại<br>(tỷ đồng)</th><th class="num">Hạn</th><th class="num">Ngày làm<br>việc còn</th><th class="num">Mỗi ngày<br>(tỷ đồng)</th></tr></thead>
+        <thead><tr><th>Nguồn vốn</th><th class="num">Còn lại<br>đầu tuần</th><th class="num">Hạn</th><th class="num">Số tuần<br>còn</th><th class="num">Cần<br>tuần này</th><th class="num">Tuần này<br>đã giải ngân</th><th class="num">Đạt</th></tr></thead>
         <tbody>%%need_rows%%</tbody>
-        <tfoot><tr><td>Cộng</td><td class="num">%%need_left%%</td><td class="num"></td><td class="num"></td><td class="num">%%need_per%%</td></tr></tfoot>
+        <tfoot><tr><td>Cộng</td><td class="num">%%need_left%%</td><td class="num"></td><td class="num"></td><td class="num">%%need_per%%</td><td class="num">%%need_in%%</td><td class="num">%%need_pct%%</td></tr></tfoot>
       </table></div></details>
     </div>
   </section>
