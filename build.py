@@ -39,7 +39,7 @@ def parse(values):
             groups.append(g)
             continue
         if g and tt.isdigit() and name:
-            rows.append({"nhom": g["nhom"], "stt": int(tt), "du_an": name, "kh": num(v[3]), "gn": num(v[4])})
+            rows.append({"nhom": g["nhom"], "stt": int(tt), "du_an": name, "kh": num(v[3]), "gn": num(v[4]), "ma_da": str(v[2]).strip()})
     return groups, rows, total
 
 
@@ -517,13 +517,40 @@ def model(th, nq, cds=None, today=None):
 
 
 # ---------- lịch sử giải ngân ----------
-def update_history(hist, groups, today):
+def pid(p):
+    """Khóa theo dõi một dự án trong một nguồn vốn: nhóm nguồn | mã dự án (không có mã thì dùng tên)."""
+    return p["nhom"] + "|" + (p.get("ma_da") or pkey(p["du_an"]))
+
+
+def update_history(hist, groups, today, projects=()):
     daily = hist.setdefault("daily", {})
     cur = {g["nhom"]: round(g["gn"]) for g in groups if not g["chua_giao"] and g["gn"]}
     last = daily[max(daily)] if daily else {}
     if cur != last:
         daily[today.isoformat()] = cur
+    # lũy kế theo dự án, ghi cùng ngày với lũy kế theo nhóm để số theo kỳ của dự án khớp với biểu đồ
+    da = hist.setdefault("du_an", {})
+    cur_p = {pid(p): round(p["gn"]) for p in projects if p["gn"]}
+    last_p = da[max(da)] if da else {}
+    if cur_p and cur_p != last_p:
+        da[today.isoformat()] = cur_p
+    ten = hist.setdefault("ten_du_an", {})
+    for p in projects:
+        ten[pid(p)] = p["du_an"]
     return hist
+
+
+def row_on(series, d):
+    keys = [k for k in series if k <= d.isoformat()]
+    return series[max(keys)] if keys else {}
+
+
+def period_projects(hist, p):
+    """Số giải ngân trong kỳ của từng dự án (đồng), theo lũy kế dự án đầu kỳ và cuối kỳ."""
+    da = hist.get("du_an", {})
+    a = row_on(da, p["start"] - dt.timedelta(days=1))
+    b = row_on(da, p["end"])
+    return {k: b.get(k, 0) - a.get(k, 0) for k in set(a) | set(b) if b.get(k, 0) != a.get(k, 0)}
 
 
 def cum_on(daily, d, nhoms=None):
@@ -684,13 +711,48 @@ def bars_svg(items, aria):
         x = L + i * bw + bw * 0.18
         y = H - B - h
         short = p["label"].split(" (")[0].replace("Tháng ", "T").replace("Tuần ", "Tuần\u00a0")
-        cls = "col col-now" if i == n - 1 else "col"
-        out.append(f'<rect x="{x:.1f}" y="{y:.1f}" width="{bw*0.64:.1f}" height="{max(h,0):.1f}" rx="4" class="{cls}"><title>{e(p["label"])}: {e(ty(p["in"]))}</title></rect>')
+        cls = "col col-now col-sel" if i == n - 1 else "col"
+        out.append(f'<g class="bar" data-i="{i}" tabindex="0" role="button" aria-label="{e(p["label"])}: {e(ty(p["in"]))}"><rect x="{L + i * bw:.1f}" y="{T}" width="{bw:.1f}" height="{H-T}" class="hit"/>'
+                   f'<rect x="{x:.1f}" y="{y:.1f}" width="{bw*0.64:.1f}" height="{max(h,0):.1f}" rx="4" class="{cls}"><title>{e(p["label"])}: {e(ty(p["in"]))}</title></rect></g>')
         if p["in"] > 0:
             out.append(f'<text x="{x+bw*0.32:.1f}" y="{y-6:.1f}" text-anchor="middle" class="val">{vi(p["in"]/1e9,1)}</text>')
         out.append(f'<text x="{x+bw*0.32:.1f}" y="{H-B+18}" text-anchor="middle" class="tick">{e(short)}</text>')
     out.append(f'<text x="{L-8}" y="12" text-anchor="end" class="tick">tỷ đồng</text></svg>')
     return "".join(out)
+
+
+def proj_panels(items, hist, gmap, kind):
+    """Bảng dự án giải ngân trong từng kỳ; mặc định hiện kỳ hiện tại, bấm cột biểu đồ để đổi kỳ."""
+    ten = hist.get("ten_du_an", {})
+    n = len(items)
+    out = []
+    for i, p in enumerate(items):
+        by = {}
+        for k, v in period_projects(hist, p).items():
+            nhom = k.split("|")[0]
+            name = ten.get(k, k)
+            r = by.setdefault(pkey(name), {"ten": name, "v": 0.0, "ma": []})
+            r["v"] += v
+            ma = gmap[nhom]["ma"] if nhom in gmap else nhom
+            if ma not in r["ma"]:
+                r["ma"].append(ma)
+            r["ma"].sort()
+        rs = sorted((r for r in by.values() if abs(r["v"]) >= 1), key=lambda r: -r["v"])
+        if abs(sum(r["v"] for r in rs) - p["in"]) >= 1:  # phần lịch sử chưa có số theo dự án
+            rs.append({"ten": "Chưa tách được theo dự án", "v": p["in"] - sum(r["v"] for r in rs), "ma": []})
+        tot = sum(r["v"] for r in rs)
+        lbl = p["label"].replace("–", " đến ")
+        lbl = lbl[:1].lower() + lbl[1:]
+        if rs:
+            tag = lambda r: "".join('<span class="mtag">' + e(m) + '</span>' for m in r["ma"])
+            body = "".join(f'<tr><td>{tag(r)}{e(r["ten"])}</td>'
+                           f'<td class="num">{vi(r["v"] / 1e6)}</td><td class="num">{pct(r["v"] / tot) if tot else ""}</td></tr>' for r in rs)
+            tbl = (f'<div class="table-wrap"><table class="ptable pda-t"><thead><tr><th>Dự án</th><th class="num">Giải ngân<br>(triệu đồng)</th><th class="num">Tỷ<br>trọng</th></tr></thead>'
+                   f'<tbody>{body}</tbody><tfoot><tr><td>Cộng</td><td class="num">{vi(tot / 1e6)}</td><td class="num">100%</td></tr></tfoot></table></div>')
+        else:
+            tbl = '<p class="pda-0">Không có dự án giải ngân trong kỳ này.</p>'
+        out.append(f'<div class="pda-p" data-i="{i}"{"" if i == n - 1 else " hidden"}><p class="pda-h">Dự án giải ngân trong <b>{e(lbl)}</b>: {e(ty(p["in"]))}</p>{tbl}</div>')
+    return f'<div class="pda" data-k="{kind}">{"".join(out)}<p class="pda-hint">Bấm vào cột trên biểu đồ để xem dự án của kỳ khác.</p></div>'
 
 
 def period_table(items):
@@ -734,6 +796,7 @@ def render(groups, projects, t, hist, fetched):
     cards = gom_the(projects, {g["nhom"]: g for g in groups}, today)
     cnt = {k: sum(1 for p in cards if p["xl"] == k) for k in BADGE}
     weeks, months, quarters = periods(daily, today, kh_all)
+    gmap_all = {g["nhom"]: g for g in groups}
     wk, mo, qu = weeks[-1], months[-1], quarters[-1]
     prev_wk = weeks[-2] if len(weeks) > 1 else None
     tomorrow = today + dt.timedelta(days=1)
@@ -1034,6 +1097,7 @@ def render(groups, projects, t, hist, fetched):
         trend=trend_svg(daily, today, kh_ref, {g["nhom"] for g in g_due26}),
         bars_w=bars_svg(weeks, "Giải ngân theo tuần"), bars_m=bars_svg(months, "Giải ngân theo tháng"), bars_q=bars_svg(quarters, "Giải ngân theo quý"),
         tab_w=period_table(weeks), tab_m=period_table(months), tab_q=period_table(quarters),
+        pda_w=proj_panels(weeks, hist, gmap_all, "w"), pda_m=proj_panels(months, hist, gmap_all, "m"), pda_q=proj_panels(quarters, hist, gmap_all, "q"),
         need_rows="\n".join(need_rows), need_left=ty(sum(g["w_left0"] for g in groups), False), need_per=ty(per_day, False), per_day_num=ty(per_day, False), need_in=ty(w_in_all, False), need_pct=wpct(w_in_all, per_day), w_this=f"{monday:%d/%m} đến {monday + dt.timedelta(days=6):%d/%m}", w_in_txt=ty(w_in_all), w_bar=f"{w_bar:.1f}", w_cmp=e(w_cmp),
         sources="\n".join(src), tiles="\n".join(tiles), chips_khoi=chips_khoi, chips_nhom=chips_nhom, chips_xl=chips_xl,
         rows="\n".join(body_rows), cdt_cards="\n".join(cdt_cards), cdt_rows="\n".join(cdt_rows), chips_cdt=chips_cdt, **{"opt_" + k: re.sub(r'<button type="button" class="chip" data-f="\w+" data-v="([^"]*)">(.*?)</button>', r'<option value="\1">\2</option>', v) for k, v in (("khoi", chips_khoi), ("nhom", chips_nhom), ("cdt", chips_cdt), ("xl", chips_xl))}, n_cdt=len(cdt_list), f_kh=vi(t["kh"] / 1e6), f_gn=vi(t["gn"] / 1e6), f_tl=pct(t["gn"] / t["kh"] if t["kh"] else 0), v_kh="%.0f" % t["kh"], v_gn="%.0f" % t["gn"], v_tl="%.6f" % (t["gn"] / t["kh"] if t["kh"] else 0),
@@ -1119,7 +1183,7 @@ def main():
     cp = ROOT / "cds_mtqg.json"
     cds = json.loads(cp.read_text(encoding="utf-8")) if cp.exists() else None
     groups, projects, t = model(th, nq, cds, fetched.astimezone(TZ).date())
-    hist = update_history(hist, groups, fetched.astimezone(TZ).date())
+    hist = update_history(hist, groups, fetched.astimezone(TZ).date(), projects)
     hp.write_text(json.dumps(hist, ensure_ascii=False, indent=0, sort_keys=True), encoding="utf-8")
     out, summary = render(groups, projects, t, hist, fetched)
     (ROOT / "index.html").write_text(out, encoding="utf-8")
