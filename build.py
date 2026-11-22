@@ -131,11 +131,11 @@ TIEN_DO = [
      "tiếp đến gia cố lề, rãnh thoát nước. Dự kiến phê duyệt quyết toán ngày 10/01/2027."),
 ]
 
-# Cập nhật từ văn bản trên iOffice (anh Phú đã duyệt ngày 15/11/2026): thay ghi chú của bảng số liệu khi bảng chưa kịp cập nhật.
+# Cập nhật từ văn bản trên iOffice (anh Phú đã duyệt ngày 15/11/2026 và 23/11/2026): thay ghi chú của bảng số liệu khi bảng chưa kịp cập nhật.
 CAP_NHAT = [
-    ("CĐS", "trang thiết bị công nghệ thông tin", "UBND phường phê duyệt nhiệm vụ và dự toán chuẩn bị đầu tư tại Quyết định số 1993/QĐ-UBND ngày 03/11/2026; ngày 12/11/2026 chủ đầu tư phê duyệt kết quả chỉ định thầu các gói thầu tư vấn lập báo cáo nghiên cứu khả thi, thẩm định giá."),
-    ("CĐS", "hạ tầng chuyển đổi số", "UBND phường phê duyệt nhiệm vụ và dự toán chuẩn bị đầu tư tại Quyết định số 2048/QĐ-UBND ngày 11/11/2026; chủ đầu tư đã phê duyệt kế hoạch lựa chọn nhà thầu tư vấn chuẩn bị đầu tư."),
-    ("MTQG", "Kõ Mliâo", "UBND phường phê duyệt chủ trương đầu tư tại Quyết định số 1999/QĐ-UBND ngày 04/11/2026; chủ đầu tư triển khai các bước tiếp theo."),
+    ("CĐS", "trang thiết bị công nghệ thông tin", "UBND phường phê duyệt nhiệm vụ và dự toán chuẩn bị đầu tư tại Quyết định số 1993/QĐ-UBND ngày 03/11/2026; ngày 12/11/2026 chủ đầu tư phê duyệt kết quả chỉ định thầu các gói thầu tư vấn lập báo cáo nghiên cứu khả thi, thẩm định giá. Ngày 21/11/2026, chủ đầu tư trình UBND phường thẩm định, phê duyệt Báo cáo nghiên cứu khả thi (Tờ trình số 155); đã có chứng thư thẩm định giá."),
+    ("CĐS", "hạ tầng chuyển đổi số", "UBND phường phê duyệt nhiệm vụ và dự toán chuẩn bị đầu tư tại Quyết định số 2048/QĐ-UBND ngày 11/11/2026; chủ đầu tư phê duyệt kế hoạch lựa chọn nhà thầu tư vấn chuẩn bị đầu tư tại Quyết định số 088 ngày 16/11/2026. Đã hoàn thành hồ sơ Báo cáo kinh tế - kỹ thuật; ngày 18/11/2026, UBND phường xin ý kiến Sở Khoa học và Công nghệ, Công an tỉnh (Công văn số 1944/UBND-VHXH) trước khi trình thẩm định, phê duyệt."),
+    ("MTQG", "Kõ Mliâo", "UBND phường phê duyệt chủ trương đầu tư tại Quyết định số 1999/QĐ-UBND ngày 04/11/2026; ngày 17/11/2026, chủ đầu tư chỉ định thầu tư vấn lập Báo cáo kinh tế - kỹ thuật (Quyết định số 090), thời gian thực hiện 30 ngày."),
     ("MTQG", "Ea Cuôr Kap", "UBND phường phê duyệt chủ trương đầu tư tại Quyết định số 2000/QĐ-UBND ngày 04/11/2026; chủ đầu tư triển khai các bước tiếp theo."),
 ]
 
