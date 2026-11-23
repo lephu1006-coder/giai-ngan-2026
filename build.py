@@ -91,7 +91,7 @@ def label(nguon):
 
 # Tình hình thực hiện theo văn bản đã ban hành (thư mục Lưu trữ trình duyệt, báo cáo tuần của Phòng KT-HT&ĐT).
 # (khóa nguồn vốn, cụm tên dự án, số vốn dư không còn nhu cầu giải ngân, ghi chú)
-HD_2347 = 'Đã bàn giao mặt bằng, khởi công ngày 01/11/2026; theo hợp đồng thi công (sau thương thảo với nhà thầu), hoàn thành toàn bộ khối lượng trước ngày 23/12/2026. '
+HD_2347 = 'Đã trao hợp đồng và bàn giao mặt bằng ngày 02/11/2026; theo hợp đồng thi công (sau thương thảo với nhà thầu), hoàn thành toàn bộ khối lượng trước ngày 23/12/2026. '
 TIEN_DO = [
     ("kéo dài", "Mầm non Tân Hòa", 81_686_000,
      "Dự án hoàn thành, đã phê duyệt quyết toán tại Quyết định số 1348/QĐ-UBND ngày 07/8/2026 của UBND phường. "
