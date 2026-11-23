@@ -137,22 +137,15 @@ CAP_NHAT = [
     ("CĐS", "hạ tầng chuyển đổi số", "UBND phường phê duyệt nhiệm vụ và dự toán chuẩn bị đầu tư tại Quyết định số 2048/QĐ-UBND ngày 11/11/2026; chủ đầu tư phê duyệt kế hoạch lựa chọn nhà thầu tư vấn chuẩn bị đầu tư tại Quyết định số 088 ngày 16/11/2026. Đã hoàn thành hồ sơ Báo cáo kinh tế - kỹ thuật; ngày 18/11/2026, UBND phường xin ý kiến Sở Khoa học và Công nghệ, Công an tỉnh (Công văn số 1944/UBND-VHXH) trước khi trình thẩm định, phê duyệt."),
     ("MTQG", "Kõ Mliâo", "UBND phường phê duyệt chủ trương đầu tư tại Quyết định số 1999/QĐ-UBND ngày 04/11/2026; ngày 17/11/2026, chủ đầu tư chỉ định thầu tư vấn lập Báo cáo kinh tế - kỹ thuật (Quyết định số 090), thời gian thực hiện 30 ngày."),
     ("MTQG", "Ea Cuôr Kap", "UBND phường phê duyệt chủ trương đầu tư tại Quyết định số 2000/QĐ-UBND ngày 04/11/2026; chủ đầu tư triển khai các bước tiếp theo."),
-    # Báo cáo của chủ đầu tư ngày 23/11/2026 (nhóm Zalo Đầu tư công), anh Phú duyệt ngày 23/11/2026.
-    ("kéo dài", "Cao Đạt", "Đang vận động bàn giao phần mặt bằng còn lại, tháo gỡ vướng mắc đơn thư. Thời hạn giải ngân vốn năm 2025 kéo dài được điều chỉnh đến hết ngày 31/12/2026 tại Quyết định số 3598/QĐ-UBND ngày 09/11/2026 của UBND tỉnh. Ngày 13/11/2026 UBND phường phê duyệt phương án bồi thường, hỗ trợ đợt 3 (Quyết định số 2060/QĐ-UBND) và điều chỉnh, bổ sung phương án bồi thường, hỗ trợ (Quyết định số 2066/QĐ-UBND). Chủ đầu tư phấn đấu đến ngày 30/11/2026 giải ngân hết vốn năm 2025 kéo dài."),
-    ("02558", "Cao Đạt", "Đang vận động bàn giao phần mặt bằng còn lại, tháo gỡ vướng mắc đơn thư. Ngày 13/11/2026 UBND phường phê duyệt phương án bồi thường, hỗ trợ đợt 3 (Quyết định số 2060/QĐ-UBND) và điều chỉnh, bổ sung phương án bồi thường, hỗ trợ (Quyết định số 2066/QĐ-UBND). Chủ đầu tư phấn đấu đến ngày 31/12/2026 giải ngân đạt 90% kế hoạch vốn năm 2026, phần còn lại do hết nhiệm vụ chi."),
-    ("1133", "Nguyễn Du", "Đang thi công. Theo báo cáo của chủ đầu tư ngày 23/11/2026, phấn đấu đến ngày 20/12/2026 giải ngân hết kế hoạch vốn đã bố trí và phần vốn bổ sung."),
-    ("1133", "Nguyễn Văn Cừ", "Đang thi công. Theo báo cáo của chủ đầu tư ngày 23/11/2026, phấn đấu đến ngày 20/12/2026 giải ngân hết kế hoạch vốn đã bố trí và phần vốn bổ sung."),
-    ("1133", "Trạm Y tế", "Theo báo cáo của chủ đầu tư ngày 23/11/2026, dự án đã giải ngân hết kế hoạch vốn đã bố trí; số liệu trên trang cập nhật theo bảng theo dõi thanh toán."),
-    ("1133", "hội trường", "Theo báo cáo của chủ đầu tư ngày 23/11/2026, dự án đã giải ngân hết kế hoạch vốn đã bố trí; số liệu trên trang cập nhật theo bảng theo dõi thanh toán."),
-    ("1133", "D8 và N14", "Dự án đã được phê duyệt tại Quyết định số 2037/QĐ-UBND ngày 06/11/2026 của UBND phường. Chủ đầu tư phấn đấu đến ngày 15/12/2026 giải ngân hết kế hoạch vốn đã bố trí."),
-    ("1994", "", "UBND phường giao chi tiết kế hoạch vốn chuẩn bị đầu tư tại Quyết định số 1994/QĐ-UBND ngày 03/11/2026. Chủ đầu tư phấn đấu đến ngày 31/12/2026 giải ngân hết kế hoạch vốn đã bố trí."),
-    ("1994", "Má Hai", "Ngày 26/10/2026 chủ đầu tư phê duyệt dự toán và kế hoạch lựa chọn nhà thầu. Chủ đầu tư phấn đấu đến ngày 31/12/2026 giải ngân hết kế hoạch vốn đã bố trí."),
-    ("1994", "Nguyễn Đình Thi", "Ngày 26/10/2026 chủ đầu tư phê duyệt dự toán và kế hoạch lựa chọn nhà thầu. Chủ đầu tư phấn đấu đến ngày 31/12/2026 giải ngân hết kế hoạch vốn đã bố trí."),
-    ("1994", "Tăng Bạt Hổ", "Ngày 26/10/2026 chủ đầu tư phê duyệt dự toán và kế hoạch lựa chọn nhà thầu. Chủ đầu tư phấn đấu đến ngày 31/12/2026 giải ngân hết kế hoạch vốn đã bố trí."),
-    ("1994", "Phạm Văn Đồng", "Ngày 26/10/2026 chủ đầu tư phê duyệt dự toán và kế hoạch lựa chọn nhà thầu. Chủ đầu tư phấn đấu đến ngày 31/12/2026 giải ngân hết kế hoạch vốn đã bố trí."),
-    ("1994", "Hoàng Minh Giám", "Ngày 26/10/2026 chủ đầu tư phê duyệt dự toán và kế hoạch lựa chọn nhà thầu. Chủ đầu tư phấn đấu đến ngày 31/12/2026 giải ngân hết kế hoạch vốn đã bố trí."),
-    ("1994", "phòng họp không giấy", "Ngày 26/10/2026 chủ đầu tư phê duyệt dự toán và kế hoạch lựa chọn nhà thầu. Chủ đầu tư phấn đấu đến ngày 31/12/2026 giải ngân hết kế hoạch vốn đã bố trí."),
-    ("1994", "Rạp chiếu bóng", "Ngày 11/11/2026 chủ đầu tư phê duyệt kết quả chỉ định thầu gói thầu thẩm tra thiết kế bản vẽ thi công, dự toán. Chủ đầu tư phấn đấu đến ngày 31/12/2026 giải ngân hết kế hoạch vốn đã bố trí."),
+    # Báo cáo của chủ đầu tư ngày 23/11/2026 (nhóm Zalo Đầu tư công), anh Phú duyệt ngày 23/11/2026; chỉ cập nhật trình tự, thủ tục và thi công thực tế, số giải ngân theo bảng theo dõi chính thức.
+    ("1994", "", "UBND phường giao chi tiết kế hoạch vốn chuẩn bị đầu tư tại Quyết định số 1994/QĐ-UBND ngày 03/11/2026."),
+    ("1994", "Má Hai", "Ngày 26/10/2026 chủ đầu tư phê duyệt dự toán và kế hoạch lựa chọn nhà thầu."),
+    ("1994", "Nguyễn Đình Thi", "Ngày 26/10/2026 chủ đầu tư phê duyệt dự toán và kế hoạch lựa chọn nhà thầu."),
+    ("1994", "Tăng Bạt Hổ", "Ngày 26/10/2026 chủ đầu tư phê duyệt dự toán và kế hoạch lựa chọn nhà thầu."),
+    ("1994", "Phạm Văn Đồng", "Ngày 26/10/2026 chủ đầu tư phê duyệt dự toán và kế hoạch lựa chọn nhà thầu."),
+    ("1994", "Hoàng Minh Giám", "Ngày 26/10/2026 chủ đầu tư phê duyệt dự toán và kế hoạch lựa chọn nhà thầu."),
+    ("1994", "phòng họp không giấy", "Ngày 26/10/2026 chủ đầu tư phê duyệt dự toán và kế hoạch lựa chọn nhà thầu."),
+    ("1994", "Rạp chiếu bóng", "Ngày 11/11/2026 chủ đầu tư phê duyệt kết quả chỉ định thầu gói thầu thẩm tra thiết kế bản vẽ thi công, dự toán."),
     ("2347", "Kom Leo", HD_2347 + "Theo báo cáo của chủ đầu tư ngày 23/11/2026, đã thảm thí điểm, chuẩn bị thảm đại trà các trục đã đổ bê tông lề. Dự kiến phê duyệt quyết toán ngày 12/01/2027."),
     ("2347", "TDP 10B", HD_2347 + "Theo báo cáo của chủ đầu tư ngày 23/11/2026, ngày 23/11/2026 thi công thảm mặt đường. Dự kiến phê duyệt quyết toán ngày 10/01/2027."),
     ("2347", "Đam San", HD_2347 + "Theo báo cáo của chủ đầu tư ngày 23/11/2026, đã thảm tăng cường mặt đường; sau khi hoàn thành thay bó vỉa và thảm xong tuyến TDP 10B, đơn vị thi công chuyển về thảm mặt đường Đam San. Dự kiến phê duyệt quyết toán ngày 31/12/2026."),
@@ -163,12 +156,10 @@ CAP_NHAT = [
 
 # Kế hoạch giải ngân do chủ đầu tư báo cáo, theo nguồn: (mốc, tỷ lệ) và ghi chú
 KH_GN = {
-    "2347": ([(dt.date(2026, 11, 30), 0.60), (dt.date(2026, 12, 31), 0.98)],
-             "Kế hoạch giải ngân của chủ đầu tư (vạch chấm trên thanh): đạt ít nhất 60% đến ngày 30/11/2026 và 98% đến ngày 31/12/2026 (báo cáo của chủ đầu tư ngày 23/11/2026); "
+    "2347": ([(dt.date(2026, 11, 30), 0.60), (dt.date(2026, 12, 20), 0.98)],
+             "Kế hoạch giải ngân của chủ đầu tư (vạch chấm trên thanh): đạt ít nhất 60% đến ngày 30/11/2026 và 98% trước ngày 20/12/2026; "
              "phần còn lại chủ yếu là chi phí dự phòng chưa phát sinh khối lượng. Theo hợp đồng thi công, 06 dự án hoàn thành toàn bộ khối lượng trước ngày 23/12/2026; "
              "chủ đầu tư đánh giá tiến độ hiện nay ổn định."),
-    "1994": ([(dt.date(2026, 12, 31), 1.0)],
-             "Kế hoạch giải ngân của chủ đầu tư (vạch chấm trên thanh): giải ngân hết kế hoạch vốn đã bố trí đến ngày 31/12/2026 (báo cáo ngày 23/11/2026)."),
 }
 DONE = "Đã quyết toán"
 NEW = "Mới giao chi tiết"
